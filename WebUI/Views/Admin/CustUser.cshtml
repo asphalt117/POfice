@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Domain.Entities.UserAdmin>
+
+@{
+    ViewBag.Title = "Заказчики";
+}
+
+<h2>Заказчики привязанные к пользователю @ViewBag.User </h2>
+
+<p>
+    @Html.ActionLink("Добавить", "FindUser")
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FullName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SmalName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Inn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastDat)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CustID)
+        </th>
+        <th></th>
+</tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FullName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SmalName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Inn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastDat)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CustID)
+        </td>
+        <td>
+            @Html.ActionLink(HttpUtility.HtmlDecode("&#xe020;"), "DelCust", new { id = item.VUserInCustId }, new { @class = "actionButtons btn btn-xs-sm-md btn-default glyphicon glyph-btn", @role = "button", @title = "Удалить заказчика" })
+        </td>
+</tr>
+}
+
+</table>

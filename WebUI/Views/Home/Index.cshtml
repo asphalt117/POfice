@@ -1,0 +1,137 @@
+﻿@model Domain.Entities.Cust
+
+@{
+    ViewBag.Title = "Профиль";
+}
+
+<h2>Реквизиты  @ViewBag.User</h2>
+@using (Html.BeginForm("Index", "Home"))
+{
+    @Html.AntiForgeryToken()
+
+    <div>
+        @Html.DropDownList("SelectedCustId", (SelectList)ViewData["Cust"], new { onchange = "$(this.form).submit();" })
+    </div>
+
+    if (ViewData["Contract"] != null)
+    {
+        <div style="margin-top:20px;">
+            <span><b>Договор</b></span><br />
+            @Html.DropDownList("SelectedContractId", (SelectList)ViewData["Contract"], new { onchange = "$(this.form).submit();" })
+        </div>
+    }
+}
+
+<h3>Персональные данные</h3>
+<div id="custlist">
+
+    <table id="mytable">
+        <tr>
+            <td>
+                Полное наименование
+            </td>
+            <td id="MyStyle">
+                @Html.DisplayFor(model => model.FullName)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Телефон
+            </td>
+            <td id="MyStyle">
+                @Html.DisplayFor(model => model.Tel)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                ИНН
+            </td>
+            <td id="MyStyle">
+                @Html.DisplayFor(model => model.Inn)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                КПП
+            </td>
+            <td id="MyStyle">
+                @Html.DisplayFor(model => model.Kpp)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Адрес
+            </td>
+            <td id="MyStyle">
+                @Html.DisplayFor(model => model.Adres)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Расчетный счет
+            </td>
+            <td id="MyStyle">
+                @Html.DisplayFor(model => model.Rasch)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Банк
+            </td>
+            <td id="MyStyle">
+                @Html.DisplayFor(model => model.Bank)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Кор. счет
+            </td>
+            <td id="MyStyle">
+                @Html.DisplayFor(model => model.Korsch)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                БИК
+            </td>
+            <td id="MyStyle">
+                @Html.DisplayFor(model => model.Bik)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                ОКПО
+            </td>
+            <td id="MyStyle">
+                @Html.DisplayFor(model => model.Okpo)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Факс
+            </td>
+            <td id="MyStyle">
+                @Html.DisplayFor(model => model.Fax)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Email
+            </td>
+            <td id="MyStyle">
+                @Html.DisplayFor(model => model.Email)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Краткое наименование
+            </td>
+            <td id="MyStyle">
+                @Html.DisplayFor(model => model.SmalName)
+            </td>
+        </tr>
+    </table>
+
+</div>
+
+

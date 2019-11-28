@@ -1,0 +1,137 @@
+﻿﻿<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        @RenderSection("metatags", false)
+        <meta name="author" content="KADMII" />
+        <title>@ViewBag.Title – Личный кабинет АБЗ-4</title>
+        @Scripts.Render("~/bundles/fontloader")
+        <link href="/images/favicon.ico" rel="shortcut icon" />
+        @Styles.Render("~/Content/css")
+        @Styles.Render("~/Content/maincss")
+        @Scripts.Render("~/bundles/jquery", "~/bundles/jqueryui", "~/bundles/jqueryval", "~/bundles/modernizr")
+    </head>
+    <body>
+        <header class="hidden-print">
+            @*<div class="navbar navbar-default navbar-static-top header-wrapper" role="navigation">
+            <div class="container-fluid hidden-xs top-login-wrapper">
+                <div class="container">
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+            <div class="container visible-xs">
+                <div class="navbar-header">
+                    @if (Request.IsAuthenticated)
+                    {
+                        <button type="button" class="navbar-toggle btn-main-menu-xs" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    }
+                    <a class="navbar-brand logo-brand-xs" href="/Home" title="Открытое Акционерное Общество Асфальто-Бетонный Завод № 4 'КАПОТНЯ'">
+                        АБЗ&nbsp;&nbsp;4&nbsp;&nbsp;<b>КАПОТНЯ</b>
+                    </a>
+                </div>
+            </div>
+            <div class="container hidden-xs">
+                <div class="row">
+                    <a class="navbar-brand logo-brand col-sm-5 col-lg-4" href="/Home" title="Открытое Акционерное Общество Асфальто-Бетонный Завод № 4 'КАПОТНЯ'">
+                        <img src="/images/logo.png" width="294" height="54" alt="Открытое Акционерное Общество Асфальто-Бетонный Завод № 4 'КАПОТНЯ'"
+                             title="Открытое Акционерное Общество Асфальто-Бетонный Завод № 4 'КАПОТНЯ'">
+                        <span class="logo-title">Личный&nbsp;&nbsp;&nbsp;кабинет</span>
+                    </a>
+                    @if (Request.IsAuthenticated)
+                    {
+                        @Html.Action("HeadMenu", "Home")
+                    }
+                </div>
+            </div>
+        </div>*@
+
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Ваша организация
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                @Html.ActionLink("Реквизиты", "Index", "Home", null, new { @class = "nav-link" })
+                                @Html.ActionLink("Действующие доверенности", "Index", "Docs", null, new { @class = "nav-link" })
+
+                                @Html.ActionLink("Договоры", "Contract", "Docs", null, new { @class = "nav-link" })
+                                @Html.ActionLink("Договоры", "Contract", "Docs", null, new { @class = "nav-link" })
+                                <div class="dropdown-divider"></div>
+                                @Html.ActionLink("Информация", "About", "Home", null, new { @class = "nav-link" })
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
+                            @Html.ActionLink("Информация", "About", "Home", null, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                My down
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                @Html.ActionLink("Связаться", "Contact", "Home", null, new { @class = "nav-link" })
+                                @Html.ActionLink("Домашняя", "Index", "Home", null, new { @class = "nav-link" })
+                                <div class="dropdown-divider"></div>
+                                @Html.ActionLink("Информация", "About", "Home", null, new { @class = "nav-link" })
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="#">Disabled</a>
+                        </li>
+                    </ul>
+                    <form class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                </div>
+            </nav>
+
+
+        </header>
+        <div class="container body-content content-wrapper">
+            <div class="row">
+                @if (ViewBag.MenuItem != "good")
+                {
+                    <h1>@ViewBag.Title</h1>
+                    <div class="content-block col-md-12" style="@Html.Encode(Request.IsAuthenticated == false ? "padding-top:0;padding-bottom: 0;" : "")">
+                        @RenderBody()
+                    </div>
+                }
+                else
+                {
+                    { Html.RenderAction("CategoryMenu", "Good", new { menuName = ViewBag.MenuItem, menuId = ViewBag.MenuId }); }
+                    <div class="col-xs-12 col-sm-12 col-md-9 product-content-wrapper">
+                        <h1>@ViewBag.Title</h1>
+                        <div class="content-block product-content @Html.Encode(ViewBag.ProductDetail == false ? "null-padding" : "") ">
+                            @RenderBody()
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <footer class="footer-wrapper hidden-print">
+            @{ Html.RenderPartial("~/Views/Home/FooterMenu.cshtml"); }
+            <div class="container-fluid footer-bottom-wrapper">
+                <div class="container clearfix footer-bottom">
+                    <p class="footer-copyright-info">&copy;&nbsp;@DateTime.Now.Year.&nbsp;&nbsp;ОАО АБЗ-4&nbsp;&quot;КАПОТНЯ&quot;&nbsp;&nbsp;<span class="hidden-xs">Все права защищены.</span></p>
+                </div>
+            </div>
+        </footer>
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+    </body>
+</html>

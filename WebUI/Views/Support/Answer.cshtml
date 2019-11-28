@@ -1,0 +1,25 @@
+﻿@model Domain.Entities.Comment
+
+@{
+    ViewBag.Title = "ответ";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.CommentId)
+    <fieldset>
+        <div class="editor-field">
+            @Html.DisplayFor(model => model.Note, new { @class = "form-control multi-line", @rows = "3" })
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Response, new { @class = "form-control multi-line", @rows = "3" })
+        </div>
+        <hr />
+        <div>
+            <hr />
+            <input type="submit" value="Отправить" class="actionButtons btn btn-xs-sm-md btn-success" />
+        </div>
+    </fieldset>
+}

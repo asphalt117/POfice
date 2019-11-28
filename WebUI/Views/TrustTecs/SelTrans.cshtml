@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Domain.Entities.Transport>
+
+@{
+    ViewBag.Title = "Транспорт";
+}
+
+<table class="table">
+    <tr>
+        <th>
+            Тип
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Gn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TecModel)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    <tr class="@Html.Encode((item.istrust) ? "tr-grey" : "")">
+        <td>
+            @if (item.istrust)
+            { @Html.Encode("Доверенный");
+            }
+        </td>
+        <td>
+            @Html.ActionLink(item.Gn, "CreateTec", new { id = item.Gn })
+            
+        </td>
+        <td>
+            @Html.ActionLink(item.TecModel, "CreateTec", new { id = item.Gn }) 
+            
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,98 @@
+﻿@model Domain.Entities.TrustTecV
+
+@{
+    ViewBag.Title = "Edit";
+}
+@section metatags
+{
+    <meta name="description" content="@ViewBag.Title" />
+    <meta name="keywords" content="@ViewBag.Title, АБЗ-4" />
+    <meta name="robots" content="noindex, nofollow">
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Styles.Render("~/Content/datetimepickercss")
+    @Scripts.Render("~/bundles/datetimepickerjs")
+}
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal client-form">
+        <h4>OrgTrustTec</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.TrustTecID)
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.CustId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CustId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CustId, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TecModel, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TecModel, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TecModel, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Gn, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Gn, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Gn, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Driv, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Driv, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Driv, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.Good, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Good, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Good, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.BeginDat, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.BeginDat, new { htmlAttributes = new { @class = "form-control datefield dateselector" } })
+                @Html.ValidationMessageFor(model => model.BeginDat, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EndDat, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EndDat, new { htmlAttributes = new { @class = "form-contro datefield dateselectorl" } })
+                @Html.ValidationMessageFor(model => model.EndDat, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div>
+            <hr />
+            @Html.ActionLink(@HttpUtility.HtmlDecode("&laquo;") + " вернуться к списку доверенного транспорта", "Index", null, new { @class = "btn btn-xs-sm-md btn-default", @role = "button", @title = "Вернуться к списку доверенного транспорта" })
+            &nbsp;&nbsp;&nbsp;
+            <input type="submit" value="Сохранить" class="actionButtons btn btn-xs-sm-md btn-success" />
+        </div>
+    </div>
+}
+<script type="text/javascript">
+            $(function () {
+                $('.dateselector').datetimepicker({
+                    locale: 'ru', format: 'DD.MM.YYYY'
+                });
+            });
+</script>

@@ -1,0 +1,87 @@
+﻿@model WebUI.Models.TransportList
+@{
+    ViewBag.Title = "Выберите транспорт из списка";
+}
+@section metatags
+{
+    <meta name="description" content="@ViewBag.Title" />
+    <meta name="keywords" content="@ViewBag.Title, АБЗ-4" />
+    <meta name="robots" content="noindex, nofollow">
+}
+
+<table align="center" class="table table-hover table-bordered table-grey-header">
+    <thead>
+        <tr>
+            <th>
+                Тип
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Trans.FirstOrDefault().Gn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Trans.FirstOrDefault().TecModel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Trans.FirstOrDefault().Driv)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Trans.FirstOrDefault().BeginDat)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Trans.FirstOrDefault().EndDat)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Trans.FirstOrDefault().Note)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Trans)
+        {
+            <tr class="@Html.Encode((item.istrust) ? "tr-grey" : "")">
+                <td>
+                    @if (item.istrust)
+                    { 
+                        @Html.Encode("Доверенный");
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TecModel)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Driv)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BeginDat)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDat)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Note)
+                </td>
+                <td>
+                    @using (Html.BeginForm("GetTransportFromList", "Transports", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("TrustTecID", item.TrustTecID)
+                        @Html.Hidden("TrustTecDetID", item.TrustTecDetID)
+                        <input name="gn" type="hidden" value="@Html.Encode(item.Gn)" class="hidden" />
+                        <input name="tecmodel" type="hidden" value="@Html.Encode(item.TecModel)" class="hidden" />
+                        <input name="driv" type="hidden" value="@Html.Encode(item.Driv)" class="hidden" />
+                        <input class="actionButtons btn btn-xs-sm btn-success" type="submit" value="Выбрать" title="Выбор транспорта" />
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div>
+    <hr />
+    <a onclick="JavaScript:window.history.back(1); return false;" role="button" class="btn btn-xs-sm-md btn-default" title="Возврат на предыдущую страницу">@HttpUtility.HtmlDecode("&laquo;") назад</a>
+</div>
+  

@@ -1,0 +1,43 @@
+﻿@model Domain.Entities.OrderProductView
+
+@{
+    ViewBag.Title = "Количество товара";
+}
+<div class="row">
+    <div class="col-md-12">
+        <section id="orderForm" class="client-form">
+            @using (Html.BeginForm("Products", "Order", FormMethod.Post, new { @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <fieldset>
+                    @Html.HiddenFor(model => model.OrderId)
+                    @Html.HiddenFor(model => model.OrderProductId)
+                    @Html.HiddenFor(model => model.GoodId)
+                </fieldset>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Good, htmlAttributes: new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Good, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Good, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Quant, htmlAttributes: new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Quant, new { @class = "form-control numfield", @value = "123.45", @pattern = "\\d+(,\\d{0,3})?" })
+                        @Html.ValidationMessageFor(model => model.Quant, "", new { @class = "text-danger" })
+                        <p class="help-block"><font size="2" color="#aaa">дробная часть - через запятую</font></p>
+                    </div>
+                </div>
+                <div>
+                    <hr />
+                    @Html.ActionLink(@HttpUtility.HtmlDecode("&laquo;") + " вернуться к списку заказов", "Index", null, new { @class = "btn btn-xs-sm-md btn-default", @role = "button", @title = "Вернуться к списку заказов" })
+                    &nbsp;&nbsp;&nbsp;
+                    <input type="submit" value="Сохранить" class="actionButtons btn btn-xs-sm-md btn-success" />
+                </div>
+            }
+        </section>
+    </div>
+</div>

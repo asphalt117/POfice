@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Domain.Entities.Adres>
+
+@{
+    ViewBag.Title = "Адреса";
+}
+
+
+<p>
+    @Html.ActionLink("Новый адрес", "Create", null,
+                new
+                {
+                    @class = "actionButtons btn btn-default btn-success",
+                    @role = "button",
+                    @title = "Создать новый адрес"
+                })
+</p>
+<table align="center" class="table table-hover table-bordered table-grey-header">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.txt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rast)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.txt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Rast)
+        </td>
+        <td>
+            @Html.ActionLink(HttpUtility.HtmlDecode("&#xe015;"), "Details", new { id = item.AdresID }, new { @class = "actionButtons btn btn-xs-sm-md btn-default glyphicon glyph-btn", @role = "button", @title = "Просмотр контакта" })
+        </td>
+    </tr>
+}
+
+</table>

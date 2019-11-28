@@ -1,0 +1,79 @@
+﻿@model Domain.ModelView.OrderView
+@{
+    string cust="";
+    string sm = "";
+    string contract = "";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @RenderSection("metatags", false)
+    <meta name="author" content="KADMII" />
+    <title>@ViewBag.Title – Личный кабинет АО 'АБЗ КАПОТНЯ'</title>
+
+    <link href="/images/favicon.ico" rel="shortcut icon" />
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <span id="custor"></span><br />
+    <span id="doger"></span><br />
+    <span id="summer"></span>
+    <script type="text/javascript">
+        window.onload = function () {
+            document.getElementById('custor').textContent = get_cookie('balance', 'Cust');
+            document.getElementById('doger').textContent = get_cookie('balance', 'Contract');
+            document.getElementById('summer').textContent = get_cookie('balance', 'sm');
+        }
+
+        function get_cookie(name, key) {
+            if (!navigator.cookieEnabled) { alert('Включите cookie для комфортной работы с сайтом'); }
+
+            var cookie = " " + document.cookie;
+            var search = " " + name + "=";
+            var setStr = null;
+            var offset = 0;
+            var end = 0;
+            if (cookie.length > 0) {
+                offset = cookie.indexOf(search);
+                if (offset != -1) {
+                    offset += search.length;
+                    end = cookie.indexOf(";", offset)
+                    if (end == -1) {
+                        end = cookie.length;
+                    }
+                    setStr = unescape(cookie.substring(offset, end));
+                }
+            }
+            var value = "";
+            var pos0 = setStr.indexOf(key);
+            if (pos0 > -1) {
+                var pos1 = setStr.indexOf('=', pos0);
+                if (pos1 > -1) {
+                    var pos2 = setStr.indexOf('&', pos1);
+                    if (pos2 == -1) { pos2 = setStr.length; }
+                    value = setStr.substring(pos1 + 1, pos2);
+                }
+            }
+            return (value);
+        }
+    </script>
+
+    <header class="hidden-print"></header>
+    <div class="container body-content">
+
+        <h2>Заказ продукции</h2>
+        <h2>Шаг</h2>
+        @RenderBody()
+        <hr />
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,67 @@
+﻿@model Domain.ModelView.BalanceView
+@{
+    ViewBag.Title = "Взаиморасчеты";
+}
+
+<h2>
+    Выверенный остаток  по договору № <strong>@Html.DisplayFor(model => model.Contract) </strong>
+    на  <font color="red">@Html.DisplayFor(model => model.Fin.Dat)</font> равен
+    <strong>@Html.DisplayFor(model => model.Fin.Sm) руб.</strong>
+</h2>
+<br />
+@if (Model.Fin.Sm == 0) {<h3>Проверьте выбор договора в -Профиль->Реквизиты</h3>}
+<br>
+@if (Model.Balances.Count > 0)
+{
+    <div class="table-responsive product-table-wrapper">
+        <table class="table table-hover table-bordered table-grey-header">
+            <thead>
+                <tr>
+                    <th>
+                        Дата
+                    </th>
+                    <th>
+                        Кол-во
+                    </th>
+                    <th>
+                        Отгружено (Руб)
+                    </th>
+                    <th>
+                        Платежи (Руб)
+                    </th>
+                </tr>
+            </thead>
+            @foreach (var item in Model.Balances)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Dat)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.kol)
+                    </td>
+                    <td id="sale">
+                        @Html.DisplayFor(modelItem => item.Ssm)
+                    </td>
+                    <td id="pay">
+                        @Html.DisplayFor(modelItem => item.Psm)
+                    </td>
+                </tr>
+            }
+            <tr style="background-color:#e7e7e7;font-weight:bold;">
+                <td>
+                    Итого за период
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.kol)
+                </td>
+                <td id="sale">
+                    @Html.DisplayFor(model => model.Ssm)
+                </td>
+                <td id="pay">
+                    @Html.DisplayFor(model => model.Psm)
+                </td>
+            </tr>
+        </table>
+    </div>
+}

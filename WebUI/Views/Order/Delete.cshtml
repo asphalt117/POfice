@@ -1,0 +1,185 @@
+﻿@model Domain.ModelView.OrderView
+@{
+    ViewBag.Title = "Удаление заказа №" +Model.OrderId;
+}
+
+<h3>Вы уверены что хотите удалить этот заказ?</h3>
+<div class="row">
+    <div class="col-md-12">
+        <section id="orderForm" class="client-form">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Dat, htmlAttributes: new { @class = "col-md-3 control-label" })
+                    <div class="col-md-9">
+                        @Html.DisplayFor(m => m.Dat, new { @class = "form-control datefield", @type = "text" })
+                    </div>
+                </div>
+                <hr />
+                <h2>Заказанные товары</h2>
+
+                <div class="table-responsive">
+                    <table class="table table-hover table-bordered table-grey-header null-margin">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Продукция
+                                </th>
+                                <th>
+                                    Ед. изм.
+                                </th>
+                                <th>
+                                    Количество
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Products)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(model => item.Good)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(model => item.Unit)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(model => item.Quant)
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <hr />
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Adres, htmlAttributes: new { @class = "col-md-3 control-label" })
+                    <div class="col-md-9">
+                        @Html.DisplayFor(model => model.Adres)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Contract, htmlAttributes: new { @class = "col-md-3 control-label" })
+                    <div class="col-md-9">
+                        @Html.DisplayFor(model => model.Contract)
+                    </div>
+                </div>
+                @*<div class="form-group">
+                    @Html.LabelFor(model => model.Person, htmlAttributes: new { @class = "col-md-3 control-label" })
+                    <div class="col-md-9">
+                        @Html.DisplayFor(model => model.Person)
+                    </div>
+                </div>*@
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Note, htmlAttributes: new { @class = "col-md-3 control-label" })
+                    <div class="col-md-9">
+                        @Html.TextAreaFor(model => model.Note, new { @class = "form-control multi-line", @rows = "3" })
+                    </div>
+                </div>
+            
+            <hr />
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="Удалить" class="btn btn-default" /> 
+                 
+                </div>
+            }
+            <div>
+
+                @Html.ActionLink(@HttpUtility.HtmlDecode("&laquo;") + " вернуться к списку заказов", "Index", null, new { @class = "btn btn-xs-sm-md btn-default", @role = "button", @title = "Вернуться к списку заказов" })
+            </div>
+        </section>
+    </div>
+</div>
+
+@*<div>
+    <h4>VShip</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CustId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CustId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Good)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Good)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Unit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Unit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Adres)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Adres)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Contract)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Contract)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Person)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Person)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Centr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Centr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Dat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Dat)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Note)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Note)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Удалить" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>*@

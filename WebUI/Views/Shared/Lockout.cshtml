@@ -1,0 +1,228 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    ViewBag.Title = "Заблокировано";
+}
+
+<hgroup>
+    <h1 class="text-danger">Заблокировано.</h1>
+    <h2 class="text-danger">Эта учетная запись заблокирована. Попробуйте еще раз позже.</h2>
+</hgroup>
+
+
+
+
+
+
+
+
+@if (Request.IsAuthenticated)
+{
+
+    @*<nav class="navbar navbar-expand-lg navbar-light bg-light col-md-2 d-none d-md-block bg-light sidebar">
+            <a class="navbar-brand" href="#">Navbar</a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Pricing</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Dropdown link
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>*@
+
+
+    <nav class="col-md-2 d-none d-md-block bg-light sidebar navbar-expand-lg navbar-light">
+        <div class="sidebar-sticky collapse navbar-collapse" id="navbarNavDropdown">
+
+            <h5 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                <span>Личный кабинет</span>
+                <a class="d-flex align-items-center text-muted" href="#">
+                    <span data-feather="plus-circle"></span>
+                </a>
+            </h5>
+
+
+
+            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                <span>Ваша организация</span>
+                <a class="d-flex align-items-center text-muted" href="#">
+                    <span data-feather="plus-circle"></span>
+                </a>
+            </h6>
+            <ul class="nav flex-column mb-2 navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#" style="padding: 0.1rem 1rem!important;">
+                        <span data-feather="file-text"></span>
+                        Реквизиты
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" style="padding: 0.1rem 1rem!important;">
+                        <span data-feather="file-text"></span>
+                        Действующие доверенности
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" style="padding: 0.1rem 1rem!important;">
+                        <span data-feather="file-text"></span>
+                        Договоры
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" style="padding: 0.1rem 1rem!important;">
+                        <span data-feather="file-text"></span>
+                        Доверенный транспорт
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" style="padding: 0.1rem 1rem!important;">
+                        <span data-feather="file-text"></span>
+                        Контакты
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" style="padding: 0.1rem 1rem!important;">
+                        <span data-feather="file-text"></span>
+                        Адреса
+                    </a>
+                </li>
+            </ul>
+
+
+            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                <span>Отгрузка и оплата</span>
+                <a class="d-flex align-items-center text-muted" href="#">
+                    <span data-feather="plus-circle"></span>
+                </a>
+            </h6>
+            <ul class="nav flex-column mb-2">
+                <li class="nav-item">
+                    <a class="nav-link" href="#" style="padding: 0.1rem 1rem!important;">
+                        <span data-feather="file-text"></span>
+                        Взаиморасчеты
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" style="padding: 0.1rem 1rem!important;">
+                        <span data-feather="file-text"></span>
+                        Реестр отгруженной продукции
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" style="padding: 0.1rem 1rem!important;">
+                        <span data-feather="file-text"></span>
+                        Текущее выполнение
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" style="padding: 0.1rem 1rem!important;">
+                        <span data-feather="file-text"></span>
+                        Отправленные на погрузку
+                    </a>
+                </li>
+            </ul>
+
+
+            @*Ваша организация
+                -Реквизиты
+                -Действующие доверенности
+                -Договоры
+                -Доверенный транспорт
+                -Контакты
+                -Адреса
+
+                Отгрузка и оплата
+                -Взаиморасчеты
+                -Реестр отгруженной продукции
+                -Текущее выполнение
+                -Отправленные на погрузку
+
+                Заявки
+                - Заказ продукции
+                -Заказ счета*@
+
+
+            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                <span>Заявки</span>
+                <a class="d-flex align-items-center text-muted" href="#" style="padding: 0.1rem 1rem!important;">
+                    <span data-feather="plus-circle"></span>
+                </a>
+            </h6>
+            <ul class="nav flex-column mb-2">
+                <li class="nav-item">
+                    <a class="nav-link" href="#" style="padding: 0.1rem 1rem!important;">
+                        <span data-feather="file-text"></span>
+                        Заказ продукции
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" style="padding: 0.1rem 1rem!important;">
+                        <span data-feather="file-text"></span>
+                        Заказ счета
+                    </a>
+                </li>
+            </ul>
+
+            @*Настройки
+                -Изменить пароль
+                Обращения
+                -Рассылка документов
+                -Счет-фактура*@
+
+            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                <span>Настройки</span>
+                <a class="d-flex align-items-center text-muted" href="#" style="padding: 0.1rem 1rem!important;">
+                    <span data-feather="plus-circle"></span>
+                </a>
+            </h6>
+            <ul class="nav flex-column mb-2">
+                <li class="nav-item">
+                    <a class="nav-link" href="#" style="padding: 0.1rem 1rem!important;">
+                        <span data-feather="file-text"></span>
+                        Изменить пароль
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" style="padding: 0.1rem 1rem!important;">
+                        <span data-feather="file-text"></span>
+                        Обращения
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" style="padding: 0.1rem 1rem!important;">
+                        <span data-feather="file-text"></span>
+                        Рассылка документов
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" style="padding: 0.1rem 1rem!important;">
+                        <span data-feather="file-text"></span>
+                        Счет-фактура
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+}
+

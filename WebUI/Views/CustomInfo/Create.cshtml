@@ -1,0 +1,33 @@
+﻿@model Domain.Entities.CustomInfo
+
+@{
+    ViewBag.Title = "Настройка рассылки бухгалтерских документов";
+}
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">                
+        <div class="form-group">
+            @Html.LabelFor(model => model.Mail, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Mail, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Mail, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.isEmpty, htmlAttributes: new { @class = "col-md-3 control-label" })
+            <div class="col-md-9">
+                @Html.CheckBoxFor(model => model.isEmpty, new { @class = "form-control checkbox" })
+                @Html.ValidationMessageFor(model => model.isEmpty, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div>
+            <hr />
+            <input type="submit" value="Сохранить" class="actionButtons btn btn-xs-sm-md btn-success" />
+        </div>
+    </div>
+}
+

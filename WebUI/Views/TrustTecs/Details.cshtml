@@ -1,0 +1,74 @@
+﻿@model Domain.Entities.OrgTrustTec
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>OrgTrustTec</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CustId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CustId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TecModel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TecModel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Driv)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Driv)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Good)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Good)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BeginDat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BeginDat)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EndDat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EndDat)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.OrgTrustTecID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Domain.Entities.UserAdmin>
+
+@{
+    ViewBag.Title = "Список пользователей";
+}
+
+
+<p>
+    @Html.ActionLink("Создать", "Register","Admin")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("Email(Имя входа)", "Index", new { sortOrder = "Email" })
+        </th>
+
+        <th>
+            @Html.ActionLink("ID", "Index", new { sortOrder = "ID" })
+            
+        </th>
+        <th>
+            @Html.ActionLink("Кракое наименование", "Index", new { sortOrder = "SmalName" })
+        </th>
+        <th>
+            @Html.ActionLink("ИНН", "Index", new { sortOrder = "Inn" })
+        </th>
+        <th>
+            @Html.ActionLink("Последний вход на сай", "Index", new { sortOrder = "LastDat" })
+            @*@Html.DisplayNameFor(model => model.LastDat)*@
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CustID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SmalName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Inn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastDat)
+        </td>
+
+        <td>
+            @Html.ActionLink("Роли", "Role", new { id=item.UserId }) |
+            @Html.ActionLink("Заказчики", "CustUser", new { id = item.UserId })  |
+            @Html.ActionLink("Личный кабинет", "Privat", new { id = item.UserId }) |
+        </td>
+    </tr>
+}
+
+</table>

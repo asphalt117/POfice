@@ -1,0 +1,53 @@
+﻿/* Content CSS styles */
+
+.about-img,
+.delivery-img {display:block;height:auto;}
+#ya-map {height:auto;margin:0 auto;padding:0;overflow:scroll}
+.img-center,
+.carmap-img {display:block;height:auto;margin:0 auto;padding:0;}
+
+
+/* XS - Extra small devices (phones, less than 768px) */
+@media (max-width: 767px) {
+    .asdor-img,
+    .dorexpert-img,
+    .emka-img {margin-right:5px;}
+    #ya-map {width: 300px;height:200px;}
+    .carmap-img {width:300px;}
+}
+
+/* SM - Small devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+    .about-img {width:200px;}
+    .delivery-img {width:250px;}
+    .about-img,
+    .delivery-img {margin:20px auto;} 
+    .asdor-img,
+    .dorexpert-img,
+    .emka-img {margin-right:10px;}
+    #ya-map {width: 400px;height:300px;}
+    .carmap-img {width:400px;}
+}
+
+/* MD - Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+    .about-img {width:250px;}
+    .delivery-img {width:300px;}
+    .about-img,
+    .delivery-img {margin:30px auto;}
+    .asdor-img,
+    .dorexpert-img,
+    .emka-img {margin-right:20px;}
+    #ya-map {width: 500px;height:400px;}
+    .carmap-img {width:500px;}
+}
+
+/* LG - Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) { 
+    .about-img {width:366px;}
+    .delivery-img {width:430px;}
+    .about-img,
+    .delivery-img {margin:40px auto;}
+    #ya-map {width:622px;}
+    .carmap-img {width:580px;}
+}

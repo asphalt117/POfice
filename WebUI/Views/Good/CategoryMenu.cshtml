@@ -1,0 +1,28 @@
+﻿@model WebUI.Models.AssortmentMenu
+@if (Model.Categs.Count() > 0)
+{
+    <div class="col-xs-12 col-sm-12 col-md-3 navbar navbar-default category-menu-wrapper" role="navigation">
+        <div class="container visible-xs">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle btn-category-menu-xs" data-toggle="collapse" data-target=".category-menu">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <h2>Каталог продукции</h2>
+            </div>
+        </div>
+        <h2 class="hidden-xs">Каталог продукции&nbsp;<b class="caret"></b></h2>
+        <nav class="navbar navbar-collapse collapse category-menu">
+            <ul class="nav nav-stacked" role="menu">
+                @foreach (var m in Model.Categs)
+                {
+                    <li role="menuitem">
+                        @Html.ActionLink(m.txt, "Order", "Good", new { ord = Model.OrderID, categid = m.CategID }, new { @role = "button", @title = m.txt })
+                    </li>
+                }
+            </ul>
+        </nav>
+    </div>
+}

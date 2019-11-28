@@ -1,0 +1,185 @@
+﻿@model Domain.ModelView.TrustTecView
+@{
+    ViewBag.Title = "Добавление доверенного транспорта";
+}
+@section metatags
+{
+    <meta name="description" content="@ViewBag.Title" />
+    <meta name="keywords" content="@ViewBag.Title, АБЗ-4" />
+    <meta name="robots" content="noindex, nofollow">
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Styles.Render("~/Content/datetimepickercss")
+    @Scripts.Render("~/bundles/datetimepickerjs")
+}
+@using (Html.BeginForm("Create", "Transports", FormMethod.Post, htmlAttributes: new { id = "myform" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal client-form">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Tec.BeginDat, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Tec.BeginDat, new { @class = "form-control datefield dateselector", @type = "text" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Tec.EndDat, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Tec.EndDat, new { @class = "form-control datefield dateselector", @type = "text" })
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered table-grey-header null-margin">
+                <thead>
+                    <tr>
+                        @*@if (Model.IsTrust)
+                        {
+                            <th>
+                                Водитель
+                            </th>
+                        }*@
+                        <th>
+                            Гос. №
+                        </th>
+                        <th>
+                            Модель
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Detail != null && Model.Detail.Any())
+                    {
+                        foreach (var item in Model.Detail)
+                        {
+                            <tr>
+                                @*@if (Model.IsTrust)
+                                {
+                                    <td>
+                                        @Html.DisplayFor(model => item.Driv)
+                                    </td>
+                                }*@
+                                <td>
+                                    @Html.DisplayFor(model => item.Gn)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => item.TecModel)
+                                </td>
+                            </tr>
+                        }
+                    }
+                    <tr>
+                        <td>
+                            <input name="driv" id="driv" type="text" class="form-control" />
+                        </td>
+                        <td>
+                            <input name="gn" id="gn" type="text" class="form-control" />
+                        </td>
+                        <td>
+                            <input name="tecmodel" id="tecmodel" type="text" class="form-control" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p class="help-block">
+            <input name="tr" type="submit" value="Добавить еще строку"
+                   class="actionButtons btn btn-xs-sm-md btn-default btn-success"
+                   role="button" title="Добавить еще одну строку для ввода транспорта" />
+        </p>
+        <h2>Дополнительная информация к доверенности</h2>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Tec.Note, htmlAttributes: new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Tec.Note, new { @class = "form-control multi-line", @rows = "3" })
+                @Html.ValidationMessageFor(model => model.Tec.Note, "", new { @class = "text-danger" })
+                <p class="help-block">* тут вы можете указать особые условия</p>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+        @*<input name="IsSetTrust" id="IsSetTrust" type="text" value="0" class="hidden" />
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.IsTrust, new { @class = "col-md-3 control-label" })
+            <div class="col-md-9">
+                @Html.CheckBoxFor(m => m.IsTrust, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.IsTrust, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        
+        <div name="trusttec" id="trusttec" class="@Html.Encode(Model.IsTrust ? "" : "hidden")">     
+           <div class="form-group">
+                @Html.LabelFor(model => model.Tec.BeginDat, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.Tec.BeginDat, new { @class = "form-control datefield dateselector", @type = "text" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Tec.EndDat, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.Tec.EndDat, new { @class = "form-control datefield dateselector", @type = "text" })
+                </div>
+            </div>
+            <h2>Дополнительная информация к доверенности</h2>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Tec.Note, htmlAttributes: new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.Tec.Note, new { @class = "form-control multi-line", @rows = "3" })
+                    @Html.ValidationMessageFor(model => model.Tec.Note, "", new { @class = "text-danger" })
+                    <p class="help-block">* тут вы можете указать особые условия</p>
+                </div>
+            </div>
+        </div>*@
+        <div>
+            <hr />
+            @Html.ActionLink(@HttpUtility.HtmlDecode("&laquo;") + " вернуться к списку транспорта", "Index", null, new { @class = "btn btn-xs-sm-md btn-default", @role = "button", @title = "Вернуться к списку транспорта" })
+            &nbsp;&nbsp;&nbsp;
+            <input type="submit" value="Сохранить" class="actionButtons btn btn-xs-sm-md btn-success" />
+        </div>
+    </div>
+}
+<script type="text/javascript">
+            $(function () {
+                $('.dateselector').datetimepicker({
+                    locale: 'ru', format: 'DD.MM.YYYY'
+                });
+            });
+</script>
+
+@*<script>
+    $(document).ready(function () {
+        $('#IsTrust').change(function () {
+            var cval = 'false';
+            if (this.checked == true)
+            {
+                cval = 'true';
+            }
+            var b = document.getElementById('IsSetTrust');
+            b.setAttribute('value', cval);
+            $('#myform').submit();
+        });
+    });
+</script>*@
+
+
+<a onclick="JavaScript: window.document.forms.item(1).submit();" role="button" title="Выбор транспорта">@item.Gn</a>
+
+
+<script>
+    $(document).ready(function () {
+        $('#Gn').onclick(function () {
+            var b = document.getElementById('IsSetTrust');
+            b.setAttribute('value', cval);
+
+            $('#selform').submit();
+        });
+    });
+</script>*@

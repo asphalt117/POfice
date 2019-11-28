@@ -1,0 +1,29 @@
+﻿@model Domain.Entities.Adres
+
+@{
+    ViewBag.Title = "Просмотр адреса";
+}
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.txt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.txt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Rast)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rast)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    <hr />
+    @Html.ActionLink(@HttpUtility.HtmlDecode("&laquo;") + " вернуться к списку адресов", "Index", null, new { @class = "btn btn-xs-sm-md btn-default", @role = "button", @title = "Вернуться к списку адресов" })
+</p>

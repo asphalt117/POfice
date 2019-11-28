@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    @RenderSection("metatags", false)
+    <meta name="author" content="KADMII" />
+    <title>@ViewBag.Title – Личный кабинет АО 'АБЗ КАПОТНЯ'</title>
+    <link href="/images/favicon.ico" rel="shortcut icon" />
+    @Styles.Render("~/content/css")
+    @Styles.Render("~/content/maincss")
+    @Styles.Render("~/content/fa")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-dark bg-dark flex-lg-nowrap p-1 shadow header-wrapper">
+            <a class="navbar-brand col-12 col-lg-2 mw-100 mr-0 logo-brand" href="https://personal.abz4.ru" title="Акционерное общество 'Асфальтобетонный завод 'Капотня' - Личный кабинет пользователя">
+                <b>
+                    А&nbsp;Б&nbsp;З&nbsp;
+                    <img class="logotype d-inline" src="/images/logo.png" width="56" height="38" alt="Акционерное общество 'Асфальтобетонный завод 'Капотня' - Личный кабинет пользователя"
+                         title="Акционерное общество 'Асфальтобетонный завод 'Капотня' - Личный кабинет пользователя">
+                    &nbsp;<font color="orange">К&nbsp;А&nbsp;П&nbsp;О&nbsp;Т&nbsp;Н&nbsp;Я</font>
+                </b>
+            </a>
+            @if (Request.IsAuthenticated)
+            {@Html.Action("HeadMenu", "Home")}
+            @Html.Partial("_LoginPartial", "md")
+        </nav>
+    </header>
+    <div class="container-fluid">
+        @if (Request.IsAuthenticated)
+        {
+            <div class="row">
+                @{ Html.RenderAction("MainMenu", "Home", new { menuItem = ViewBag.MenuItem }); }
+                <main role="main" class="col-md-9 col-lg-10 pt-4 pb-4 content-container">
+                    @RenderBody()
+                </main>
+            </div>
+        }
+        else
+        {
+            <div class="row justify-content-center align-items-center">
+                <main role="main" class="col-8 col-lg-5 content-container">
+                    @RenderBody()
+                </main>
+            </div>
+        }
+    </div>
+    @if (Request.IsAuthenticated)
+    {
+        <footer class="d-print-none bg-dark m-0 pt-1 footer-wrapper">
+            @{ Html.RenderPartial("~/Views/Home/FooterMenu.cshtml"); }
+            <div class="container-fluid bg-light footer-bottom-wrapper">
+                <div class="container clearfix footer-bottom">
+                    <p class="footer-copyright-info">&copy;&nbsp;@DateTime.Now.Year.&nbsp;&nbsp;АО&nbsp;&quot;АБЗ КАПОТНЯ&quot;&nbsp;&nbsp;<span class="hidden-xs">Все права защищены.</span></p>
+                </div>
+            </div>
+        </footer>
+    }
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+
+
+
+
+@*<div class="container-fluid">
+        <div class="row">
+
+            main menu
+
+
+
+
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+
+                    555@RenderBody()
+
+                    <h1 class="h2">Dashboard</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <div class="btn-group mr-2">
+                            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+                        </div>
+                        <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                            <span data-feather="calendar"></span>
+                            This week
+                        </button>
+                    </div>
+                </div>
+
+
+            </main>
+
+
+        </div>
+    </div>*@

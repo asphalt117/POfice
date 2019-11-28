@@ -1,0 +1,14 @@
+﻿@model string
+
+@{
+    ViewBag.Title = "Поиск клиентов";
+}
+
+<h2>Код контрагента</h2>
+<div>
+    @using (Ajax.BeginForm("CustSearch", new AjaxOptions { UpdateTargetId = "searchresults", Url = Url.Action("CustSearch") }))
+    {
+        <input type="text" name="id" />
+        <input type="submit" value="Поиск" />
+    }
+</div>

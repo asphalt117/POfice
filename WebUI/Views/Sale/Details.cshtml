@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Domain.Entities.Sale>
+
+@{
+    ViewBag.Title = "Выполнение";
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.num)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Dat)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HM)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Good)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Kol)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Driv)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Model)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Gn)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.num)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Dat)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HM)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Good)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Kol)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Driv)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Model)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Gn)
+        </td>
+    </tr>
+}
+
+</table>

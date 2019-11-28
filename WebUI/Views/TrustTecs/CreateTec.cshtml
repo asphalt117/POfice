@@ -1,0 +1,46 @@
+﻿@model Domain.Entities.TrustTecDet
+
+@{
+    ViewBag.Title = "Новый транспорт";
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @Html.ActionLink("Выбрать транспорт", "SelTrans", "TrustTecs", new { @class = "btn btn-xs-sm-md btn-default", @role = "button", @title = "Выбрать транспорт" })
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Gn, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Gn, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Gn, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.TecModel, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TecModel, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TecModel, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Driv, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Driv, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Driv, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div>
+            <hr />
+            @Html.ActionLink(@HttpUtility.HtmlDecode("&laquo;") + " назад", "Create", null, new { @class = "btn btn-xs-sm-md btn-default", @role = "button", @title = "Вернуться назад" })
+            &nbsp;&nbsp;&nbsp;
+            <input type="submit" value="Сохранить" class="actionButtons btn btn-xs-sm-md btn-success" />
+        </div>
+    </div>
+}

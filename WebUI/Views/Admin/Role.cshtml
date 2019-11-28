@@ -1,0 +1,27 @@
+﻿@model List<string>
+
+@{
+    ViewBag.Title = "Роли";
+}
+
+<h2>Роли пользователя @ViewBag.User</h2>
+
+<p>
+    @Html.ActionLink("Добавить роль", "CreateRole")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Роль
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item)
+        </td>
+    </tr>
+}
+
+</table>

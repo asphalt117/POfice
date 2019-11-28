@@ -1,0 +1,68 @@
+﻿@model Domain.Entities.Order
+@{
+    ViewBag.Title = ViewBag.Order;
+}
+@section metatags
+{
+    <meta name="description" content="@ViewBag.Title" />
+    <meta name="keywords" content="@ViewBag.Title, АБЗ-4" />
+    <meta name="robots" content="noindex, nofollow">
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<div class="row">
+    <div class="col-md-12">
+        <section id="orderForm" class="client-form">
+            @using (Html.BeginForm("Booking", "Ord", FormMethod.Post, new { @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <fieldset>
+                    @Html.HiddenFor(model => model.OrderId)
+                </fieldset>
+                //if (Model.Invoice == 0)
+                //{
+                //    Html.RenderAction("DateOrder", "ord", new { ord = Model.OrderId });
+                //}
+                //Html.RenderAction("GoodOrder", "Good", new { ord = Model.OrderId });
+                //Html.RenderAction("AdresOrder", "Adres", new { ord = Model.OrderId });
+                <hr />
+                if (Model.Invoice == 0)
+                {
+                    if (!Model.Centr)
+                    {
+                        <hr />
+                        //Html.RenderAction("TransportOrder", "Transports", new { ord = Model.OrderId });
+                    }
+                    <hr />
+                    <hr />
+                    //Html.RenderAction("PersonOrder", "People", new { ord = Model.OrderId });
+                }
+                else
+                {
+                    @Html.LabelFor(model => model.isOnlinePay, htmlAttributes: new { @class = "col-md-3 control-label" })
+                    <div class="col-md-9">
+                        @Html.CheckBoxFor(model => model.isOnlinePay, new { @class = "form-control checkbox" })
+                        <p class="help-block">* тут вы можете указать оплату через интернет</p>
+                    </div>
+                }
+                <h2>Дополнительная информация к заказу</h2>
+                <div class="form-group">
+                    Дополнительная информация
+                    <div class="col-md-9">
+                        @Html.TextAreaFor(model => model.note, new { @class = "form-control multi-line", @rows = "3" })
+                        @Html.ValidationMessageFor(model => model.note, "", new { @class = "text-danger" })
+                        <p class="help-block">* тут вы можете указать удобное для вас время доставки продукции и другие ваши пожелания</p>
+                    </div>
+                </div>
+                <div>
+                    <hr />
+                    @Html.ActionLink(@HttpUtility.HtmlDecode("&laquo;") + " вернуться к списку заказов", "Index", null, new { @class = "btn btn-xs-sm-md btn-default", @role = "button", @title = "Вернуться к списку заказов" })
+                    &nbsp;&nbsp;&nbsp;
+                    <input type="submit" value="Сохранить заказ" class="actionButtons btn btn-xs-sm-md btn-success" />
+                </div>
+            }
+        </section>
+    </div>
+</div>

@@ -1,0 +1,42 @@
+﻿@model Domain.ModelView.OrderView
+@{
+    ViewBag.Title = "Выбор периода доставки";
+}
+
+@using (Html.BeginForm("DatAdd", "Good", FormMethod.Post, new { @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
+{
+    <fieldset>
+        @Html.HiddenFor(model => model.OrderId)
+    </fieldset>
+
+    <div class="modal-content">
+        <div class="modal-header">            
+            <h4>Время выполнения</h4>
+        </div>
+
+        <div class="modal-body">
+            <h2>Выберите дату</h2>
+            <dl class="dl-horizontal">
+                <div class="form-group">
+                        @Html.LabelFor(model => model.Dat, htmlAttributes: new { @class = "col-md-3 control-label" })
+                        <div class="col-md-9">
+                            @Html.TextBoxFor(model => model.CDat, new { @class = "form-control datefield", @type = "text" })
+                        </div>
+                    </div>
+                <dt>Время</dt>
+                <dd>@Html.DisplayFor(model => model.Smena)</dd>
+            </dl>
+        </div>
+        <div class="modal-footer">
+            <input type="submit" value="Сохранить" class="actionButtons btn btn-xs-sm-md btn-success" />
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+    $(function () {
+        $('#CDat').datetimepicker({
+            locale: 'ru', format: 'DD.MM.YYYY HH:MM:SS'
+        });
+    });
+</script>

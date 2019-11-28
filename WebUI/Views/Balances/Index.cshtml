@@ -1,0 +1,35 @@
+﻿@model string
+
+@{
+    ViewBag.Title = "Реестр отгруженной продукции за период";
+
+    AjaxOptions ajaxOpts = new AjaxOptions
+    {
+        UpdateTargetId = "selectttn",
+        Url = Url.Action("SelectTTN"),
+        LoadingElementId = "loading"
+    };
+}
+@*<h2>Реестр отгруженной продукции за период</h2>*@
+<table>
+    <tr>
+        <td>
+            <h3>Год</h3>
+            @using (Ajax.BeginForm(ajaxOpts))
+            {
+                @Html.DropDownList("Id", (SelectList)ViewData["Year"], new { onchange = "$(this.form).submit();" })
+            }
+        </td>
+        <td>
+            <h3>Месяц</h3>
+            @using (Ajax.BeginForm(ajaxOpts))
+            {
+                @Html.DropDownList("SelectedId", (SelectList)ViewData["Month"], new { onchange = "$(this.form).submit();" })
+            }
+        </td>
+    </tr>
+</table>
+<div id="loading" style="display: none; color: Red; font-weight: bold">
+    Подождите, идет получение данных... <img src='@Href("~/Content/Images/ajax-loader.gif")' alt="Ждите..." />
+</div>
+@Html.Action("SelectTTN", new { id = Model })

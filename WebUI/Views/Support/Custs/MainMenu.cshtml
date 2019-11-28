@@ -1,0 +1,64 @@
+﻿@model WebUI.Models.MyMenu
+@{
+//foreach (var item in Model.NavMenu)
+//{
+//    if (item.Selected)
+//    {
+//        ViewBag.ContentTitle = item.Title;
+
+//        if (item.SubMenus != null)
+//        {
+//            foreach (var subitem in item.SubMenus)
+//            {
+//                if (subitem.Selected)
+//                {
+//                    ViewBag.ContentTitle = subitem.Title;
+//                }
+//            }
+
+//        }
+//    }
+//}
+}
+<nav role="menubar" class="main-menu-wrapper clearfix">
+    <div class="org-name">
+        Личный кабинет &nbsp;<b>@ViewBag.cust</b>&nbsp;&nbsp;
+        Ваш текущий остаток &nbsp;<b> @ViewBag.sm руб.</b>
+    </div>
+    <ul class="nav navbar-nav main-menu" role="menu">
+        @foreach (var link in Model.NavMenu)
+        {
+            <li role="menuitem" class="@Html.Encode(link.Selected ? "active" : "")">
+                @Html.RouteLink(link.Title, new
+           {
+               controller = link.Controller,
+               action = link.Action,
+           },
+        new
+        {
+            @role = "button"
+        })
+            </li>
+        }
+
+    </ul>
+    @if (Model.SubMenu != null)
+    {
+        <ul class="nav navbar-nav sub-main-menu" role="menu">
+            @foreach (var item in Model.SubMenu)
+            {
+                <li role="menuitem" class="@Html.Encode(item.Selected ? "active" : "")">
+                    @Html.RouteLink(item.Title, new
+               {
+                   controller = item.Controller,
+                   action = item.Action,
+               },
+         new
+         {
+             @role = "button"
+         })
+                </li>
+            }
+        </ul>
+    }
+</nav>

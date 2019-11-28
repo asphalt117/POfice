@@ -1,0 +1,133 @@
+﻿@model Domain.Entities.Cust
+
+@{
+    ViewBag.Title = "CustSearch";
+}
+
+<h2>
+    Пользователю 
+    @ViewBag.UserName
+    добавлен контрагент
+</h2>
+<div>
+    <h4>Cust</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FullName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FullName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Inn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Inn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Kpp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Kpp)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Adres)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Adres)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Rasch)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rasch)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Bank)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Bank)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Korsch)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Korsch)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Bik)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Bik)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Okpo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Okpo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fax)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fax)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SmalName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SmalName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cod1s)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cod1s)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.CustID }) |*@
+    @Html.ActionLink("Back to List", "Index")
+</p>

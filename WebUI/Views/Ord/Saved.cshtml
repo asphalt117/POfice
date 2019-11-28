@@ -1,0 +1,142 @@
+﻿@model Domain.ModelView.OrderView
+@{
+    ViewBag.Title = ViewBag.Order;
+    //"Заявка №" + Model.OrderId + " отправлена";
+  }
+
+    <dl class="dl-horizontal">
+        @if (Model.Invoice == 0)
+        {
+        <dt>
+            Дата
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CDat)
+        </dd>
+        }
+    </dl>
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered table-grey-header null-margin">
+                <thead>
+                    <tr>
+                        <th>
+                            Продукция
+                        </th>
+                        <th>
+                            Ед. изм.
+                        </th>
+                        <th>
+                            Количество
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Products)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(model => item.Good)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => item.Unit)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => item.Quant)
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Adres)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Adres)
+        </dd>
+        <dt>
+            Тип доставки
+        </dt>
+
+        <dd>
+            @if (Model.Centr)
+            { @Html.Encode("Доставка транспортом АБЗ") }
+            else
+            { @Html.Encode("Самовывоз")}
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Contract)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Contract)
+        </dd>
+        @if (Model.Invoice == 0)
+        {
+        <dt>
+            @Html.DisplayNameFor(model => model.Person)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Person)
+        </dd>
+
+        <h2>Транспорт</h2>
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered table-grey-header null-margin">
+                <thead>
+                    <tr>
+                        <th>
+                            Гос. №
+                        </th>
+                        <th>
+                            Модель
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.OrderDrivs)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(model => item.Gn)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => item.TecModel)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        }
+        <dt>
+            @Html.DisplayNameFor(model => model.Note)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Note)
+        </dd>
+
+
+<p>
+    @if (Model.Invoice == 0 && Model.RelatedOrderId == null)
+    {
+        @Html.ActionLink("Счет на оплату заявки", "CreateFrom", "Order", new { id = Model.OrderId }, null)
+    }
+
+    @if (Model.Invoice == 1 && Model.RelatedOrderId == null)
+    {
+        @Html.ActionLink("Создать заказ на основании счета", "CreateFromInvoice", "Order", new { id = Model.OrderId }, null)
+    }
+
+    @Html.ActionLink("К списку", "Index")
+</p>
+
+В ближайшее время, с вами  свяжутся.

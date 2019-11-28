@@ -1,0 +1,24 @@
+﻿@model Domain.Entities.Comment
+
+@{
+    ViewBag.Title = "Сообщение";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <h2>Отзыв, предложение, жалоба</h2>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Note, new { @class = "form-control multi-line", @rows = "3" })
+        </div>
+        <div>
+            <hr />
+            @Html.ActionLink(@HttpUtility.HtmlDecode("&laquo;") + " вернуться к списку сообщений", "Create", null, new { @class = "btn btn-xs-sm-md btn-default", @role = "button", @title = "Вернуться к списку сообщений" })
+            &nbsp;&nbsp;&nbsp;
+            <input type="submit" value="Отправить" class="actionButtons btn btn-xs-sm-md btn-success" />
+        </div>
+    </fieldset>
+}

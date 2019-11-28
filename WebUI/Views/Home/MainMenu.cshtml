@@ -1,0 +1,71 @@
+﻿@if (Request.IsAuthenticated)
+{
+    <div class="col-md-3 col-lg-2 navbar-container bg-dark sidebar">
+        <nav class="navbar navbar-expand-md navbar-dark mainmenu-wrapper">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainmenu" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" title="Меню пользователя">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            @Html.Partial("_LoginPartial", "sm")
+            <div class="collapse navbar-collapse" id="mainmenu">
+                <ul class="mb-2 navbar-nav mainmenu-nav">
+                    <li class="d-none d-md-flex justify-content-between align-items-center px-3 mt-2 mb-1 text-muted font-weight-bold sidebar-header"><span>ЛИЧНЫЙ КАБИНЕТ</span></li>
+                    <li class="d-flex justify-content-between align-items-center px-3 mt-3 mb-1 text-muted sidebar-subheader"><span>Ваша организация</span></li>
+                    <li class="nav-item active">
+                        @Html.ActionLink("Реквизиты", "Index", "Home", null, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Действующие доверенности", "Index", "Docs", null, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Договоры", "Contract", "Docs", null, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Доверенный транспорт", "Index", "TrustTecs", null, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Контакты", "Index", "People", null, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Адреса", "Index", "Adres", null, new { @class = "nav-link" })
+                    </li>
+                    <li class="d-flex justify-content-between align-items-center px-3 mt-3 mb-1 text-muted sidebar-subheader"><span>Отгрузка и оплата</span></li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Взаиморасчеты", "Balance", "Balances", null, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Реестр отгруженной продукции", "Index", "Balances", null, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Текущее выполнение", "Index", "Sale", null, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Отправленные на погрузку", "Loadering", "Sale", null, new { @class = "nav-link" })
+                    </li>
+                    <li class="d-flex justify-content-between align-items-center px-3 mt-3 mb-1 text-muted sidebar-subheader"><span>Заявки</span></li>
+                    <li class="nav-item">
+                        @*@Html.ActionLink("Заказ продукции", "Order", "Ord", null, new { @class = "nav-link" })*@
+                        @Html.ActionLink("Заказ продукции", "Index", "Ord", new { id = 0 }, new { @class = "nav-link" })
+
+                    </li>
+                    <li class="nav-item">
+                        @*@Html.ActionLink("Заказ счета", "Invoice", "Ord", null, new { @class = "nav-link" })*@
+                        @Html.ActionLink("Заказ счета", "Index", "Ord", new { id = 1 }, new { @class = "nav-link" })
+                    </li>
+                    <li class="d-flex justify-content-between align-items-center px-3 mt-3 mb-1 text-muted sidebar-subheader"><span>Настройки</span></li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Изменить пароль", "ChangePassword", "Manage", null, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Обращения, жалобы, предложения", "Index", "Support", null, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Рассылка документов", "Index", "CustomInfo", null, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Счет-фактура", "SchFact", "Docs", null, new { @class = "nav-link" })
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+}
