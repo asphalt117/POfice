@@ -291,6 +291,7 @@
     <Compile Include="Controllers\AdresController.cs" />
     <Compile Include="Controllers\BalancesController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CategController.cs" />
     <Compile Include="Controllers\CustomInfoController.cs" />
     <Compile Include="Controllers\DocsController.cs" />
     <Compile Include="Controllers\GoodController.cs" />
@@ -598,6 +599,10 @@
     <Content Include="Views\Good\DatAdd.cshtml" />
     <Content Include="Views\Good\GoodAdd.cshtml" />
     <Content Include="Views\Shared\_LayoutOrder.cshtml" />
+    <Content Include="Views\Categ\Index.cshtml" />
+    <Content Include="Views\Categ\Edit.cshtml" />
+    <Content Include="Views\Categ\Index1.cshtml" />
+    <Content Include="Views\Categ\Good.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
