@@ -62,6 +62,7 @@ namespace WebUI.Controllers
             OrderRepository repo = new OrderRepository();
             await repo.SaveDetail(svd.OrderId, svd);
             OrderView ord = await repo.GetChange(svd.OrderId);
+            ord.DayNight = 0;
             if (ord.Invoice == 0)
             {
                 //заказ. Запрос времени 
