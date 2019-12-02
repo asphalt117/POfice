@@ -1,4 +1,4 @@
-﻿@model Domain.Entities.Order
+﻿@model Domain.ModelView.OrderView
 @{
     ViewBag.Title = ViewBag.Order;
 }
@@ -11,57 +11,165 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+@using (Html.BeginForm("Booking", "Ord", FormMethod.Post, new { @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <fieldset>
+        @Html.HiddenFor(model => model.OrderId)
+    </fieldset>
 
-<div class="orderform-product">
-    <div class="form-group row">
-        <label for="inputEmail3" class="col-sm-2 col-form-label">Введите дату:</label>
-        <div class="col-sm-10">
-            <small id="dateHelpBlock" class="form-text text-muted">
-                Выбор даты обязателен.
-            </small>
+    <div class="orderform-product">
+        <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Продукция:</label>
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m., new { @class = "form-control", @type = "text" })
+            </div>
+        </div>
+
+    </div>
+    <div class="orderform-datetime">
+        <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Дата и время заказа:</label>
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.Dat, new { @class = "form-control datefield", @type = "text" })
+            </div>
         </div>
     </div>
-    <div class="form-group row">
-        <label for="inputPassword3" class="col-sm-2 col-form-label">время заказа:</label>
-        <div class="col-sm-10">
-        </div>
+    <div class="orderform-contract">
+
     </div>
+    <div class="orderform-delivery">
+
+    </div>
+    <div class="orderform-contact">
+
+    </div>
+    <div class="orderform-transport">
+
+    </div>
+    note
+
+    Cancel Save
+
+
+}
+
+
+
+
+<div class="table-responsive product-table-wrapper">
+    <table class="table table-bordered table-hover product-table">
+        <thead>
+            <tr>
+                <th>Наименование продукции</th>
+                <th>Ед. изм.</th>
+                <th>
+                    <b>Заказать</b><br />
+                    <p><font size="2" color="#aaa">дробная часть - через запятую</font></p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Products)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.txt)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Unit)
+                    </td>
+                    <td align="left">
+                        @using (Html.BeginForm("GoodAdd", "Good"))
+                        {
+                            @Html.Hidden("GoodID", item.GoodID)
+                            @Html.Hidden("OrdID", Model.OrderID)
+                            <input type="text" name="Quantity" value="@Html.Encode(Model.Quantity)" @*size="2" width="100"*@ placeholder="Укажите количество товара" pattern="\d+(,\d{0,3})?" required />
+                            <input class="actionButtons btn btn-xs-sm btn-success" type="submit" value="Заказать" title="Заказать товар" />
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+
+
+Товар
+
+Время
+
+Вид доставки
+
+Адрес
+
+Контакт
+
+Примечание
+
+
+
+
+
+< div class="orderform-product">
+<div class="form-group row">
+<label for="inputEmail3" class="col-sm-2 col-form-label">Введите дату:</label>
+<div class="col-sm-10">
+<small id = "dateHelpBlock" class="form-text text-muted">
+Выбор даты обязателен.
+</small>
+</div>
+</div>
+<div class="form-group row">
+<label for="inputPassword3" class="col-sm-2 col-form-label">время заказа:</label>
+<div class="col-sm-10">
+</div>
+</div>
 </div>
 <div class="orderform-datetime">
-    <div class="form-group row">
-        <label for="inputEmail3" class="col-sm-2 col-form-label">Введите дату:</label>
-        <div class="col-sm-10">
-            <small id="dateHelpBlock" class="form-text text-muted">
-                Выбор даты обязателен.
-            </small>
-        </div>
-    </div>
-    <div class="form-group row">
-        <label for="inputPassword3" class="col-sm-2 col-form-label">время заказа:</label>
-        <div class="col-sm-10">
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <div class="col-sm-10">
-            <button type="submit" class="btn btn-primary btn-success dtnext" onclick="avis();">Продолжить</button>
-        </div>
-    </div>
+<div class="form-group row">
+<label for="inputEmail3" class="col-sm-2 col-form-label">Введите дату:</label>
+<div class="col-sm-10">
+<small id = "dateHelpBlock" class="form-text text-muted">
+Выбор даты обязателен.
+</small>
+</div>
+</div>
+<div class="form-group row">
+<label for="inputPassword3" class="col-sm-2 col-form-label">время заказа:</label>
+<div class="col-sm-10">
+</div>
 </div>
 
-<script type="text/javascript">
-    function avis() {
-        // alert("JS Function");
-        document.getElementsByClassName("orderform-adres").item(0).style.display = "block";
-    }
-    function avis1() {
-        // alert("JS Function");
-        document.getElementsByClassName("orderform-contact").item(0).style.display = "block";
-    }
-    function avis2() {
-        // alert("JS Function");
-        document.getElementsByClassName("orderform-other").item(0).style.display = "block";
-    }
+<div class="form-group row">
+<div class="col-sm-10">
+<button type = "submit" class="btn btn-primary btn-success dtnext" onclick="avis();">Продолжить</button>
+</div>
+</div>
+</div>
+
+<script type = "text/javascript" >
+function avis()
+{
+// alert("JS Function");
+document.getElementsByClassName("orderform-adres").item(0).style.display = "block";
+}
+function avis1()
+{
+// alert("JS Function");
+document.getElementsByClassName("orderform-contact").item(0).style.display = "block";
+}
+function avis2()
+{
+// alert("JS Function");
+document.getElementsByClassName("orderform-other").item(0).style.display = "block";
+}
 </script>
 
 
@@ -137,54 +245,54 @@
     <div class="col-md-12">
         <section id="orderForm" class="client-form">
             @using (Html.BeginForm("Booking", "Ord", FormMethod.Post, new { @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
-            {
-                @Html.AntiForgeryToken()
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <fieldset>
-                    @Html.HiddenFor(model => model.OrderId)
-                </fieldset>
-                //if (Model.Invoice == 0)
-                //{
-                //    Html.RenderAction("DateOrder", "ord", new { ord = Model.OrderId });
-                //}
-                //Html.RenderAction("GoodOrder", "Good", new { ord = Model.OrderId });
-                //Html.RenderAction("AdresOrder", "Adres", new { ord = Model.OrderId });
+                        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <fieldset>
+                @Html.HiddenFor(model => model.OrderId)
+            </fieldset>
+                            //if (Model.Invoice == 0)
+                            //{
+                            //    Html.RenderAction("DateOrder", "ord", new { ord = Model.OrderId });
+                            //}
+                            //Html.RenderAction("GoodOrder", "Good", new { ord = Model.OrderId });
+                            //Html.RenderAction("AdresOrder", "Adres", new { ord = Model.OrderId });
+            <hr />
+                            if (Model.Invoice == 0)
+                            {
+                                if (!Model.Centr)
+                                {
+            <hr />
+                                    //Html.RenderAction("TransportOrder", "Transports", new { ord = Model.OrderId });
+                                }
+            <hr />
+            <hr />
+                                //Html.RenderAction("PersonOrder", "People", new { ord = Model.OrderId });
+                            }
+                            else
+                            {
+            @Html.LabelFor(model => model.isOnlinePay, htmlAttributes: new { @class = "col-md-3 control-label" })
+            <div class="col-md-9">
+                @Html.CheckBoxFor(model => model.isOnlinePay, new { @class = "form-control checkbox" })
+                <p class="help-block">* тут вы можете указать оплату через интернет</p>
+            </div>
+                            }
+            <h2>Дополнительная информация к заказу</h2>
+            <div class="form-group">
+                Дополнительная информация
+                <div class="col-md-9">
+                    @Html.TextAreaFor(model => model.note, new { @class = "form-control multi-line", @rows = "3" })
+                    @Html.ValidationMessageFor(model => model.note, "", new { @class = "text-danger" })
+                    <p class="help-block">* тут вы можете указать удобное для вас время доставки продукции и другие ваши пожелания</p>
+                </div>
+            </div>
+            <div>
                 <hr />
-                if (Model.Invoice == 0)
-                {
-                    if (!Model.Centr)
-                    {
-                        <hr />
-                        //Html.RenderAction("TransportOrder", "Transports", new { ord = Model.OrderId });
-                    }
-                    <hr />
-                    <hr />
-                    //Html.RenderAction("PersonOrder", "People", new { ord = Model.OrderId });
-                }
-                else
-                {
-                    @Html.LabelFor(model => model.isOnlinePay, htmlAttributes: new { @class = "col-md-3 control-label" })
-                    <div class="col-md-9">
-                        @Html.CheckBoxFor(model => model.isOnlinePay, new { @class = "form-control checkbox" })
-                        <p class="help-block">* тут вы можете указать оплату через интернет</p>
-                    </div>
-                }
-                <h2>Дополнительная информация к заказу</h2>
-                <div class="form-group">
-                    Дополнительная информация
-                    <div class="col-md-9">
-                        @Html.TextAreaFor(model => model.note, new { @class = "form-control multi-line", @rows = "3" })
-                        @Html.ValidationMessageFor(model => model.note, "", new { @class = "text-danger" })
-                        <p class="help-block">* тут вы можете указать удобное для вас время доставки продукции и другие ваши пожелания</p>
-                    </div>
-                </div>
-                <div>
-                    <hr />
-                    @Html.ActionLink(@HttpUtility.HtmlDecode("&laquo;") + " вернуться к списку заказов", "Index", null, new { @class = "btn btn-xs-sm-md btn-default", @role = "button", @title = "Вернуться к списку заказов" })
-                    &nbsp;&nbsp;&nbsp;
-                    <input type="submit" value="Сохранить заказ" class="actionButtons btn btn-xs-sm-md btn-success" />
-                </div>
-            }
+                @Html.ActionLink(@HttpUtility.HtmlDecode("&laquo;") + " вернуться к списку заказов", "Index", null, new { @class = "btn btn-xs-sm-md btn-default", @role = "button", @title = "Вернуться к списку заказов" })
+                &nbsp;&nbsp;&nbsp;
+                <input type="submit" value="Сохранить заказ" class="actionButtons btn btn-xs-sm-md btn-success" />
+            </div>
+                        }
         </section>
     </div>
 </div>

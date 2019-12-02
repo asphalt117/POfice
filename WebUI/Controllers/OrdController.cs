@@ -8,6 +8,7 @@ using WebUI.Models;
 using Domain.Entities;
 using Microsoft.AspNet.Identity;
 using WebUI.ModelView;
+using System.Linq;
 
 namespace WebUI.Controllers
 {
@@ -41,12 +42,30 @@ namespace WebUI.Controllers
         {
             Order order = db.Orders.Find(ord);
             ViewBag.Order = order.OrderType == 1 ? "Заказы" : "Счета";
-            return View(order);
+
+            OrderView ordview = new OrderView();
+            ordview.Products = db.OrderProductViews.Where(a => a.OrderId == ord).ToList();
+            ordview.OrderId = ord;
+            ordview.Dat = order.Dat;
+            ordview.Note = order.note;
+            ordview
+            ordview
+            ordview
+            ordview
+            ordview
+            ordview
+            ordview
+            ordview
+            ordview
+
+
+
+            return View(ordview);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Booking(Order ord)
+        public async Task<ActionResult> Booking(OrderView ord)
         {
             //Не хватает- Сохранить:
             //Примечание
