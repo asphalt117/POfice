@@ -21,7 +21,7 @@
         @Html.HiddenFor(model => model.OrderId)
     </fieldset>
     <div class="form-group row">
-        <label for="inputEmail3" class="col-sm-2 col-form-label">Введите дату:</label>
+        <label for="CDat" class="col-sm-2 col-form-label">Введите дату:</label>
         <div class="col-sm-10">
             @Html.TextBoxFor(m => m.CDat, new { @class = "form-control datefield", @type = "text", @aria_describedby = "dateHelpBlock" })
             <small id="dateHelpBlock" class="form-text text-muted">
@@ -30,7 +30,7 @@
         </div>
     </div>
     <div class="form-group row">
-        <label for="inputPassword3" class="col-sm-2 col-form-label">время заказа:</label>
+        <label for="CTime" class="col-sm-2 col-form-label">время заказа:</label>
         <div class="col-sm-10">
             @Html.TextBoxFor(m => m.CTime, new { @class = "form-control datefield", @type = "text" })
         </div>
@@ -61,7 +61,7 @@
     </small>
     <hr />
     <div class="form-group row">
-        <label for="inputEmail3" class="col-sm-2 col-form-label">Дополнительная информация о времени и количестве заказанного товара:</label>
+        <label for="Note" class="col-sm-2 col-form-label">Дополнительная информация о времени и количестве заказанного товара:</label>
         <div class="col-sm-10">
             @Html.TextBoxFor(m => m.Note, new { @class = "form-control", @type = "text", @aria_describedby = "dateNoteBlock" })
             <small id="dateNoteBlock" class="form-text text-muted">
