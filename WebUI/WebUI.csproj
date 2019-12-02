@@ -291,7 +291,6 @@
     <Compile Include="Controllers\AdresController.cs" />
     <Compile Include="Controllers\BalancesController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\CategController.cs" />
     <Compile Include="Controllers\CustomInfoController.cs" />
     <Compile Include="Controllers\DocsController.cs" />
     <Compile Include="Controllers\GoodController.cs" />
@@ -312,11 +311,7 @@
     <Compile Include="Infrastructure\Export\StylesBuilder.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminContext.cs" />
-    <Compile Include="Models\AssortmentMenuModel.cs" />
-    <Compile Include="Models\GoodList.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\Menu.cs" />
-    <Compile Include="Models\OrderSes.cs" />
     <Compile Include="Models\PageInfoModel.cs" />
     <Compile Include="Models\TransportList.cs" />
     <Compile Include="Models\TtnList.cs" />
@@ -600,14 +595,9 @@
     <Content Include="Views\Good\DatAdd.cshtml" />
     <Content Include="Views\Good\GoodAdd.cshtml" />
     <Content Include="Views\Shared\_LayoutOrder.cshtml" />
-    <Content Include="Views\Categ\Index.cshtml" />
-    <Content Include="Views\Categ\Edit.cshtml" />
-    <Content Include="Views\Categ\Index1.cshtml" />
-    <Content Include="Views\Categ\Good.cshtml" />
     <Content Include="Views\Good\Categ.cshtml" />
     <Content Include="Views\Good\SubCateg.cshtml" />
     <Content Include="Views\Good\Good.cshtml" />
-    <Content Include="Views\Categ\Categ.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

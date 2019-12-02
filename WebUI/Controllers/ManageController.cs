@@ -75,9 +75,6 @@ namespace WebUI.Controllers
         // GET: /Manage/ChangePassword
         public ActionResult ChangePassword()
         {
-            MyMenu menu = (MyMenu)Session["Menu"];
-            menu.ChangeSelected(1, 2);
-            Session["Menu"] = menu;
             return View();
         }
 

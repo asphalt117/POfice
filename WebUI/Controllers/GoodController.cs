@@ -48,18 +48,6 @@ namespace WebUI.Controllers
             return View(goodView);
         }
 
-        //public ActionResult Order(int? ord, int categid = 2, int pageNum = 0)
-        //{
-        //    int countitems = repo.GetCountItems(categid);
-        //    GoodList goodlist = new GoodList();
-        //    goodlist.CategId = categid;
-        //    //goodlist.CategName = db.Categs.Find(categid).txt;
-        //    goodlist.PageInfo = new PageInfo { pageNum = pageNum, itemsCount = countitems, pageSize = pagesize, vsblPagesCount = vsblpagescount };
-        //    goodlist.Products = repo.GetSkipTake(pageNum * pagesize, pagesize, categid).ToList();
-        //    goodlist.OrderID = (int)ord;
-        //    return View(goodlist);
-        //}
-
         [HttpPost]
         public async Task<ActionResult> GoodAdd(int GoodID, int OrdID, decimal Quantity)
         {
@@ -94,13 +82,7 @@ namespace WebUI.Controllers
             //await db.SaveChangesAsync();
             return RedirectToAction("Booking", "Ord", new { ord = ord.OrderId });
         }
-        //public ActionResult DelVisible(int id)
-        //{
-        //    Good good = db.Goods.Find(id);
-        //    good.to_site = 1;
-        //    db.SaveChanges();
-        //    return RedirectToAction("Index", "Good");
-        //}
+
 
 
     }
