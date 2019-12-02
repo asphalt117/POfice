@@ -1,0 +1,9 @@
+﻿@model WebUI.ModelView.CategView
+
+@foreach (var item in Model.Categs)
+{
+    <div class="d-inline">
+        @Html.ActionLink(item.CategName, "Good", new { id = item.CategID,ord=Model.OrderID })
+    </div>
+}
+

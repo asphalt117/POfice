@@ -1,0 +1,10 @@
+﻿@model IEnumerable<Domain.Entities.Categ>
+
+@foreach (var item in Model)
+{
+    <div class="d-inline">
+        @Html.ActionLink(item.CategName, "index", new { subcateg = item.CategID })
+    </div>
+}
+
+

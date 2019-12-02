@@ -8,40 +8,44 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using WebUI.Models;
+using WebUI.ModelView;
 
 namespace WebUI.Controllers
 {
     public class GoodController : BaseController
     {
         private GoodRepository repo = new GoodRepository();
-        private static int pagesize = 20;          // Items count on one page
-        private static int vsblpagescount = 10;    // Visible page numbers in page navigator central list 
-        //private AbzContext db = new AbzContext();
 
         public ActionResult GoodOrder(int ord)
         {
             List<OrderProductView> products = db.OrderProductViews.Where(a=>a.OrderId==ord).ToList();
             return PartialView(products);
         }
-        public ActionResult CategoryMenu(int ord)
-        {
-            var assortmentMenu = new AssortmentMenu();
-            assortmentMenu.Categs = db.Categs;
-            assortmentMenu.OrderID = ord;
-            return PartialView(assortmentMenu);
-        }
 
-
-        public ActionResult Order(int? ord, int categid = 2, int pageNum = 0)
+        //Выбор продукции
+        public ActionResult Categ(int ord,int categ = 2, int subcateg = 16)
         {
-            int countitems = repo.GetCountItems(categid);
-            GoodList goodlist = new GoodList();
-            goodlist.CategId = categid;
-            goodlist.CategName = db.Categs.Find(categid).txt;
-            goodlist.PageInfo = new PageInfo { pageNum = pageNum, itemsCount = countitems, pageSize = pagesize, vsblPagesCount = vsblpagescount };
-            goodlist.Products = repo.GetSkipTake(pageNum * pagesize, pagesize, categid).ToList();
-            goodlist.OrderID = (int)ord;
-            return View(goodlist);
+            List<Good> goods;
+            List<Categ> subcategs;
+            GoodView goodView = new GoodView();
+            goodView.OrderID = ord;
+            if (categ == 2)
+            {
+                goods = db.Goods.Where(g => g.IsFolder == subcateg).ToList();
+                subcategs = db.Categs.Where(c => c.ParentCategId == categ && c.IsVisible == 0).ToList();
+            }
+            else
+            {
+                subcategs = null;
+                goods = db.Goods.Where(g => g.CategId == categ).ToList();
+            }
+            List<Categ> categs = db.Categs.Where(c => c.ParentCategId == null && c.IsVisible == 0).ToList();
+            goodView.Categs = categs;
+            goodView.SubCategs = subcategs;
+            goodView.Goods = goods;
+            goodView.CategID = categ;
+            goodView.SubCategID = subcateg;
+            return View(goodView);
         }
 
         [HttpPost]
@@ -59,7 +63,6 @@ namespace WebUI.Controllers
             await repo.SaveDetail(svd.OrderId, svd);
             OrderView ord = await repo.GetChange(svd.OrderId);
             ord.DayNight = 0;
-
             if (ord.Invoice == 0)
             {
                 //заказ. Запрос времени 
@@ -67,23 +70,7 @@ namespace WebUI.Controllers
             }
             else
                 return RedirectToAction("Booking", "Ord", new { ord = OrdID });
-            // return RedirectToAction("Booking", "Ord", new { ord = svd.OrderId });
-
-            //Good good = await db.Goods.FindAsync(GoodID);
-            //OrderProductView svd = new OrderProductView();
-            //svd.GoodId = good.GoodID;
-            //svd.Good = good.txt;
-            //svd.Unit = good.Unit;
-            //svd.OrderId = OrdID;
-            //return View(svd);
-            //return PartialView(svd);
-
-
-            return RedirectToAction("Booking", "Ord", new { ord = OrdID });
         }
-
-
-
 
         [HttpPost]
         public async Task<ActionResult> DatAdd(Order ord)
@@ -96,13 +83,7 @@ namespace WebUI.Controllers
             //await db.SaveChangesAsync();
             return RedirectToAction("Booking", "Ord", new { ord = ord.OrderId });
         }
-        public ActionResult DelVisible(int id)
-        {
-            Good good = db.Goods.Find(id);
-            good.to_site = 1;
-            db.SaveChanges();
-            return RedirectToAction("Index", "Good");
-        }
+
 
 
     }

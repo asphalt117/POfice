@@ -204,7 +204,7 @@ namespace WebUI.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult LogOut()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);

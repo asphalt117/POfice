@@ -18,6 +18,6 @@ namespace Domain.Entities
         [Display(Name = "Группа товаров")]
         [Required(ErrorMessage = "Группа обязательна")]
         public int CategId { get; set; }
-        public int to_site { get; set; }
+        public int IsFolder { get; set; }
     }
 }
