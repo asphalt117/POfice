@@ -292,6 +292,7 @@
     <Compile Include="Controllers\BalancesController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CustomInfoController.cs" />
+    <Compile Include="Controllers\DatSelectController.cs" />
     <Compile Include="Controllers\DocsController.cs" />
     <Compile Include="Controllers\GoodController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -598,6 +599,8 @@
     <Content Include="Views\Good\Categ.cshtml" />
     <Content Include="Views\Good\SubCateg.cshtml" />
     <Content Include="Views\Good\Good.cshtml" />
+    <Content Include="Views\DatSelect\Index.cshtml" />
+    <Content Include="Views\Ord\Booking.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -637,7 +640,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>49572</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:59572/</IISUrl>
+          <IISUrl>http://localhost:49572/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

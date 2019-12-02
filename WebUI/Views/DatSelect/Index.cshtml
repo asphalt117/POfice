@@ -1,4 +1,4 @@
-﻿@model Domain.ModelView.OrderView
+﻿@model Domain.Entities.OrderV
 @{
     ViewBag.Title = "Выбор даты и времени заказа";
     ViewBag.ContentTitle = "Выберите дату и время заказа";
@@ -13,9 +13,10 @@
     <meta name="robots" content="noindex, nofollow">
 }
 @Model.Good
+@*@Model.Quantity*@
+@Model.Unit
 
-
-@using (Html.BeginForm("DatAdd", "Good", FormMethod.Post, new { @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
+@using (Html.BeginForm("DatAdd", "DatSelect", FormMethod.Post, new { @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
 {
     <fieldset>
         @Html.HiddenFor(model => model.OrderId)
@@ -23,32 +24,32 @@
     <div class="form-group row">
         <label for="inputEmail3" class="col-sm-2 col-form-label">Введите дату:</label>
         <div class="col-sm-10">
-            @Html.TextBoxFor(m => m.CDat, new { @class = "form-control datefield", @type = "text", @aria_describedby = "dateHelpBlock" })
+            @Html.TextBoxFor(m => m.DateExec, new { @class = "form-control datefield", @type = "text", @aria_describedby = "dateHelpBlock" })
             <small id="dateHelpBlock" class="form-text text-muted">
                 Выбор даты обязателен.
             </small>
         </div>
     </div>
-    <div class="form-group row">
+    @*<div class="form-group row">
         <label for="inputPassword3" class="col-sm-2 col-form-label">время заказа:</label>
         <div class="col-sm-10">
             @Html.TextBoxFor(m => m.CTime, new { @class = "form-control datefield", @type = "text" })
         </div>
-    </div>
+    </div>*@
     <fieldset class="form-group">
         <div class="row">
-            <legend class="col-form-label col-sm-2 pt-0">или выберите время суток выполнения заказа:</legend>
+            <legend class="col-form-label col-sm-2 pt-0">выберите время суток выполнения заказа:</legend>
             <div class="col-sm-10">
                 <div class="form-check">
                     @*<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>*@
-                    @Html.RadioButtonFor(m => m.DayNight, 1, new { @class = "form-check-input", @type = "radio", @name = "gridRadios", @id = "gridRadios1", @value = "1" })
+                    @Html.RadioButtonFor(m => m.SmenaID, 1, new { @class = "form-check-input", @type = "radio", @name = "gridRadios", @id = "gridRadios1", @value = "1" })
                     <label class="form-check-label" for="gridRadios1">
                         день (06:00 - 19:00)
                     </label>
                 </div>
                 <div class="form-check">
                     @*<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">*@
-                    @Html.RadioButtonFor(m => m.DayNight, 2, new { @class = "form-check-input", @type = "radio", @name = "gridRadios", @id = "gridRadios2", @value = "2" })
+                    @Html.RadioButtonFor(m => m.SmenaID, 2, new { @class = "form-check-input", @type = "radio", @name = "gridRadios", @id = "gridRadios2", @value = "2" })
                     <label class="form-check-label" for="gridRadios2">
                         ночь (19:00 - 06:00(след. день))
                     </label>
@@ -57,7 +58,7 @@
         </div>
     </fieldset>
     <small class="form-text text-muted">
-        * Обязательно укажите либо время заказа либо время суток выполнения заказа. Без этой информации заказ не будет создан.
+        * Обязательно укажите время суток выполнения заказа. Без этой информации заказ не будет создан.
     </small>
     <hr />
     <div class="form-group row">

@@ -58,14 +58,6 @@ namespace Domain.ModelView
         [Display(Name = "Время суток заказа")]
         public int DayNight { get; set; }
 
-        //[Display(Name = "Время суток заказа-день")]
-        //public bool IsDay{ get; set; }
-
-        //[Display(Name = "Время суток заказа-ночь")]
-        //public bool IsNight { get; set; }
-
-
-
         [Display(Name = "Примечание")]
         [DataType(DataType.MultilineText)]
         public string Note { get; set; }
@@ -94,5 +86,6 @@ namespace Domain.ModelView
         [Display(Name = "Смена")]
         public string Smena { get; set; }
         public List<OrderDriv> OrderDrivs { get; set; }
+        public decimal Quantity { get; set; }
     }
 }
