@@ -1,23 +1,78 @@
-﻿@model WebUI.ModelView.CategView
+﻿@model WebUI.ModelView.GoodView
 
-@Html.Action("SubCateg", "Good")
+@{
+    ViewBag.Title = "Categ";
+}
 
-<table class="table">
-    <tr>
-        <th>
-            @*@Html.DisplayNameFor(model => model.Categs)*@
-            Категория товаров
-        </th>
-    </tr>
-
-    @foreach (var item in Model.Categs)
+@if (Model.SubCategs != null)
+{
+    foreach (var item in Model.SubCategs)
     {
-        <tr>
-            <td>
-                @Html.ActionLink(item.CategName, "SubCateg", new { id = item.CategID, ord=Model.OrderID})
-            </td>
-        </tr>
+        <div class="d-inline">
+            @Html.ActionLink(item.CategName, "Categ", new { subcateg = item.CategID })
+        </div>
     }
+}
 
-</table>
+<div class="col-md-3 col-lg-2 navbar-container bg-dark sidebar">
+    <nav class="navbar navbar-expand-md navbar-dark mainmenu-wrapper">
+        <ul class="mb-2 navbar-nav mainmenu-nav">
+            @foreach (var item in Model.Categs)
+            {
+                <li class="nav-item active">
+                    @Html.ActionLink(item.CategName, "Categ", new { categ = item.CategID })
+                </li>
+            }
+
+        </ul>
+    </nav>
+</div>
+
+<div class="table-responsive product-table-wrapper">
+
+    <table class="table table-bordered table-hover product-table">
+        <thead>
+            <tr>
+                <th>Наименование продукции</th>
+                <th>Ед. изм.</th>
+                <th><b>Заказать</b></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Goods)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.txt)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Unit)
+                </td>
+
+                @*<td align="left">
+            @using (Html.BeginForm("GoodAdd", "Good"))
+            {
+                @Html.Hidden("GoodID", item.GoodID)
+
+                <input class="actionButtons btn btn-xs-sm btn-success" type="submit" value="Заказать" title="Заказать товар" />
+                <p><font size="2" color="#aaa">дробная часть - через запятую</font></p>
+            }
+        </td>*@
+                <td align="left">
+                    @using (Html.BeginForm("GoodAdd", "Good"))
+                    {
+                        @Html.Hidden("GoodID", item.GoodID)
+                        @Html.Hidden("OrdID", Model.OrderID)
+
+                        <input type="text" name="Quantity" value="@Html.Encode(Model.Quantity)" @*size="2" width="100"*@ placeholder="Укажите количество товара" pattern="\d+(,\d{0,3})?" required />
+                        <input class="actionButtons btn btn-xs-sm btn-success" type="submit" value="Заказать" title="Заказать товар" />
+                        <p><font size="2" color="#aaa">дробная часть - через запятую</font></p>
+                    }
+                </td>
+
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
 

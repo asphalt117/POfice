@@ -33,8 +33,7 @@ namespace WebUI.Controllers
             int ordertype = (act == "Заказы") ? 0 : 1;
             order = await repo.GetNew(abzHash, ordertype);
             //Выбор материала
-            return RedirectToAction("Good", "Good", new { ord = order.OrderId });
-            //return RedirectToAction("Categ", "Good", new { ord = order.OrderId });
+            return RedirectToAction("Categ", "Good", new { ord = order.OrderId });
         }
 
         public async Task<ActionResult> Booking(int ord)

@@ -13,5 +13,7 @@ namespace WebUI.ModelView
         public List<Good> Goods { get; set; }
         public int CategID { get; set; }
         public int SubCategID { get; set; }
+        public decimal Quantity { get; set; }
+        public int OrderID { get; set; }
     }
 }

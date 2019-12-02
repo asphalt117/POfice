@@ -15,51 +15,37 @@ namespace WebUI.Controllers
     public class GoodController : BaseController
     {
         private GoodRepository repo = new GoodRepository();
-        //private static int pagesize = 20;          // Items count on one page
-        //private static int vsblpagescount = 10;    // Visible page numbers in page navigator central list 
 
         public ActionResult GoodOrder(int ord)
         {
             List<OrderProductView> products = db.OrderProductViews.Where(a=>a.OrderId==ord).ToList();
             return PartialView(products);
         }
-        //public ActionResult CategoryMenu(int ord)
-        //{
-        //    var assortmentMenu = new AssortmentMenu();
-        //    assortmentMenu.Categs = db.Categs;
-        //    assortmentMenu.OrderID = ord;
-        //    return PartialView(assortmentMenu);
-        //}
 
-        //Выбор Категории
-        public ActionResult Categ(int? ord)
-        {
-            List<Categ> cat = db.Categs.Where(c => c.ParentCategId == null && c.IsVisible == 0).ToList();
-            CategView categs = new CategView();
-            categs.Categs = cat;
-            categs.OrderID = ord;
-            return PartialView(categs);
-        }
-        //Выбор Покатегории
-        public ActionResult SubCateg(int? ord,int CategId = 2 )
-        {
-            List<Categ> cat = db.Categs.Where(c => c.ParentCategId == CategId && c.IsVisible == 0).ToList();
-            CategView categs = new CategView();
-            categs.Categs = cat;
-            categs.OrderID = ord;
-
-            return PartialView(categs);
-        }
         //Выбор продукции
-        public ActionResult Good(int? ord, int CategId = 16)
+        public ActionResult Categ(int ord,int categ = 2, int subcateg = 16)
         {
-            List<Good> goods = db.Goods.Where(g => g.IsFolder == CategId).ToList();
-            GoodList goodlist = new GoodList();
-            goodlist.CategId = CategId;
-            goodlist.CategName = db.Categs.Find(CategId).CategName;
-            goodlist.OrderID = (int)ord;
-            goodlist.Products = goods;
-            return View(goodlist);
+            List<Good> goods;
+            List<Categ> subcategs;
+            GoodView goodView = new GoodView();
+            goodView.OrderID = ord;
+            if (categ == 2)
+            {
+                goods = db.Goods.Where(g => g.IsFolder == subcateg).ToList();
+                subcategs = db.Categs.Where(c => c.ParentCategId == categ && c.IsVisible == 0).ToList();
+            }
+            else
+            {
+                subcategs = null;
+                goods = db.Goods.Where(g => g.CategId == categ).ToList();
+            }
+            List<Categ> categs = db.Categs.Where(c => c.ParentCategId == null && c.IsVisible == 0).ToList();
+            goodView.Categs = categs;
+            goodView.SubCategs = subcategs;
+            goodView.Goods = goods;
+            goodView.CategID = categ;
+            goodView.SubCategID = subcateg;
+            return View(goodView);
         }
 
         //public ActionResult Order(int? ord, int categid = 2, int pageNum = 0)
