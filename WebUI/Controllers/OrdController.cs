@@ -35,7 +35,7 @@ namespace WebUI.Controllers
             //Выбор материала
             return RedirectToAction("Categ", "Good", new { ord = order.OrderId });
         }
-
+        
         public async Task<ActionResult> Booking(int ord)
         {
             Order order = db.Orders.Find(ord);
