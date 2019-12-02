@@ -11,6 +11,20 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+<style>
+    .active.order-item {
+        border: 1px solid #999;
+        padding: 10px;
+    }
+    .orderform-delivery, .orderform-contact, .orderform-transport, .orderform-note {
+        display: none;
+    }
+    .col-form-label {
+        font-weight:bold;
+    }
+</style>
+
 @using (Html.BeginForm("Booking", "Ord", FormMethod.Post, new { @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
@@ -18,281 +32,164 @@
     <fieldset>
         @Html.HiddenFor(model => model.OrderId)
     </fieldset>
-
-    <div class="orderform-product">
+    <div class="orderform-product disabled">
         <div class="form-group row">
-            <label for="inputEmail3" class="col-sm-2 col-form-label">Продукция:</label>
+            <label for="Good" class="col-sm-2 col-form-label">Продукция:</label>
             <div class="col-sm-10">
-                @Html.TextBoxFor(m => m., new { @class = "form-control", @type = "text" })
+                @Html.TextBoxFor(m => m.Products.FirstOrDefault().Good, new { @class = "form-control disabled", @type = "text" })
+            </div>
+        </div>
+        <div class="form-group row disabled">
+            <label for="Quant" class="col-sm-2 col-form-label">Кол-во:</label>
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.Products.FirstOrDefault().Quant, new { @class = "form-control disabled", @type = "text" })
+            </div>
+        </div>
+        <hr/>
+    </div>
+    <div class="orderform-datetime disabled">
+        <div class="form-group row disabled">
+            <label for="Dat" class="col-sm-2 col-form-label">Дата и время заказа:</label>
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.Dat, new { @class = "form-control datefield disabled", @type = "text" })
+            </div>
+        </div>
+        <hr />
+    </div>
+    <div class="orderform-contract active order-item">
+        <div class="form-group row">
+            <label for="ContractId" class="col-sm-2 col-form-label">Выберите договор:</label>
+            <div class="col-sm-10">
+                @Html.DropDownListFor(model => model.ContractId, Model.SelectContract, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Contract, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <hr />
+        <div class="form-group row">
+            <div class="col-sm-10">
+                <button type="button" class="btnnext-contract btn btn-primary btn-success" onclick="tonext('orderform-contract','orderform-delivery','btnnext-contract');">Продолжить</button>
+            </div>
+        </div>
+    </div>
+    <div class="orderform-delivery order-item">
+
+        <div class="form-group">
+            <label class="col-md-3 control-label">Доставка АБЗ</label>
+            <div class="col-md-9">
+                @Html.CheckBoxFor(model => model.Centr, new { @class = "form-control checkbox" })
+                <p class="help-block">* Выберите способ доставки </p>
+            </div>
+
+            @Html.LabelFor(model => model.Adres, htmlAttributes: new { @class = "col-md-3 control-label" })
+            <div class="col-md-9">
+                @Html.DropDownListFor(model => model.AdresId, Model.SelectAdres, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Adres, "", new { @class = "text-danger" })
+                <p class="help-block">
+                    <input name="Adr" type="submit" value="@HttpUtility.HtmlDecode("&#xe081;")" class="glyphicon actionButtons btn btn-xs-sm-md btn-default glyph-btn" role="button" title="Внести новый адрес" />
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    * Если вы хотите что бы доставку осуществил АБЗ-4
+                    выберите из списка адрес доставки или внесите новый и установите галочку у способа доставки. Иначе снимите галочку со способа доставки.
+                </p>
             </div>
         </div>
 
-    </div>
-    <div class="orderform-datetime">
+
+        <hr />
         <div class="form-group row">
-            <label for="inputEmail3" class="col-sm-2 col-form-label">Дата и время заказа:</label>
             <div class="col-sm-10">
-                @Html.TextBoxFor(m => m.Dat, new { @class = "form-control datefield", @type = "text" })
+                <button type="button" class="btnnext-delivery btn btn-primary btn-success" onclick="tonext('orderform-delivery','orderform-contact','btnnext-delivery');">Продолжить</button>
             </div>
         </div>
     </div>
-    <div class="orderform-contract">
-
+    <div class="orderform-contact order-item">
+        <div class="form-group row">
+            <label for="ContactId" class="col-sm-2 col-form-label">Укажите контактное лицо:</label>
+            <div class="col-sm-10">
+                @Html.DropDownListFor(model => model.PersonId, Model.SelectPerson, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Person, "", new { @class = "text-danger" })
+                <p class="help-block">
+                    <input name="Prs" type="submit" value="@HttpUtility.HtmlDecode("&#xe081;")" class="actionButtons btn btn-default" role="button" title="Внести новый контакт" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* выберите из списка контакт или внесите новый"
+                </p>
+            </div>
+        </div>
+        <hr />
+        <div class="form-group row">
+            <div class="col-sm-10">
+                <button type="button" class="btnnext-contact btn btn-primary btn-success" onclick="tonext('orderform-contact','orderform-transport','btnnext-contact');">Продолжить</button>
+            </div>
+        </div>
     </div>
-    <div class="orderform-delivery">
+    <div class="orderform-transport order-item">
 
-    </div>
-    <div class="orderform-contact">
+        <h5>Транспорт к заказу</h5>
 
-    </div>
-    <div class="orderform-transport">
-
-    </div>
-    note
-
-    Cancel Save
-
-
-}
-
-
-
-
-<div class="table-responsive product-table-wrapper">
-    <table class="table table-bordered table-hover product-table">
-        <thead>
-            <tr>
-                <th>Наименование продукции</th>
-                <th>Ед. изм.</th>
-                <th>
-                    <b>Заказать</b><br />
-                    <p><font size="2" color="#aaa">дробная часть - через запятую</font></p>
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Products)
+        <table align="center" class="table table-hover table-bordered table-grey-header">
+            <thead>
+                <tr>
+                    <th>
+                        Модель
+                    </th>
+                    <th>
+                        Гос №
+                    </th>
+                    <th>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item1 in Model.OrderDrivs)
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.txt)
+                        @Html.DisplayFor(modelItem => item1.TecModel)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Unit)
+                        @Html.DisplayFor(modelItem => item1.Gn)
                     </td>
-                    <td align="left">
-                        @using (Html.BeginForm("GoodAdd", "Good"))
-                        {
-                            @Html.Hidden("GoodID", item.GoodID)
-                            @Html.Hidden("OrdID", Model.OrderID)
-                            <input type="text" name="Quantity" value="@Html.Encode(Model.Quantity)" @*size="2" width="100"*@ placeholder="Укажите количество товара" pattern="\d+(,\d{0,3})?" required />
-                            <input class="actionButtons btn btn-xs-sm btn-success" type="submit" value="Заказать" title="Заказать товар" />
-                        }
+                    <td>
+                        @Html.ActionLink(HttpUtility.HtmlDecode("&#xe020;"), "DelTrans", new { id = item1.Gn }, new { @class = "actionButtons btn btn-default", @role = "button", @title = "Удалить транспорт" })
                     </td>
                 </tr>
-            }
-        </tbody>
-    </table>
-</div>
+        }
+            </tbody>
+        </table>
+        <p class="help-block">
+            <input name="Trans" type="submit" value="@HttpUtility.HtmlDecode("&#xe081;")"
+                   class="glyphicon actionButtons btn btn-xs-sm-md btn-default glyph-btn"
+                   role="button" title="Выбор транспорта" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* выберите из списка транспорт или внесите новый
+        </p>
 
 
-
-
-
-
-
-Товар
-
-Время
-
-Вид доставки
-
-Адрес
-
-Контакт
-
-Примечание
-
-
-
-
-
-< div class="orderform-product">
-<div class="form-group row">
-<label for="inputEmail3" class="col-sm-2 col-form-label">Введите дату:</label>
-<div class="col-sm-10">
-<small id = "dateHelpBlock" class="form-text text-muted">
-Выбор даты обязателен.
-</small>
-</div>
-</div>
-<div class="form-group row">
-<label for="inputPassword3" class="col-sm-2 col-form-label">время заказа:</label>
-<div class="col-sm-10">
-</div>
-</div>
-</div>
-<div class="orderform-datetime">
-<div class="form-group row">
-<label for="inputEmail3" class="col-sm-2 col-form-label">Введите дату:</label>
-<div class="col-sm-10">
-<small id = "dateHelpBlock" class="form-text text-muted">
-Выбор даты обязателен.
-</small>
-</div>
-</div>
-<div class="form-group row">
-<label for="inputPassword3" class="col-sm-2 col-form-label">время заказа:</label>
-<div class="col-sm-10">
-</div>
-</div>
-
-<div class="form-group row">
-<div class="col-sm-10">
-<button type = "submit" class="btn btn-primary btn-success dtnext" onclick="avis();">Продолжить</button>
-</div>
-</div>
-</div>
-
-<script type = "text/javascript" >
-function avis()
-{
-// alert("JS Function");
-document.getElementsByClassName("orderform-adres").item(0).style.display = "block";
+        <hr />
+        <div class="form-group row">
+            <div class="col-sm-10">
+                <button type="button" class="btnnext-transport btn btn-primary btn-success" onclick="tonext('orderform-transport','orderform-note','btnnext-transport');">Продолжить</button>
+            </div>
+        </div>
+    </div>
+    <div class="orderform-note order-item">
+        <div class="form-group row">
+            <label for="Dat" class="col-sm-2 col-form-label">Примечание к заказу:</label>
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.Note, new { @class = "form-control", @type = "text", @aria_describedby = "noteHelpBlock" })
+                <small id="noteHelpBlock" class="form-text text-muted">
+                    * тут вы можете указать удобное для вас время доставки продукции и другие ваши пожелания
+                </small>
+            </div>
+        </div>
+        <hr />
+        <div class="form-group row">
+            <div class="col-sm-10">
+                <button type="submit" class="btn btn-primary btn-success">Сохранить</button>
+            </div>
+        </div>
+    </div>
 }
-function avis1()
-{
-// alert("JS Function");
-document.getElementsByClassName("orderform-contact").item(0).style.display = "block";
-}
-function avis2()
-{
-// alert("JS Function");
-document.getElementsByClassName("orderform-other").item(0).style.display = "block";
-}
+<script type="text/javascript">
+    function tonext(prev, nxt, btn) {
+        document.getElementsByClassName(prev).item(0).classList.remove('active');
+        document.getElementsByClassName(nxt).item(0).style.display = "block";
+        document.getElementsByClassName(nxt).item(0).classList.add('active');
+        document.getElementsByClassName(btn).item(0).style.display = "none";
+    }
 </script>
-
-
-<div class="orderform-adres" style="display:none;">
-    <div class="form-group row">
-        <label for="inputEmail3" class="col-sm-2 col-form-label">Введите дату:</label>
-        <div class="col-sm-10">
-            <small id="dateHelpBlock" class="form-text text-muted">
-                Выбор даты обязателен.
-            </small>
-        </div>
-    </div>
-    <div class="form-group row">
-        <label for="inputPassword3" class="col-sm-2 col-form-label">время заказа:</label>
-        <div class="col-sm-10">
-        </div>
-    </div>
-    <div class="form-group row">
-        <div class="col-sm-10">
-            <button type="submit" class="btn btn-primary btn-success dtnext" onclick="avis1();">Продолжить</button>
-        </div>
-    </div>
-</div>
-<div class="orderform-contact" style="display:none;">
-    <div class="form-group row">
-        <label for="inputEmail3" class="col-sm-2 col-form-label">Введите дату:</label>
-        <div class="col-sm-10">
-            <small id="dateHelpBlock" class="form-text text-muted">
-                Выбор даты обязателен.
-            </small>
-        </div>
-    </div>
-    <div class="form-group row">
-        <label for="inputPassword3" class="col-sm-2 col-form-label">время заказа:</label>
-        <div class="col-sm-10">
-        </div>
-    </div>
-    <div class="form-group row">
-        <div class="col-sm-10">
-            <button type="submit" class="btn btn-primary btn-success dtnext" onclick="avis2();">Продолжить</button>
-        </div>
-    </div>
-</div>
-<div class="orderform-other" style="display:none;">
-    <div class="form-group row">
-        <label for="inputEmail3" class="col-sm-2 col-form-label">Введите дату:</label>
-        <div class="col-sm-10">
-            <small id="dateHelpBlock" class="form-text text-muted">
-                Выбор даты обязателен.
-            </small>
-        </div>
-    </div>
-    <div class="form-group row">
-        <label for="inputPassword3" class="col-sm-2 col-form-label">время заказа:</label>
-        <div class="col-sm-10">
-        </div>
-    </div>
-    <div class="form-group row">
-        <div class="col-sm-10">
-            <button type="submit" class="btn btn-primary btn-success dtnext">Продолжить</button>
-        </div>
-    </div>
-</div>
-
-
-
-
-ИДЕЯ - сделать дивы - шаги заказа и по мере заполнения показывать их.
-
-
-
-<div class="row">
-    <div class="col-md-12">
-        <section id="orderForm" class="client-form">
-            @using (Html.BeginForm("Booking", "Ord", FormMethod.Post, new { @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
-                        {
-            @Html.AntiForgeryToken()
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <fieldset>
-                @Html.HiddenFor(model => model.OrderId)
-            </fieldset>
-                            //if (Model.Invoice == 0)
-                            //{
-                            //    Html.RenderAction("DateOrder", "ord", new { ord = Model.OrderId });
-                            //}
-                            //Html.RenderAction("GoodOrder", "Good", new { ord = Model.OrderId });
-                            //Html.RenderAction("AdresOrder", "Adres", new { ord = Model.OrderId });
-            <hr />
-                            if (Model.Invoice == 0)
-                            {
-                                if (!Model.Centr)
-                                {
-            <hr />
-                                    //Html.RenderAction("TransportOrder", "Transports", new { ord = Model.OrderId });
-                                }
-            <hr />
-            <hr />
-                                //Html.RenderAction("PersonOrder", "People", new { ord = Model.OrderId });
-                            }
-                            else
-                            {
-            @Html.LabelFor(model => model.isOnlinePay, htmlAttributes: new { @class = "col-md-3 control-label" })
-            <div class="col-md-9">
-                @Html.CheckBoxFor(model => model.isOnlinePay, new { @class = "form-control checkbox" })
-                <p class="help-block">* тут вы можете указать оплату через интернет</p>
-            </div>
-                            }
-            <h2>Дополнительная информация к заказу</h2>
-            <div class="form-group">
-                Дополнительная информация
-                <div class="col-md-9">
-                    @Html.TextAreaFor(model => model.note, new { @class = "form-control multi-line", @rows = "3" })
-                    @Html.ValidationMessageFor(model => model.note, "", new { @class = "text-danger" })
-                    <p class="help-block">* тут вы можете указать удобное для вас время доставки продукции и другие ваши пожелания</p>
-                </div>
-            </div>
-            <div>
-                <hr />
-                @Html.ActionLink(@HttpUtility.HtmlDecode("&laquo;") + " вернуться к списку заказов", "Index", null, new { @class = "btn btn-xs-sm-md btn-default", @role = "button", @title = "Вернуться к списку заказов" })
-                &nbsp;&nbsp;&nbsp;
-                <input type="submit" value="Сохранить заказ" class="actionButtons btn btn-xs-sm-md btn-success" />
-            </div>
-                        }
-        </section>
-    </div>
-</div>
