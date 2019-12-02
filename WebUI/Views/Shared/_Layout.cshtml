@@ -35,6 +35,7 @@
             <div class="row">
                 @{ Html.RenderAction("MainMenu", "Home", new { menuItem = ViewBag.MenuItem }); }
                 <main role="main" class="col-md-9 col-lg-10 pt-4 pb-4 content-container">
+                    <h1>@ViewBag.ContentTitle</h1>
                     @RenderBody()
                 </main>
             </div>

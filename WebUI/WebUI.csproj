@@ -598,6 +598,7 @@
     <Content Include="Views\Good\DatAdd.cshtml" />
     <Content Include="Views\Good\GoodAdd.cshtml" />
     <Content Include="Views\Shared\_LayoutOrder.cshtml" />
+    <Content Include="Views\Ord\Booking.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

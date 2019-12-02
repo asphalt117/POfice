@@ -11,6 +11,128 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+<div class="orderform-product">
+    <div class="form-group row">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">Введите дату:</label>
+        <div class="col-sm-10">
+            <small id="dateHelpBlock" class="form-text text-muted">
+                Выбор даты обязателен.
+            </small>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputPassword3" class="col-sm-2 col-form-label">время заказа:</label>
+        <div class="col-sm-10">
+        </div>
+    </div>
+</div>
+<div class="orderform-datetime">
+    <div class="form-group row">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">Введите дату:</label>
+        <div class="col-sm-10">
+            <small id="dateHelpBlock" class="form-text text-muted">
+                Выбор даты обязателен.
+            </small>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputPassword3" class="col-sm-2 col-form-label">время заказа:</label>
+        <div class="col-sm-10">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-10">
+            <button type="submit" class="btn btn-primary btn-success dtnext" onclick="avis();">Продолжить</button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function avis() {
+        // alert("JS Function");
+        document.getElementsByClassName("orderform-adres").item(0).style.display = "block";
+    }
+    function avis1() {
+        // alert("JS Function");
+        document.getElementsByClassName("orderform-contact").item(0).style.display = "block";
+    }
+    function avis2() {
+        // alert("JS Function");
+        document.getElementsByClassName("orderform-other").item(0).style.display = "block";
+    }
+</script>
+
+
+<div class="orderform-adres" style="display:none;">
+    <div class="form-group row">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">Введите дату:</label>
+        <div class="col-sm-10">
+            <small id="dateHelpBlock" class="form-text text-muted">
+                Выбор даты обязателен.
+            </small>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputPassword3" class="col-sm-2 col-form-label">время заказа:</label>
+        <div class="col-sm-10">
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-10">
+            <button type="submit" class="btn btn-primary btn-success dtnext" onclick="avis1();">Продолжить</button>
+        </div>
+    </div>
+</div>
+<div class="orderform-contact" style="display:none;">
+    <div class="form-group row">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">Введите дату:</label>
+        <div class="col-sm-10">
+            <small id="dateHelpBlock" class="form-text text-muted">
+                Выбор даты обязателен.
+            </small>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputPassword3" class="col-sm-2 col-form-label">время заказа:</label>
+        <div class="col-sm-10">
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-10">
+            <button type="submit" class="btn btn-primary btn-success dtnext" onclick="avis2();">Продолжить</button>
+        </div>
+    </div>
+</div>
+<div class="orderform-other" style="display:none;">
+    <div class="form-group row">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">Введите дату:</label>
+        <div class="col-sm-10">
+            <small id="dateHelpBlock" class="form-text text-muted">
+                Выбор даты обязателен.
+            </small>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputPassword3" class="col-sm-2 col-form-label">время заказа:</label>
+        <div class="col-sm-10">
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-10">
+            <button type="submit" class="btn btn-primary btn-success dtnext">Продолжить</button>
+        </div>
+    </div>
+</div>
+
+
+
+
+ИДЕЯ - сделать дивы - шаги заказа и по мере заполнения показывать их.
+
+
+
 <div class="row">
     <div class="col-md-12">
         <section id="orderForm" class="client-form">

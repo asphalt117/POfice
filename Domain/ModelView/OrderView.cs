@@ -43,10 +43,29 @@ namespace Domain.ModelView
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Dat { get; set; }
 
-        [Display(Name = "Дата выполнения")]              
+        [Display(Name = "Дата выполнения")]
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         public string CDat { get; set; }
-                
+
+
+
+        [Display(Name = "Время заказа")]
+        [DataType(DataType.Time)]
+        [UIHint("Time")]
+        [DisplayFormat(DataFormatString = "{0:hh:mm}", ApplyFormatInEditMode = true)]
+        public string CTime { get; set; }
+
+        [Display(Name = "Время суток заказа")]
+        public int DayNight { get; set; }
+
+        //[Display(Name = "Время суток заказа-день")]
+        //public bool IsDay{ get; set; }
+
+        //[Display(Name = "Время суток заказа-ночь")]
+        //public bool IsNight { get; set; }
+
+
+
         [Display(Name = "Примечание")]
         [DataType(DataType.MultilineText)]
         public string Note { get; set; }
@@ -73,7 +92,7 @@ namespace Domain.ModelView
         public int? RelatedOrderId { get; set; }
         public int SmenaID { get; set; }
         [Display(Name = "Смена")]
-        public string  Smena { get; set; }
+        public string Smena { get; set; }
         public List<OrderDriv> OrderDrivs { get; set; }
     }
-}      
+}

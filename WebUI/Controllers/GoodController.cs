@@ -58,6 +58,8 @@ namespace WebUI.Controllers
             OrderRepository repo = new OrderRepository();
             await repo.SaveDetail(svd.OrderId, svd);
             OrderView ord = await repo.GetChange(svd.OrderId);
+            ord.DayNight = 0;
+
             if (ord.Invoice == 0)
             {
                 //заказ. Запрос времени 
@@ -65,8 +67,23 @@ namespace WebUI.Controllers
             }
             else
                 return RedirectToAction("Booking", "Ord", new { ord = OrdID });
+            // return RedirectToAction("Booking", "Ord", new { ord = svd.OrderId });
 
+            //Good good = await db.Goods.FindAsync(GoodID);
+            //OrderProductView svd = new OrderProductView();
+            //svd.GoodId = good.GoodID;
+            //svd.Good = good.txt;
+            //svd.Unit = good.Unit;
+            //svd.OrderId = OrdID;
+            //return View(svd);
+            //return PartialView(svd);
+
+
+            return RedirectToAction("Booking", "Ord", new { ord = OrdID });
         }
+
+
+
 
         [HttpPost]
         public async Task<ActionResult> DatAdd(Order ord)
