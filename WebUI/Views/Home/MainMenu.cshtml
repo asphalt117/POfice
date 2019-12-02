@@ -14,6 +14,9 @@
                         @Html.ActionLink("Реквизиты", "Index", "Home", null, new { @class = "nav-link" })
                     </li>
                     <li class="nav-item">
+                        @Html.ActionLink("Категории new", "Categ", "Categ", null, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
                         @Html.ActionLink("Категории", "Index", "Categ", null, new { @class = "nav-link" })
                     </li>
                     <li class="nav-item">
@@ -47,12 +50,12 @@
                     <li class="d-flex justify-content-between align-items-center px-3 mt-3 mb-1 text-muted sidebar-subheader"><span>Заявки</span></li>
                     <li class="nav-item">
                         @*@Html.ActionLink("Заказ продукции", "Order", "Ord", null, new { @class = "nav-link" })*@
-                        @Html.ActionLink("Заказ продукции", "Index", "Ord", new { id = 0 }, new { @class = "nav-link" })
+                        @Html.ActionLink("Заказы продукции", "Index", "Ord", new { id = 0 }, new { @class = "nav-link" })
 
                     </li>
                     <li class="nav-item">
                         @*@Html.ActionLink("Заказ счета", "Invoice", "Ord", null, new { @class = "nav-link" })*@
-                        @Html.ActionLink("Заказ счета", "Index", "Ord", new { id = 1 }, new { @class = "nav-link" })
+                        @Html.ActionLink("Заказы счетов", "Index", "Ord", new { id = 1 }, new { @class = "nav-link" })
                     </li>
                     <li class="d-flex justify-content-between align-items-center px-3 mt-3 mb-1 text-muted sidebar-subheader"><span>Настройки</span></li>
                     <li class="nav-item">

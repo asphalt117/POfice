@@ -26,6 +26,9 @@ namespace WebUI.Controllers
         [Authorize]
         public ActionResult Index(int SelectedCustId = -1, int SelectedContractId = -1)
         {
+              if (abzHash==null)
+                return RedirectToAction("Logout", "Account");          
+            
             string usr = User.Identity.Name;
 
             int state = CalcState(SelectedCustId, SelectedContractId);
@@ -53,17 +56,15 @@ namespace WebUI.Controllers
                         ContractID = contract.ContractID;
                     break;
             }
-
-            Cust cust = db.Custs.Find(CustID);
-
+            Cust cust = db.Custs.Find(CustID);            
             try
             {
                 abzHash.CustID = CustID;
             }
             catch
             {
-                    RedirectToAction("Logout", "Account");
-                }
+                return RedirectToAction("Logout", "Account");
+            }
 
             contracts = repo.GetContracts(CustID);
 
@@ -73,14 +74,17 @@ namespace WebUI.Controllers
             }
             catch
             {
-                RedirectToAction("Logout", "Account");
+                return RedirectToAction("Logout", "Account");
             }
 
             if (abzHash != null)
             {
                 UpdateHash(abzHash);
             }
-            else { RedirectToAction("Logout", "Account"); }
+            else 
+            {
+                return RedirectToAction("Logout", "Account");
+            }
 
             ViewData["Contract"] = new SelectList(contracts, "ContractID", "Num", ContractID);
 
@@ -90,7 +94,6 @@ namespace WebUI.Controllers
 
             return View("Index", cust);
         }
-
         public ActionResult MainMenu(string menuItem)
         {
             ViewBag.MenuItem = menuItem;

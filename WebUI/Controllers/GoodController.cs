@@ -8,39 +8,71 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using WebUI.Models;
+using WebUI.ModelView;
 
 namespace WebUI.Controllers
 {
     public class GoodController : BaseController
     {
         private GoodRepository repo = new GoodRepository();
-        private static int pagesize = 20;          // Items count on one page
-        private static int vsblpagescount = 10;    // Visible page numbers in page navigator central list 
-        //private AbzContext db = new AbzContext();
+        //private static int pagesize = 20;          // Items count on one page
+        //private static int vsblpagescount = 10;    // Visible page numbers in page navigator central list 
 
         public ActionResult GoodOrder(int ord)
         {
             List<OrderProductView> products = db.OrderProductViews.Where(a=>a.OrderId==ord).ToList();
             return PartialView(products);
         }
-        public ActionResult CategoryMenu(int ord)
+        //public ActionResult CategoryMenu(int ord)
+        //{
+        //    var assortmentMenu = new AssortmentMenu();
+        //    assortmentMenu.Categs = db.Categs;
+        //    assortmentMenu.OrderID = ord;
+        //    return PartialView(assortmentMenu);
+        //}
+
+        //Выбор Категории
+        public ActionResult Categ(int? ord)
         {
-            var assortmentMenu = new AssortmentMenu();
-            assortmentMenu.Categs = db.Categs;
-            assortmentMenu.OrderID = ord;
-            return PartialView(assortmentMenu);
+            List<Categ> cat = db.Categs.Where(c => c.ParentCategId == null && c.IsVisible == 0).ToList();
+            CategView categs = new CategView();
+            categs.Categs = cat;
+            categs.OrderID = ord;
+            return PartialView(categs);
         }
-        public ActionResult Order(int? ord, int categid = 2, int pageNum = 0)
+        //Выбор Покатегории
+        public ActionResult SubCateg(int? ord,int CategId = 2 )
         {
-            int countitems = repo.GetCountItems(categid);
+            List<Categ> cat = db.Categs.Where(c => c.ParentCategId == CategId && c.IsVisible == 0).ToList();
+            CategView categs = new CategView();
+            categs.Categs = cat;
+            categs.OrderID = ord;
+
+            return PartialView(categs);
+        }
+        //Выбор продукции
+        public ActionResult Good(int? ord, int CategId = 16)
+        {
+            List<Good> goods = db.Goods.Where(g => g.IsFolder == CategId).ToList();
             GoodList goodlist = new GoodList();
-            goodlist.CategId = categid;
-            //goodlist.CategName = db.Categs.Find(categid).txt;
-            goodlist.PageInfo = new PageInfo { pageNum = pageNum, itemsCount = countitems, pageSize = pagesize, vsblPagesCount = vsblpagescount };
-            goodlist.Products = repo.GetSkipTake(pageNum * pagesize, pagesize, categid).ToList();
+            goodlist.CategId = CategId;
+            goodlist.CategName = db.Categs.Find(CategId).CategName;
             goodlist.OrderID = (int)ord;
+            goodlist.Products = goods;
             return View(goodlist);
         }
+
+        //public ActionResult Order(int? ord, int categid = 2, int pageNum = 0)
+        //{
+        //    int countitems = repo.GetCountItems(categid);
+        //    GoodList goodlist = new GoodList();
+        //    goodlist.CategId = categid;
+        //    //goodlist.CategName = db.Categs.Find(categid).txt;
+        //    goodlist.PageInfo = new PageInfo { pageNum = pageNum, itemsCount = countitems, pageSize = pagesize, vsblPagesCount = vsblpagescount };
+        //    goodlist.Products = repo.GetSkipTake(pageNum * pagesize, pagesize, categid).ToList();
+        //    goodlist.OrderID = (int)ord;
+        //    return View(goodlist);
+        //}
 
         [HttpPost]
         public async Task<ActionResult> GoodAdd(int GoodID, int OrdID, decimal Quantity)
@@ -63,7 +95,6 @@ namespace WebUI.Controllers
             }
             else
                 return RedirectToAction("Booking", "Ord", new { ord = OrdID });
-
         }
 
         [HttpPost]

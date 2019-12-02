@@ -4,6 +4,7 @@
 }
 <div class="w-100">
     @Html.Action("Edit", "Categ")
+    @*,new { id = Model.CategID })*@
 </div>
 <div class="col-md-3 col-lg-2 navbar-container bg-dark sidebar">
     <nav class="navbar navbar-expand-md navbar-dark mainmenu-wrapper">
@@ -11,7 +12,7 @@
             @foreach (var item in Model)
             {
                 <li class="nav-item active">
-                    @Html.ActionLink(item.CategName, "Edit", new { id = item.CategID })
+                    @Html.ActionLink(item.CategName, "Index", new { categ = item.CategID })
                 </li>
             }
 

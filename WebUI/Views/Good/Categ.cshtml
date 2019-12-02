@@ -1,0 +1,23 @@
+﻿@model WebUI.ModelView.CategView
+
+@Html.Action("SubCateg", "Good")
+
+<table class="table">
+    <tr>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Categs)*@
+            Категория товаров
+        </th>
+    </tr>
+
+    @foreach (var item in Model.Categs)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(item.CategName, "SubCateg", new { id = item.CategID, ord=Model.OrderID})
+            </td>
+        </tr>
+    }
+
+</table>
+

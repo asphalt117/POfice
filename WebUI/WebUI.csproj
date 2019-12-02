@@ -314,7 +314,6 @@
     <Compile Include="Models\AdminContext.cs" />
     <Compile Include="Models\AssortmentMenuModel.cs" />
     <Compile Include="Models\GoodList.cs" />
-    <Compile Include="Models\GoodView.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Menu.cs" />
     <Compile Include="Models\OrderSes.cs" />
@@ -323,7 +322,9 @@
     <Compile Include="Models\TtnList.cs" />
     <Compile Include="Models\RegisterAdmin.cs" />
     <Compile Include="ModelView\AdresView.cs" />
+    <Compile Include="ModelView\CategView.cs" />
     <Compile Include="ModelView\DataView.cs" />
+    <Compile Include="ModelView\GoodView.cs" />
     <Compile Include="ModelView\PersonView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -603,10 +604,13 @@
     <Content Include="Views\Categ\Edit.cshtml" />
     <Content Include="Views\Categ\Index1.cshtml" />
     <Content Include="Views\Categ\Good.cshtml" />
+    <Content Include="Views\Good\Categ.cshtml" />
+    <Content Include="Views\Good\SubCateg.cshtml" />
+    <Content Include="Views\Good\Good.cshtml" />
+    <Content Include="Views\Categ\Categ.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Engine\" />
     <Folder Include="Infrastructure\Services\" />
   </ItemGroup>
   <ItemGroup>
