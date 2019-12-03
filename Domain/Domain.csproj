@@ -111,18 +111,17 @@
     <Compile Include="ModelView\Month.cs" />
     <Compile Include="ModelView\OrgView.cs" />
     <Compile Include="Entities\OrderProductView.cs" />
-    <Compile Include="ModelView\OrderView.cs" />
     <Compile Include="ModelView\TrustTecView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AdminRepository.cs" />
     <Compile Include="Repository\BalanceRepository.cs" />
     <Compile Include="Repository\CustRepository.cs" />
     <Compile Include="Repository\GoodRepository.cs" />
+    <Compile Include="Repository\OrderRepository.cs" />
     <Compile Include="Repository\OrdRepository.cs" />
     <Compile Include="Repository\PersonRepository.cs" />
     <Compile Include="Repository\TrustTecsRepository.cs" />
     <Compile Include="Repository\TtnRepository.cs" />
-    <Compile Include="Repository\OrderRepository.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

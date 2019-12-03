@@ -9,10 +9,6 @@ namespace Domain.Entities
     [Table("bOrderV")]
     public class OrderV
     {
-        public OrderV(int orderID)
-        {
-
-        }
         [Key]
         public int OrderId { get; set; }
         [HiddenInput(DisplayValue = false)]
@@ -64,12 +60,16 @@ namespace Domain.Entities
         public int? RelatedOrderId { get; set; }
         public string Smena { get; set; }
         public int SmenaID { get; set; }
-        public virtual List<OrderDriv> OrderDrivs { get; set; }
-        public virtual List<Contract> Contracts { get; set; }
-        public virtual SelectList SelectContract { get; set; }
-        public virtual List<Person> PersonsOrder { get; set; }
-        public virtual SelectList SelectPerson { get; set; }
+        //public virtual List<OrderDriv> OrderDrivs { get; set; }
+        //public virtual List<Contract> ContractOrder { get; set; }
+        //public virtual SelectList SelectContract { get; set; }
+        //public virtual List<Person> PersonsOrder { get; set; }
+        ////public virtual SelectList SelectPerson { get; set; }
+        //public OrderV(int otderID)
+        //{
 
+        //    SelectContract=new SelectList(contracts, "ContractID", "Num", ContractID);
+        //}
         
     }
 }

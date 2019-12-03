@@ -39,9 +39,10 @@ namespace WebUI.Controllers
         
         public async Task<ActionResult> Booking(int ord)
         {
-            Order order = db.Orders.Find(ord);
-            ViewBag.Order = order.OrderType == 1 ? "Заказы" : "Счета";
-            OrderV ordview = await repo.GetOrderV(ord);
+            //Order order = db.Orders.Find(ord);
+            OrderView ordview = new OrderView(ord);
+            ViewBag.Order = ordview.OrderV.Invoice == 1 ? "Заказы" : "Счета";
+            //ViewData["Contract"] = new SelectList(contracts, "ContractID", "Num", ContractID); ;
 
             return View(ordview);
         }

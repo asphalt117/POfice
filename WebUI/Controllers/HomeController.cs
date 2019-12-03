@@ -50,7 +50,8 @@ namespace WebUI.Controllers
                 case 5:
                     //1й вход после логина
                     CustID = repo.GetCustEmail(usr);
-                    contracts = repo.GetContracts(CustID);
+                    contract = repo.GetContract(CustID);
+                    //contracts = repo.GetContracts(CustID);
                     //contract = db.Contracts.FirstOrDefault(a => a.CustID == CustID);
                     if (contract == null)
                         ContractID = 0;
@@ -88,7 +89,8 @@ namespace WebUI.Controllers
                 return RedirectToAction("Logout", "Account");
             }
 
-            ViewData["Contract"] = new SelectList(contracts, "ContractID", "Num", ContractID);
+             ViewData["Contract"] = new SelectList(contracts, "ContractID", "Num", ContractID); ;
+                //new SelectList(contracts, "ContractID", "Num", ContractID);
 
             //не верно для админа, однако работает?
             IEnumerable<OrgView> orgView = repo.GetCust(usr);

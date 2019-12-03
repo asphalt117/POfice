@@ -75,6 +75,36 @@ namespace Domain.Repository
             await db.SaveChangesAsync();
             return order;
         }
-
+        //public async Task<int> SaveDetails(int id, List<OrderProductView> det)
+        //{
+        //    foreach (var item in det)
+        //    {
+        //        OrderProduct products = new OrderProduct();
+        //        products.OrderProductId = item.OrderProductId;
+        //        products.GoodId = item.GoodId;
+        //        products.OrderId = id;
+        //        products.Quant = item.Quant;
+        //        if (products.OrderProductId == 0)
+        //            db.OrderProducts.Add(products);
+        //        else
+        //            db.Entry(products).State = EntityState.Modified;
+        //    }
+        //    int iddet = await db.SaveChangesAsync();
+        //    return iddet;
+        //}
+        public async Task<int> SaveDetail(int id, OrderProductView det)
+        {
+            OrderProduct products = new OrderProduct();
+            products.OrderProductId = det.OrderProductId;
+            products.GoodId = det.GoodId;
+            products.OrderId = id;
+            products.Quant = det.Quant;
+            if (products.OrderProductId == 0)
+                db.OrderProducts.Add(products);
+            else
+                db.Entry(products).State = EntityState.Modified;
+            int iddet = await db.SaveChangesAsync();
+            return iddet;
+        }
     }
 }
