@@ -11,13 +11,13 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using WebUI.Models;
 using System;
-
+using System.Linq;
 
 namespace WebUI.Controllers
 {
     public class HomeController : BaseController
     {
-        private int CustID;
+        //private int CustID;
         private int ContractID;
         private CustRepository repo = new CustRepository();
         private IEnumerable<Contract> contracts;
@@ -40,7 +40,8 @@ namespace WebUI.Controllers
                     break;
                 case 4:
                     CustID = SelectedCustId;
-                    contract = repo.GetContract(CustID);
+                    contract = db.Contracts.FirstOrDefault(a => a.CustID == CustID);
+                    //repo.GetContract(CustID);
                     if (contract == null)
                         ContractID = 0;
                     else
@@ -49,7 +50,8 @@ namespace WebUI.Controllers
                 case 5:
                     //1й вход после логина
                     CustID = repo.GetCustEmail(usr);
-                    contract = repo.GetContract(CustID);
+                    contracts = repo.GetContracts(CustID);
+                    //contract = db.Contracts.FirstOrDefault(a => a.CustID == CustID);
                     if (contract == null)
                         ContractID = 0;
                     else

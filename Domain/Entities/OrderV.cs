@@ -1,15 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Web.Mvc;
 
 namespace Domain.Entities
 {
-    [Table("bOrder")]
+    [Table("bOrderV")]
     public class OrderV
     {
+        public OrderV(int orderID)
+        {
+
+        }
         [Key]
-        //[HiddenInput(DisplayValue = false)]
         public int OrderId { get; set; }
         [HiddenInput(DisplayValue = false)]
         public int CustId { get; set; }
@@ -17,6 +21,8 @@ namespace Domain.Entities
         public string Good { get; set; }
         [Display(Name = "Ед. изм.")]
         public string Unit { get; set; }
+        [Display(Name = "Количество")]
+        public decimal? Quant { get; set; }
         public int? AdresId { get; set; }
         [Display(Name = "Адрес")]
         public string Adres { get; set; }
@@ -41,15 +47,16 @@ namespace Domain.Entities
         ////[UIHint("Date")]
         ////[DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         //public DateTime Dat { get; set; }
-        //[Display(Name = "Количество")]
-        //public decimal Quant { get; set; }
+
         [Display(Name = "Примечание")]
         [DataType(DataType.MultilineText)]
         public string Note { get; set; }
+
         [Display(Name = "Состояние заказа")]
         public string Status { get; set; }
         [HiddenInput(DisplayValue = false)]
         public int StatusId { get; set; }
+
         [Display(Name = "Оплата OnLine")]
         public bool isOnlinePay { get; set; }
         public int Invoice { get; set; }
@@ -57,6 +64,12 @@ namespace Domain.Entities
         public int? RelatedOrderId { get; set; }
         public string Smena { get; set; }
         public int SmenaID { get; set; }
+        public virtual List<OrderDriv> OrderDrivs { get; set; }
+        public virtual List<Contract> Contracts { get; set; }
+        public virtual SelectList SelectContract { get; set; }
+        public virtual List<Person> PersonsOrder { get; set; }
+        public virtual SelectList SelectPerson { get; set; }
 
+        
     }
 }

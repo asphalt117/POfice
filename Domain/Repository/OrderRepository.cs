@@ -30,6 +30,7 @@ namespace Domain.Repository
             await db.SaveChangesAsync();
             return id;
         }
+
         public async Task<OrderView> GetChange(int id)
         {
             OrderV vsh = await db.OrderVs.FindAsync(id);
@@ -84,30 +85,30 @@ namespace Domain.Repository
             
             return await GetChange(Orderid);
         }
-        public async Task<OrderView> GetCreate(int custid, int invoice, string email, int? contractId)
-        //public async Task<OrderView> GetCreate(int custid, int invoice, string email)
-        {
-            sv.CustId = custid;
-            sv.AdresId = 1;
-            //sv.PersonId = 0;
-            sv = await GetSelectList(sv);
-            sv.Dat = DateTime.Now.AddDays(1);
-            sv.CDat = DateToString.CDat(sv.Dat);
-            sv.Invoice = invoice; 
-            sv.email = email;  //???
-            if (contractId == null)
-                sv.ContractId = 0;
-            else
-                sv.ContractId = (int)contractId;
+        //public async Task<OrderView> GetCreate(int custid, int invoice, string email, int? contractId)
+        ////public async Task<OrderView> GetCreate(int custid, int invoice, string email)
+        //{
+        //    sv.CustId = custid;
+        //    sv.AdresId = 1;
+        //    //sv.PersonId = 0;
+        //    sv = await GetSelectList(sv);
+        //    sv.Dat = DateTime.Now.AddDays(1);
+        //    sv.CDat = DateToString.CDat(sv.Dat);
+        //    sv.Invoice = invoice; 
+        //    sv.email = email;  //???
+        //    if (contractId == null)
+        //        sv.ContractId = 0;
+        //    else
+        //        sv.ContractId = (int)contractId;
 
-            sv.Products = new List<OrderProductView>();
-            sv.OrderId = await Save(sv,sv.Products,email);
+        //    sv.Products = new List<OrderProductView>();
+        //    sv.OrderId = await Save(sv,sv.Products,email);
 
-            return sv;
-        }
+        //    return sv;
+        //}
 
-        public async Task<OrderView> GetNew(AbzHash abzHash, int invoice)
-        //public async Task<Order> GetNew(AbzHash abzHash,int invoice)
+        //public async Task<OrderView> GetNew(AbzHash abzHash, int invoice)
+        public async Task<Order> GetNew(AbzHash abzHash, int invoice)
         {
             Order order = new Order();
             order.CustId = (int)abzHash.CustID;
@@ -120,9 +121,8 @@ namespace Domain.Repository
             order.Invoice = invoice;
             db.Orders.Add(order);
             await db.SaveChangesAsync();
-
-            return await GetChange(order.OrderId);
-            //return order;
+            return order;
+            //return await GetChange(order.OrderId);
         }
         private async Task<OrderView> GetSelectList(OrderView order)
         {

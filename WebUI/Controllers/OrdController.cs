@@ -14,8 +14,8 @@ namespace WebUI.Controllers
 {
     public class OrdController : BaseController
     {
-        private OrderRepository repo = new OrderRepository();
-        private OrderView order;
+        private OrdRepository repo = new OrdRepository();
+        //private OrderView order;
         public async Task<ActionResult> Index(int id)
         {
             List<OrderV> orders = await repo.GetOrder(Cust.CustId, id);
@@ -30,9 +30,9 @@ namespace WebUI.Controllers
         public async Task<ActionResult> Create(string act)
         {
             //Сохранить заказ в БД со всеми известными реквизитами.
-            //В ответ получить OrderView
+            //В ответ получить Order
             int ordertype = (act == "Заказы") ? 0 : 1;
-            order = await repo.GetNew(abzHash, ordertype);
+            Order order = await repo.GetNew(abzHash, ordertype);
             //Выбор материала
             return RedirectToAction("Categ", "Good", new { ord = order.OrderId });
         }
@@ -41,18 +41,14 @@ namespace WebUI.Controllers
         {
             Order order = db.Orders.Find(ord);
             ViewBag.Order = order.OrderType == 1 ? "Заказы" : "Счета";
-
-            OrderView ordview = await repo.GetChange(ord);
-           // ordview.Products = db.OrderProductViews.Where(a => a.OrderId == ord).ToList();
-            //ordview.OrderId = ord;
-            //ordview.Dat = order.Dat;
+            OrderV ordview = await repo.GetOrderV(ord);
 
             return View(ordview);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Booking(OrderView ord)
+        public async Task<ActionResult> Booking(OrderV ord)
         {
             //Не хватает- Сохранить:
             //Примечание
