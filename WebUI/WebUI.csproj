@@ -601,6 +601,7 @@
     <Content Include="Views\Good\Good.cshtml" />
     <Content Include="Views\DatSelect\Index.cshtml" />
     <Content Include="Views\Ord\Booking.cshtml" />
+    <Content Include="Views\Good\GoodOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

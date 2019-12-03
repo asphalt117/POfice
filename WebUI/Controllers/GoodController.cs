@@ -18,8 +18,9 @@ namespace WebUI.Controllers
 
         public ActionResult GoodOrder(int ord)
         {
-            List<OrderProductView> products = db.OrderProductViews.Where(a=>a.OrderId==ord).ToList();
-            return PartialView(products);
+            //List<OrderProductView> products = db.OrderProductViews.Where(a=>a.OrderId==ord).ToList();
+            OrderProductView product = db.OrderProductViews.FirstOrDefault(a => a.OrderId == ord);
+            return PartialView(product);
         }
 
         //Выбор продукции
