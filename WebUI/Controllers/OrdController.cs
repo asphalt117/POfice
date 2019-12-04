@@ -47,6 +47,16 @@ namespace WebUI.Controllers
             return View(ordview);
         }
 
+        public async Task<ActionResult> BookingNext(int ord)
+        {
+            Order order = db.Orders.Find(ord);
+            ViewBag.Order = order.OrderType == 1 ? "Заказы" : "Счета";
+            OrderView ordview = await repo.GetChange(ord);
+            //IEnumerable<Contract> contracts = db.Contracts.Where(a => a.CustID == ordview.CustId).OrderBy(a => a.Num).AsEnumerable();
+            //ViewData["Contract"] = new SelectList(contracts, "ContractID", "Num", ordview.ContractId);
+            return View(ordview);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Booking(OrderView ord)

@@ -24,10 +24,11 @@ namespace WebUI.Controllers
         {
             Order order = db.Orders.Find(ord);
             order.AdresId = id;
+            order.Centr = true;
             db.Orders.Add(order);
             db.Entry(order).State = EntityState.Modified;
             db.SaveChanges();
-            return RedirectToAction("Booking", "Ord", new { ord = ord });
+            return RedirectToAction("BookingNext", "Ord", new { ord = ord });
         }
         
         public async Task<ActionResult> Index()
