@@ -1,46 +1,48 @@
 ﻿@model WebUI.ModelView.GoodView
-
 @{
-    ViewBag.Title = "Categ";
+    ViewBag.Title = "Выбор продукции";
+    ViewBag.ContentTitle = "Выберите продукцию";
 }
-
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+@section metatags
+{
+    <meta name="description" content="@ViewBag.Title" />
+    <meta name="keywords" content="@ViewBag.Title, АО 'АБЗ КАПОТНЯ'" />
+    <meta name="robots" content="noindex, nofollow">
+}
+<nav class="nav nav-pills shadow product-category">
+    @foreach (var item in Model.Categs)
+    {
+        <li class="nav-item">
+            @Html.ActionLink(item.CategName+HttpUtility.HtmlDecode(item.CategID == 2 ? "&#9660;" : ""), "Categ", "Good", new { ord = Model.OrderID, categ = item.CategID }, new { @class = "nav-link"+ @Html.Encode(Model.CategID == item.CategID ? " active" : "")})
+        </li>
+    }
+</nav>
 @if (Model.SubCategs != null)
 {
-    foreach (var item in Model.SubCategs)
-    {
-        <div class="d-inline">
-            @Html.ActionLink(item.CategName, "Categ", new { subcateg = item.CategID })
-        </div>
-    }
-}
-
-<div class="col-md-3 col-lg-2 navbar-container bg-dark sidebar">
-    <nav class="navbar navbar-expand-md navbar-dark mainmenu-wrapper">
-        <ul class="mb-2 navbar-nav mainmenu-nav">
-            @foreach (var item in Model.Categs)
-            {
-                <li class="nav-item active">
-                    @Html.ActionLink(item.CategName, "Categ", new { categ = item.CategID })
-                </li>
-            }
-
-        </ul>
+    <nav class="nav nav-pills mt-2 product-subcategory">
+        @foreach (var item in Model.SubCategs)
+        {
+            <div class="nav-item">
+                @Html.ActionLink(item.CategName, "Categ", "Good", new { ord = Model.OrderID, categ = item.ParentCategId, subcateg = item.CategID }, new { @class = "nav-link"+ @Html.Encode(Model.SubCategID == item.CategID ? " active" : "") }
+           )
+            </div>
+        }
     </nav>
-</div>
-
-<div class="table-responsive product-table-wrapper">
-
-    <table class="table table-bordered table-hover product-table">
-        <thead>
-            <tr>
-                <th>Наименование продукции</th>
-                <th>Ед. изм.</th>
-                <th><b>Заказать</b></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Goods)
-            {
+}
+<table class="table table-bordered table-hover mt-3">
+    <thead>
+        <tr class="table-active">
+            <th scope="col">Наименование продукции</th>
+            <th scope="col">Ед. изм.</th>
+            <th scope="col"><b>Заказать</b><br /><font size="2" color="#888">дробная часть - через запятую</font></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Goods)
+        {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.txt)
@@ -48,31 +50,42 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Unit)
                 </td>
-
-                @*<td align="left">
-            @using (Html.BeginForm("GoodAdd", "Good"))
-            {
-                @Html.Hidden("GoodID", item.GoodID)
-
-                <input class="actionButtons btn btn-xs-sm btn-success" type="submit" value="Заказать" title="Заказать товар" />
-                <p><font size="2" color="#aaa">дробная часть - через запятую</font></p>
-            }
-        </td>*@
                 <td align="left">
                     @using (Html.BeginForm("GoodAdd", "Good"))
                     {
                         @Html.Hidden("GoodID", item.GoodID)
                         @Html.Hidden("OrdID", Model.OrderID)
-
-                        <input type="text" name="Quantity" value="@Html.Encode(Model.Quantity)" @*size="2" width="100"*@ placeholder="Укажите количество товара" pattern="\d+(,\d{0,3})?" required />
-                        <input class="actionButtons btn btn-xs-sm btn-success" type="submit" value="Заказать" title="Заказать товар" />
-                        <p><font size="2" color="#aaa">дробная часть - через запятую</font></p>
+                        <input id="@Html.Encode("good"+item.GoodID.ToString())" type="text" name="Quantity" value="@Html.Encode(Model.Quantity)" placeholder="Укажите количество товара" pattern="\d+(,\d{0,3})?" required oninput="checkval(this.id);" onfocus="getfocus(this.id)" />
+                        <input id="@Html.Encode("btngood"+item.GoodID.ToString())" class="actionButtons btn btn-success" type="submit" value="Заказать >>" title="Заказать товар" disabled/>
                     }
                 </td>
-
             </tr>
             }
-        </tbody>
-    </table>
-</div>
+    </tbody>
+</table>
+<script type="text/javascript">
+    function checkval(id) {
+        var inp = document.getElementById(id);
+        var btn = document.getElementById('btn' + id);
 
+        if (inp != null && btn != null) {
+            var val = parseFloat(inp.value.replace(/,/, '.')).toFixed(3);
+            
+            if (val > 0) {
+                btn.removeAttribute('disabled');
+            }
+            else {
+                btn.setAttribute('disabled',null);
+            }
+
+          //  inp.value = val.toString().replace('.',',');
+        }
+    };
+
+    function getfocus(id) {
+        var inp = document.getElementById(id);
+        if (inp.value == inp.defaultValue) {
+            inp.select();
+        }
+    };
+</script>
