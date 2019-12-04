@@ -8,15 +8,30 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Domain.Entities;
+using WebUI.ModelView;
 
 namespace WebUI.Controllers
 {
-
     public class AdresController : BaseController
     {
+        public ActionResult AdresOrder(int ord)
+        {
+            AdresView adres = new AdresView(ord, (int)abzHash.CustID);
+            return View(adres);
+        }
+
+        public ActionResult SelectAdres(int id,int ord)
+        {
+            Order order = db.Orders.Find(ord);
+            order.AdresId = id;
+            db.Orders.Add(order);
+            db.Entry(order).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Booking", "Ord", new { ord = ord });
+        }
+        
         public async Task<ActionResult> Index()
         {
-            //Menu.ChangeSelected(2, 6);
             List<Adres> adres = await db.Adreses.Where(p => p.CustId == Cust.CustId).OrderBy(x=>x.txt).ToListAsync();
             return View(adres);
         }

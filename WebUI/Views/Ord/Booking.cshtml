@@ -1,4 +1,5 @@
 ﻿@model Domain.ModelView.OrderView
+@*@model Domain.Entities.OrderV*@
 @{
     ViewBag.Title = ViewBag.Order;
 }
@@ -27,12 +28,13 @@
     }
 </style>
 
+<h1>Новый заказ @Model.OrderId </h1>
 
 @{Html.RenderAction("GoodOrder", "Good", new { ord = Model.OrderId });}
 
 <div class="orderform-datetime disabled">
+    <label for="Dat" class="col-sm-2 col-form-label">Дата и смена выполнения заказа:</label>
     <div class="form-group row disabled">
-        <label for="Dat" class="col-sm-2 col-form-label">Дата и время заказа:</label>
         <div class="col-sm-10">
             @{Html.RenderAction("DateOrder", "Ord", new { ord = Model.OrderId });}
         </div>
@@ -43,8 +45,7 @@
     <div class="form-group row">
         <label for="ContractId" class="col-sm-2 col-form-label">Выберите договор:</label>
         <div class="col-sm-10">
-            @Html.DropDownList("SelectedContractId", (SelectList)ViewData["Contract"],new { @class = "form-control" })
-        @*@Html.ValidationMessageFor(model => model.Contract, "", new { @class = "text-danger" })*@
+            @Html.DropDownList("SelectedContractId", (SelectList)ViewData["Contract"], new { @class = "form-control" })
         </div>
     </div>
     <hr />
@@ -55,33 +56,36 @@
     </div>
 </div>
 <div class="orderform-delivery order-item">
-
     <div class="form-group">
-        <label class="col-md-3 control-label">Доставка АБЗ</label>
-        <div class="col-md-9">
-            @Html.CheckBoxFor(model => model.Centr, new { @class = "form-control checkbox" })
-            <p class="help-block">* Выберите способ доставки </p>
+        @Html.ActionLink("Самовывоз", "Transport", new { id = Model.OrderId })
+        @Html.ActionLink("Транспорт АБЗ", "AdresOrder", "Adres", new { ord = Model.OrderId },null)
+        @Html.ActionLink("Реестр отгруженной продукции", "Index", "Balances")
+
+        @*<label class="col-md-3 control-label">Доставка АБЗ</label>
+            <div class="col-md-9">
+                @Html.CheckBoxFor(model => model.Centr, new { @class = "form-control checkbox" })
+                <p class="help-block">* Выберите способ доставки </p>
+            </div>
+
+            @Html.LabelFor(model => model.Adres, htmlAttributes: new { @class = "col-md-3 control-label" })
+            <div class="col-md-9">
+                @Html.DropDownListFor(model => model.AdresId, Model.SelectAdres, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Adres, "", new { @class = "text-danger" })
+                <p class="help-block">
+                    <input name="Adr" type="submit" value="@HttpUtility.HtmlDecode("&#xe081;")" class="glyphicon actionButtons btn btn-xs-sm-md btn-default glyph-btn" role="button" title="Внести новый адрес" />
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    * Если вы хотите что бы доставку осуществил АБЗ-4
+                    выберите из списка адрес доставки или внесите новый и установите галочку у способа доставки. Иначе снимите галочку со способа доставки.
+                </p>
+            </div>
         </div>
 
-        @Html.LabelFor(model => model.Adres, htmlAttributes: new { @class = "col-md-3 control-label" })
-        <div class="col-md-9">
-            @Html.DropDownListFor(model => model.AdresId, Model.SelectAdres, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.Adres, "", new { @class = "text-danger" })
-            <p class="help-block">
-                <input name="Adr" type="submit" value="@HttpUtility.HtmlDecode("&#xe081;")" class="glyphicon actionButtons btn btn-xs-sm-md btn-default glyph-btn" role="button" title="Внести новый адрес" />
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                * Если вы хотите что бы доставку осуществил АБЗ-4
-                выберите из списка адрес доставки или внесите новый и установите галочку у способа доставки. Иначе снимите галочку со способа доставки.
-            </p>
-        </div>
-    </div>
 
-
-    <hr />
-    <div class="form-group row">
-        <div class="col-sm-10">
-            <button type="button" class="btnnext-delivery btn btn-primary btn-success" onclick="tonext('orderform-delivery','orderform-contact','btnnext-delivery');">Продолжить</button>
-        </div>
+        <hr />
+        <div class="form-group row">
+            <div class="col-sm-10">
+                <button type="button" class="btnnext-delivery btn btn-primary btn-success" onclick="tonext('orderform-delivery','orderform-contact','btnnext-delivery');">Продолжить</button>
+            </div>*@
     </div>
 </div>
 <div class="orderform-contact order-item">
@@ -104,54 +108,54 @@
 </div>
 @if (Model.Centr)
 {
-<div class="orderform-transport order-item">
+    <div class="orderform-transport order-item">
 
-    <h5>Транспорт к заказу</h5>
+        <h5>Транспорт к заказу</h5>
 
-    <table align="center" class="table table-hover table-bordered table-grey-header">
-        <thead>
-            <tr>
-                <th>
-                    Модель
-                </th>
-                <th>
-                    Гос №
-                </th>
-                <th>
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item1 in Model.OrderDrivs)
-            {
+        <table align="center" class="table table-hover table-bordered table-grey-header">
+            <thead>
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item1.TecModel)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item1.Gn)
-                    </td>
-                    <td>
-                        @Html.ActionLink(HttpUtility.HtmlDecode("&#xe020;"), "DelTrans", new { id = item1.Gn }, new { @class = "actionButtons btn btn-default", @role = "button", @title = "Удалить транспорт" })
-                    </td>
+                    <th>
+                        Модель
+                    </th>
+                    <th>
+                        Гос №
+                    </th>
+                    <th>
+                    </th>
                 </tr>
-            }
-        </tbody>
-    </table>
-    <p class="help-block">
-        <input name="Trans" type="submit" value="@HttpUtility.HtmlDecode("&#xe081;")"
-               class="glyphicon actionButtons btn btn-xs-sm-md btn-default glyph-btn"
-               role="button" title="Выбор транспорта" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* выберите из списка транспорт или внесите новый
-    </p>
+            </thead>
+            <tbody>
+                @foreach (var item1 in Model.OrderDrivs)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item1.TecModel)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item1.Gn)
+                        </td>
+                        <td>
+                            @Html.ActionLink(HttpUtility.HtmlDecode("&#xe020;"), "DelTrans", new { id = item1.Gn }, new { @class = "actionButtons btn btn-default", @role = "button", @title = "Удалить транспорт" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <p class="help-block">
+            <input name="Trans" type="submit" value="@HttpUtility.HtmlDecode("&#xe081;")"
+                   class="glyphicon actionButtons btn btn-xs-sm-md btn-default glyph-btn"
+                   role="button" title="Выбор транспорта" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* выберите из списка транспорт или внесите новый
+        </p>
 
 
-    <hr />
-    <div class="form-group row">
-        <div class="col-sm-10">
-            <button type="button" class="btnnext-transport btn btn-primary btn-success" onclick="tonext('orderform-transport','orderform-note','btnnext-transport');">Продолжить</button>
+        <hr />
+        <div class="form-group row">
+            <div class="col-sm-10">
+                <button type="button" class="btnnext-transport btn btn-primary btn-success" onclick="tonext('orderform-transport','orderform-note','btnnext-transport');">Продолжить</button>
+            </div>
         </div>
     </div>
-</div>
 }
 
 @using (Html.BeginForm("Booking", "Ord", FormMethod.Post, new { @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))

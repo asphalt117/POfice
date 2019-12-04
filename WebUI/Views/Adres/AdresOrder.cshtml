@@ -1,0 +1,29 @@
+﻿@model WebUI.ModelView.AdresView
+
+@{
+    ViewBag.Title = "Выбор адреса";
+}
+
+<h2>Выбор адреса</h2>
+
+<p>
+    @Html.ActionLink("Новый адрес", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Адрес
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.Adres) {
+    <tr>
+        <td>
+            @Html.ActionLink(@item.txt, "SelectAdres", new { id=item.AdresID,ord=Model.OrderId  }) 
+            @*@Html.DisplayFor(modelItem => item.txt)*@
+        </td>
+    </tr>
+}
+
+</table>

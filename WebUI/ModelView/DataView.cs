@@ -18,7 +18,7 @@ namespace WebUI.ModelView
             CDat = DateToString.CDat(order.DateExec);
             SmenaID = order.SmenaID;
             this.Smena = order.Smena;
-            SelectSmena = new SelectList( db.Smenas.ToList(), "SmenaID", "Name", SmenaID);
+            //SelectSmena = new SelectList( db.Smenas.ToList(), "SmenaID", "Name", SmenaID);
         }
 
         [Key]
@@ -33,7 +33,7 @@ namespace WebUI.ModelView
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         public string CDat { get; set; }
         [Display(Name = "Время выполнения")]
-        public SelectList SelectSmena { get; set; }
+        //public SelectList SelectSmena { get; set; }
         public int SmenaID { get; set; }
         [Display(Name = "Смена")]
         public string Smena { get; set; }
