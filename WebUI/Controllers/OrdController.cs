@@ -43,10 +43,11 @@ namespace WebUI.Controllers
             ViewBag.Order = order.OrderType == 1 ? "Заказы" : "Счета";
 
             OrderView ordview = await repo.GetChange(ord);
-           // ordview.Products = db.OrderProductViews.Where(a => a.OrderId == ord).ToList();
+            // ordview.Products = db.OrderProductViews.Where(a => a.OrderId == ord).ToList();
             //ordview.OrderId = ord;
             //ordview.Dat = order.Dat;
 
+            ViewData["Contract"] = new SelectList(contracts, "ContractID", "Num", ContractID);
             return View(ordview);
         }
 

@@ -17,7 +17,7 @@ namespace WebUI.Controllers
 {
     public class HomeController : BaseController
     {
-        private int CustID;
+        //private int CustID;
         private int ContractID;
         private CustRepository repo = new CustRepository();
         private IEnumerable<Contract> contracts;

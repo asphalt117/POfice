@@ -34,7 +34,7 @@
     <div class="form-group row disabled">
         <label for="Dat" class="col-sm-2 col-form-label">Дата и время заказа:</label>
         <div class="col-sm-10">
-            @Html.TextBoxFor(m => m.Dat, new { @class = "form-control datefield disabled", @type = "text" })
+            @{Html.RenderAction("DateOrder", "Ord", new { ord = Model.OrderId });}
         </div>
     </div>
     <hr />
@@ -43,8 +43,8 @@
     <div class="form-group row">
         <label for="ContractId" class="col-sm-2 col-form-label">Выберите договор:</label>
         <div class="col-sm-10">
-            @Html.DropDownListFor(model => model.ContractId, Model.SelectContract, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.Contract, "", new { @class = "text-danger" })
+            @Html.DropDownList("SelectedCustId", (SelectList)ViewData["Cust"], new { @class = "form-control" })
+            @*@Html.ValidationMessageFor(model => model.Contract, "", new { @class = "text-danger" })*@
         </div>
     </div>
     <hr />
@@ -102,6 +102,8 @@
         </div>
     </div>
 </div>
+@if (Model.Centr)
+{
 <div class="orderform-transport order-item">
 
     <h5>Транспорт к заказу</h5>
@@ -150,7 +152,7 @@
         </div>
     </div>
 </div>
-
+}
 
 @using (Html.BeginForm("Booking", "Ord", FormMethod.Post, new { @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
 {
