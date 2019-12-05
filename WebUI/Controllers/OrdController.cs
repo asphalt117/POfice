@@ -69,7 +69,7 @@ namespace WebUI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Booking(OrderView ord)
+        public async Task<ActionResult> Booking(OrderV ord)
         {
             //Не хватает- Сохранить:
             //Примечание

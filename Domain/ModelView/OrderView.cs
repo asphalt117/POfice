@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Domain.ModelView
 {
-    public class OrderView
+    public class OrderViewOld
     {
         [Key]
         [HiddenInput(DisplayValue = false)]
