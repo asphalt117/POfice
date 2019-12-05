@@ -11,7 +11,7 @@ using System.Data;
 
 namespace Domain.Repository
 {
-    public class OrderRepository
+    public class OrderRepositoryOld
     {
         private AbzContext db = new AbzContext();
         private OrderView sv = new OrderView();

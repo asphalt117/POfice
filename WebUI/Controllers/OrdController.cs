@@ -14,8 +14,8 @@ namespace WebUI.Controllers
 {
     public class OrdController : BaseController
     {
-        private OrderRepository repo = new OrderRepository();
-        private OrderView order;
+        private OrdRepository repo = new OrdRepository();
+        private OrderV order;
         public async Task<ActionResult> Index(int id)
         {
             List<OrderV> orders = await repo.GetOrder(Cust.CustId, id);
@@ -32,9 +32,9 @@ namespace WebUI.Controllers
             //Сохранить заказ в БД со всеми известными реквизитами.
             //В ответ получить OrderView
             int ordertype = (act == "Заказы") ? 0 : 1;
-            order = await repo.GetNew(abzHash, ordertype);
+            Order ord = await repo.GetNew(abzHash, ordertype);
             //Выбор материала
-            return RedirectToAction("Categ", "Good", new { ord = order.OrderId });
+            return RedirectToAction("Categ", "Good", new { ord = ord.OrderId });
         }
         
         public async Task<ActionResult> Booking(int ord)
@@ -55,12 +55,16 @@ namespace WebUI.Controllers
 
         public async Task<ActionResult> BookingNext(int ord)
         {
-            Order order = db.Orders.Find(ord);
-            ViewBag.Order = order.OrderType == 1 ? "Заказы" : "Счета";
-            OrderView ordview = await repo.GetChange(ord);
+            OrderV order = db.OrderVs.Find(ord);
+            string cTip = order.Invoice == 1 ? "Заказа" : "Счета";
+            ViewBag.Order = "Оформление нового " + cTip;
+            if (order.Invoice == 1)
+            {
+                ViewBag.Order = ViewBag.Order + order.OrderId.ToString();
+            }
             //IEnumerable<Contract> contracts = db.Contracts.Where(a => a.CustID == ordview.CustId).OrderBy(a => a.Num).AsEnumerable();
             //ViewData["Contract"] = new SelectList(contracts, "ContractID", "Num", ordview.ContractId);
-            return View(ordview);
+            return View(order);
         }
 
         [HttpPost]
