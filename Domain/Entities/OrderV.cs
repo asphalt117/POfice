@@ -5,7 +5,7 @@ using System.Web.Mvc;
 
 namespace Domain.Entities
 {
-    [Table("bOrder")]
+    [Table("bOrderv")]
     public class OrderV
     {
         [Key]
@@ -57,6 +57,6 @@ namespace Domain.Entities
         public int? RelatedOrderId { get; set; }
         public string Smena { get; set; }
         public int SmenaID { get; set; }
-
+        public int Step { get; set; }
     }
 }

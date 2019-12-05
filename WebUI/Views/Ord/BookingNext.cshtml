@@ -13,21 +13,6 @@
     @Scripts.Render("~/bundles/jqueryval")*@
 }
 
-@*<style>
-    .active.order-item {
-        border: 1px solid #999;
-        padding: 10px;
-    }
-
-    .orderform-delivery, .orderform-contact, .orderform-transport, .orderform-note {
-        display: none;
-    }
-
-    .col-form-label {
-        font-weight: bold;
-    }
-</style>*@
-
 <h1>Новый заказ @Model.OrderId </h1>
 
 @{Html.RenderAction("GoodOrder", "Good", new { ord = Model.OrderId });}
@@ -50,11 +35,6 @@
         </div>
     </div>
     <hr />
-    @*<div class="form-group row">
-        <div class="col-sm-10">
-            <button type="button" class="btnnext-contract btn btn-primary btn-success" onclick="tonext('orderform-contract','orderform-delivery','btnnext-contract');">Продолжить</button>
-        </div>
-    </div>*@
 </div>
 
 <div class="orderform-delivery order-item">
@@ -111,11 +91,6 @@
 
 
             <hr />
-            @*<div class="form-group row">
-                <div class="col-sm-10">
-                    <button type="button" class="btnnext-transport btn btn-primary btn-success" onclick="tonext('orderform-transport','orderform-note','btnnext-transport');">Продолжить</button>
-                </div>
-            </div>*@
         </div>
     }
 </div>
@@ -140,7 +115,7 @@
 </div>
 
 
-@using (Html.BeginForm("Booking", "Ord", FormMethod.Post, new { @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
+@*@using (Html.BeginForm("Booking", "Ord", FormMethod.Post, new { @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -164,13 +139,6 @@
             </div>
         </div>
     </div>
-}
-@*<script type="text/javascript">
-    function tonext(prev, nxt, btn) {
-        document.getElementsByClassName(prev).item(0).classList.remove('active');
-        document.getElementsByClassName(nxt).item(0).style.display = "block";
-        document.getElementsByClassName(nxt).item(0).classList.add('active');
-        document.getElementsByClassName(btn).item(0).style.display = "none";
-    }
-</script>*@
+}*@
+
 

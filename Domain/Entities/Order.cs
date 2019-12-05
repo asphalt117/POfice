@@ -46,5 +46,6 @@ namespace Domain.Entities
         public int OrderType { get; set; }
         public int SmenaID { get; set; }
         public int? RelatedOrderId { get; set; }
+        public int Step { get; set; }
     }
 }

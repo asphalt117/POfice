@@ -39,12 +39,18 @@ namespace WebUI.Controllers
         
         public async Task<ActionResult> Booking(int ord)
         {
-            Order order = db.Orders.Find(ord);
-            ViewBag.Order = order.OrderType == 1 ? "Заказы" : "Счета";
-            OrderView ordview = await repo.GetChange(ord);
-            IEnumerable<Contract> contracts= db.Contracts.Where(a => a.CustID == ordview.CustId).OrderBy(a => a.Num).AsEnumerable();
-            ViewData["Contract"] = new SelectList(contracts, "ContractID", "Num", ordview.ContractId);
-            return View(ordview);
+            OrderV order = await db.OrderVs.FindAsync(ord);
+            string cTip= order.Invoice == 1 ? "Заказа" : "Счета";
+            ViewBag.Order = "Оформление нового " + cTip;
+            if (order.Invoice == 1)
+            {
+                ViewBag.Order = ViewBag.Order + order.OrderId.ToString();
+            }
+
+            //OrderView ordview = await repo.GetChange(ord);
+                IEnumerable<Contract> contracts= db.Contracts.Where(a => a.CustID == order.CustId).OrderBy(a => a.Num).AsEnumerable();
+            ViewData["Contract"] = new SelectList(contracts, "ContractID", "Num", order.ContractId);
+            return View(order);
         }
 
         public async Task<ActionResult> BookingNext(int ord)
