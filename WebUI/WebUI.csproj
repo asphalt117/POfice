@@ -605,6 +605,7 @@
     <Content Include="Views\Ord\DateOrder.cshtml" />
     <Content Include="Views\Adres\AdresOrder.cshtml" />
     <Content Include="Views\Ord\BookingNext.cshtml" />
+    <Content Include="Views\Ord\Booking1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
