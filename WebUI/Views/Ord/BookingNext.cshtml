@@ -1,5 +1,4 @@
-﻿@model Domain.ModelView.OrderView
-@*@model Domain.Entities.OrderV*@
+﻿@model Domain.Entities.OrderV
 @{
     ViewBag.Title = ViewBag.Order;
 }
@@ -49,7 +48,7 @@
     }
     else
     {
-        <div class="orderform-transport order-item">
+        @*<div class="orderform-transport order-item">
 
             <h5>Транспорт к заказу</h5>
 
@@ -91,7 +90,7 @@
 
 
             <hr />
-        </div>
+        </div>*@
     }
 </div>
 
@@ -99,8 +98,7 @@
     <div class="form-group row">
         <label for="ContactId" class="col-sm-2 col-form-label">Укажите контактное лицо:</label>
         <div class="col-sm-10">
-            @Html.DropDownListFor(model => model.PersonId, Model.SelectPerson, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.Person, "", new { @class = "text-danger" })
+            @Html.DropDownList("SelectedPersonId", (SelectList)ViewData["Person"], new { @class = "form-control" })
             <p class="help-block">
                 <input name="Prs" type="submit" value="@HttpUtility.HtmlDecode("&#xe081;")" class="actionButtons btn btn-default" role="button" title="Внести новый контакт" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* выберите из списка контакт или внесите новый"
             </p>
@@ -108,9 +106,7 @@
     </div>
     <hr />
     <div class="form-group row">
-        <div class="col-sm-10">
-            <button type="button" class="btnnext-contact btn btn-primary btn-success" onclick="tonext('orderform-contact','orderform-transport','btnnext-contact');">Продолжить</button>
-        </div>
+        @Html.ActionLink("Продолжить", "Finish",  new { ord = Model.OrderId}, null)
     </div>
 </div>
 

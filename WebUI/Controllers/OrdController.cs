@@ -46,9 +46,7 @@ namespace WebUI.Controllers
             {
                 ViewBag.Order = ViewBag.Order + order.OrderId.ToString();
             }
-
-            //OrderView ordview = await repo.GetChange(ord);
-                IEnumerable<Contract> contracts= db.Contracts.Where(a => a.CustID == order.CustId).OrderBy(a => a.Num).AsEnumerable();
+            IEnumerable<Contract> contracts= db.Contracts.Where(a => a.CustID == order.CustId).OrderBy(a => a.Num).AsEnumerable();
             ViewData["Contract"] = new SelectList(contracts, "ContractID", "Num", order.ContractId);
             return View(order);
         }
@@ -62,8 +60,27 @@ namespace WebUI.Controllers
             {
                 ViewBag.Order = ViewBag.Order + order.OrderId.ToString();
             }
-            //IEnumerable<Contract> contracts = db.Contracts.Where(a => a.CustID == ordview.CustId).OrderBy(a => a.Num).AsEnumerable();
-            //ViewData["Contract"] = new SelectList(contracts, "ContractID", "Num", ordview.ContractId);
+            //IEnumerable<Person> persons = db.Persons.Where(a => a.CustId == order.CustId).OrderBy(a => a.Name).AsEnumerable();
+            List<Person> people = db.Persons.Where(a => a.CustId == order.CustId).ToList();
+            Person person = new Person();
+            person.PersonId = 0;
+            people.Add(person);
+            //ViewData["Person"] = new SelectList(people, "PersonID", "Name", 0);
+            ViewData["Person"] = new SelectList(people, "PersonID", "Name", 0);
+            return View(order);
+        }
+
+        public async Task<ActionResult> Finish(int ord)
+        {
+            OrderV order = db.OrderVs.Find(ord);
+            string cTip = order.Invoice == 1 ? "Заказа" : "Счета";
+            ViewBag.Order = "Оформление нового " + cTip;
+            if (order.Invoice == 1)
+            {
+                ViewBag.Order = ViewBag.Order + order.OrderId.ToString();
+            }
+            IEnumerable<Person> persons = db.Persons.Where(a => a.CustId == order.CustId).OrderBy(a => a.Name).AsEnumerable();
+            ViewData["Person"] = new SelectList(persons, "PersonID", "Name", 0);
             return View(order);
         }
 

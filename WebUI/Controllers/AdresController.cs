@@ -25,6 +25,7 @@ namespace WebUI.Controllers
             Order order = db.Orders.Find(ord);
             order.AdresId = id;
             order.Centr = true;
+            order.Step = 3;
             db.Orders.Add(order);
             db.Entry(order).State = EntityState.Modified;
             db.SaveChanges();

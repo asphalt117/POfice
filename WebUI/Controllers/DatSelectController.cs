@@ -28,6 +28,7 @@ namespace WebUI.Controllers
             order.DateExec = ord.DateExec;
             order.SmenaID = ord.SmenaID;
             order.note = ord.Note;
+            order.Step = 2;
             db.Entry(order).State = EntityState.Modified;
             await db.SaveChangesAsync();
 

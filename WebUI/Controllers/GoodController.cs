@@ -60,7 +60,7 @@ namespace WebUI.Controllers
             svd.Quant = Quantity;
 
             OrdRepository repo = new OrdRepository();
-            await repo.SaveDetail(svd.OrderId, svd);
+            await repo.SaveGoodl(svd.OrderId, svd);
 
             return RedirectToAction( "Index","datSelect", new {id= svd.OrderId });
 
