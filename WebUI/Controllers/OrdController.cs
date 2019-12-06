@@ -41,7 +41,7 @@ namespace WebUI.Controllers
         public async Task<ActionResult> Booking(int ord)
         {
             OrderV order = await db.OrderVs.FindAsync(ord);
-            string cTip= order.Invoice == 1 ? "Заказа" : "Счета";
+            string cTip= order.Invoice == 0 ? "Заказа" : "Счета";
             ViewBag.Order = "Оформление нового " + cTip;
             if (order.Invoice == 1)
             {
@@ -55,9 +55,9 @@ namespace WebUI.Controllers
         public async Task<ActionResult> BookingNext(int ord)
         {
             OrderV order = db.OrderVs.Find(ord);
-            string cTip = order.Invoice == 1 ? "Заказа" : "Счета";
+            string cTip = order.Invoice == 0 ? "Заказа" : "Счета";
             ViewBag.Order = "Оформление нового " + cTip;
-            if (order.Invoice == 1)
+            if (order.Invoice == 0)
             {
                 ViewBag.Order = ViewBag.Order + order.OrderId.ToString();
             }
@@ -84,6 +84,17 @@ namespace WebUI.Controllers
             ViewData["Person"] = new SelectList(persons, "PersonID", "Name", 0);
             return View(order);
         }
+        [HttpPost]
+        public async Task<ActionResult> Contract(OrderV ord, int SelectedContractId = -1)
+        {
+            Order order = db.Orders.Find(ord.OrderId);
+            order.ContractId = SelectedContractId;
+            order.Step = 3;
+            db.Orders.Add(order);
+            db.Entry(order).State = EntityState.Modified;
+            await db.SaveChangesAsync();
+            return RedirectToAction("Booking", "Ord", new { ord = order.OrderId });
+        }
 
 
         [HttpPost]
@@ -96,7 +107,7 @@ namespace WebUI.Controllers
             Order order = db.Orders.Find(ord.OrderId);
             order.note = ord.Note;
             order.StatusId = 1;
-            order.Step = 5;
+            order.Step = 6;
             db.Orders.Add(order);
             db.Entry(order).State = EntityState.Modified;
             await db.SaveChangesAsync();
