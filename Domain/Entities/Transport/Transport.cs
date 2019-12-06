@@ -43,7 +43,8 @@ namespace Domain.Entities
         [DisplayName("Примечание")]
         [DataType(DataType.MultilineText)]
         public string Note { get; set; }
-        [DisplayName("Водитель")]
-        public String Driv { get; set; }
+        //[DisplayName("Водитель")]
+        //public String Driv { get; set; }
+
     }
 }

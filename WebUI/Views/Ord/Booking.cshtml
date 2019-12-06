@@ -39,7 +39,7 @@
 
 <div class="orderform-delivery order-item">
     <div class="form-group">
-        @Html.ActionLink("Самовывоз", "Transport", new { id = Model.OrderId })
+        @Html.ActionLink("Самовывоз", "Index","Transport", new { ord = Model.OrderId },null)
         @Html.ActionLink("Транспорт АБЗ", "AdresOrder", "Adres", new { ord = Model.OrderId },null)
     </div>
 </div>

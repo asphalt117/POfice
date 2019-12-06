@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Domain.Entities.OrderDriv>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TecModel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Gn)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.OrderId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TecModel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Gn)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.OrderDrivId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.OrderDrivId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.OrderDrivId })
+        </td>
+    </tr>
+}
+
+</table>

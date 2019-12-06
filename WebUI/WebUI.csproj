@@ -298,7 +298,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OrdController.cs" />
-    <Compile Include="Controllers\TrustTecsController.cs" />
+    <Compile Include="Controllers\TransportController.cs" />
     <Compile Include="Controllers\PeopleController.cs" />
     <Compile Include="Controllers\SaleController.cs" />
     <Compile Include="Controllers\SupportController.cs" />
@@ -322,6 +322,7 @@
     <Compile Include="ModelView\DataView.cs" />
     <Compile Include="ModelView\GoodView.cs" />
     <Compile Include="ModelView\PersonView.cs" />
+    <Compile Include="ModelView\TrancportView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -606,6 +607,11 @@
     <Content Include="Views\Adres\AdresOrder.cshtml" />
     <Content Include="Views\Ord\BookingNext.cshtml" />
     <Content Include="Views\Ord\Booking1.cshtml" />
+    <Content Include="Views\Transport\TransOrder.cshtml" />
+    <Content Include="Views\Transport\Trans.cshtml" />
+    <Content Include="Views\Ord\Finish.cshtml" />
+    <Content Include="Views\Ord\NotSaved.cshtml" />
+    <Content Include="Views\Ord\Saved.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -9,6 +9,7 @@ using Domain.Entities;
 using Microsoft.AspNet.Identity;
 using WebUI.ModelView;
 using System.Linq;
+using System.Data.Entity;
 
 namespace WebUI.Controllers
 {
@@ -84,6 +85,7 @@ namespace WebUI.Controllers
             return View(order);
         }
 
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Booking(OrderV ord)
@@ -91,8 +93,17 @@ namespace WebUI.Controllers
             //Не хватает- Сохранить:
             //Примечание
             //Оплата он-лайн
-            Order order = await repo.SaveBooking(ord.OrderId,1);
-            return View("Saved", order);
+            Order order = db.Orders.Find(ord.OrderId);
+            order.note = ord.Note;
+            order.StatusId = 1;
+            order.Step = 5;
+            db.Orders.Add(order);
+            db.Entry(order).State = EntityState.Modified;
+            await db.SaveChangesAsync();
+
+            ViewBag.Order = "Заказ №  " + order.OrderId.ToString() + " отправлен";
+            OrderV orderV= db.OrderVs.Find(ord.OrderId);
+            return View("Saved", orderV);
         }
     }
 }

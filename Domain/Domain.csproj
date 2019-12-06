@@ -119,7 +119,6 @@
     <Compile Include="Repository\GoodRepository.cs" />
     <Compile Include="Repository\OrdRepository.cs" />
     <Compile Include="Repository\PersonRepository.cs" />
-    <Compile Include="Repository\TrustTecsRepository.cs" />
     <Compile Include="Repository\TtnRepository.cs" />
   </ItemGroup>
   <ItemGroup />

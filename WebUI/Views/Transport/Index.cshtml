@@ -1,78 +1,39 @@
-﻿@model WebUI.Models.TransportList
+﻿@model WebUI.ModelView.TrancportView
 @{
     ViewBag.Title = "Транспорт";
 }
+<h2>Транспорт</h2>
 <p>
-    @Html.ActionLink("Новый доверенный транспорт", "CreateTransport", "TrustTecs", new { fnew = "new" },
-                new
-                {
-                    @class = "actionButtons btn btn-default btn-success",
-                    @role = "button",
-                    @title = "Создать  новую доверенность на транспорт"
-                })
+    @Html.ActionLink("Добавить", "Create")
 </p>
-<table align="center" class="table table-hover table-bordered table-grey-header">
-    <thead>
+<table class="table">
+    <tr>
+        <th>
+            Гос. №
+        </th>
+        <th>
+            Модель
+        </th>
+        @*<th>
+            Водитель
+        </th>*@
+        <th></th>
+    </tr>
+    @foreach (var item in Model.Transports) 
+    {
         <tr>
-            <th>
-                Тип
-            </th>
-            <th>
-                @Html.DisplayNameFor(m => m.Trans.FirstOrDefault().Gn)
-            </th>
-            <th>
-                @Html.DisplayNameFor(m => m.Trans.FirstOrDefault().TecModel)
-            </th>
-            <th>
-                @Html.DisplayNameFor(m => m.Trans.FirstOrDefault().Driv)
-            </th>
-            <th>
-                @Html.DisplayNameFor(m => m.Trans.FirstOrDefault().BeginDat)
-            </th>
-            <th>
-                @Html.DisplayNameFor(m => m.Trans.FirstOrDefault().EndDat)
-            </th>
-            <th>
-                @Html.DisplayNameFor(m => m.Trans.FirstOrDefault().Note)
-            </th>
-            <th>
-            </th>
+            <td>
+                @Html.ActionLink(item.Gn, "Trans", new { id = item.Gn,ord =Model.OrderId })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TecModel)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.Driv)
+            </td>*@
+            <td>
+                @Html.ActionLink("Изменить", "Edit", new { id=item.Gn }) 
+            </td>
         </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Trans)
-        {
-            <tr class="@Html.Encode((item.istrust) ? "tr-grey" : "")">
-                <td>
-                    @if (item.istrust)
-                    { @Html.Encode("Доверенный");
-                    }
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Gn)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TecModel)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Driv)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.BeginDat)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EndDat)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Note)
-                </td>
-                <td>
-                    @if (item.istrust)
-                    {
-                        @Html.ActionLink(HttpUtility.HtmlDecode("&#xe020;"), "Delete", "TrustTecs", new { id = item.TrustTecDetID }, new { @class = "actionButtons btn btn-xs-sm-md btn-default glyphicon glyph-btn", @role = "button", @title = "Удалить доверенный транспорт" })
-                    }
-                </td>
-            </tr>
-        }
-    </tbody>
+    }
 </table>
