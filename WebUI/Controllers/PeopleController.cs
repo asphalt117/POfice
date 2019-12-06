@@ -13,6 +13,19 @@ namespace WebUI.Controllers
     public class PeopleController : BaseController
     {
         PersonRepository repo = new PersonRepository();
+
+        [HttpPost]
+        public async Task<ActionResult> PersonOrder(OrderV ord, int SelectedPersonId = -1)
+        {
+            Order order = db.Orders.Find(ord.OrderId);
+            order.PersonId = SelectedPersonId;
+            order.Step = 5;
+            db.Orders.Add(order);
+            db.Entry(order).State = EntityState.Modified;
+            await db.SaveChangesAsync();
+            return RedirectToAction("Finish", "Ord", new { ord = order.OrderId });
+        }
+
         public async Task<ActionResult> Index()
         {
 

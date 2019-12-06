@@ -50,53 +50,30 @@
     {
         Html.RenderAction("TransOrder", "Transport", new { ord = Model.OrderId });
 
-        @*<div class="orderform-transport order-item">
-
-                <h5>Транспорт к заказу</h5>
-
-                <table align="center" class="table table-hover table-bordered table-grey-header">
-                    <thead>
-                        <tr>
-                            <th>
-                                Модель
-                            </th>
-                            <th>
-                                Гос №
-                            </th>
-                            <th>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item1 in Model.OrderDrivs)
-                        {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item1.TecModel)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item1.Gn)
-                                </td>
-                                <td>
-                                    @Html.ActionLink(HttpUtility.HtmlDecode("&#xe020;"), "DelTrans", new { id = item1.Gn }, new { @class = "actionButtons btn btn-default", @role = "button", @title = "Удалить транспорт" })
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-                <p class="help-block">
-                    <input name="Trans" type="submit" value="@HttpUtility.HtmlDecode("&#xe081;")"
-                           class="glyphicon actionButtons btn btn-xs-sm-md btn-default glyph-btn"
-                           role="button" title="Выбор транспорта" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* выберите из списка транспорт или внесите новый
-                </p>
-
-
-                <hr />
-            </div>*@
     }
 </div>
+@using (Html.BeginForm("PersonOrder", "People", FormMethod.Post, new { @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <fieldset>
+        @Html.HiddenFor(model => model.OrderId)
+    </fieldset>
 
-<div class="orderform-contact order-item">
+    <div class="orderform-contract active order-item">
+        <div class="form-group row">
+            <label for="ContractId" class="col-sm-2 col-form-label">Выберите договор:</label>
+            <div class="col-sm-10">
+                @Html.DropDownList("SelectedPersonId", (SelectList)ViewData["Person"], new { onchange = "$(this.form).submit();" })
+            </div>
+        </div>
+        <hr />
+    </div>
+}
+
+
+
+@*<div class="orderform-contact order-item">
     <div class="form-group row">
         <label for="ContactId" class="col-sm-2 col-form-label">Укажите контактное лицо:</label>
         <div class="col-sm-10">
@@ -108,35 +85,35 @@
     </div>
     <hr />
     <div class="form-group row">
-        @Html.ActionLink("Продолжить", "Finish",  new { ord = Model.OrderId}, null)
+        @Html.ActionLink("Продолжить", "Finish", new { ord = Model.OrderId }, null)
     </div>
-</div>
+</div>*@
 
 
 @*@using (Html.BeginForm("Booking", "Ord", FormMethod.Post, new { @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <fieldset>
-        @Html.HiddenFor(model => model.OrderId)
-    </fieldset>
-    <div class="orderform-note order-item">
-        <div class="form-group row">
-            <label for="Dat" class="col-sm-2 col-form-label">Примечание к заказу:</label>
-            <div class="col-sm-10">
-                @Html.TextBoxFor(m => m.Note, new { @class = "form-control", @type = "text", @aria_describedby = "noteHelpBlock" })
-                <small id="noteHelpBlock" class="form-text text-muted">
-                    * тут вы можете указать удобное для вас время доставки продукции и другие ваши пожелания
-                </small>
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <fieldset>
+            @Html.HiddenFor(model => model.OrderId)
+        </fieldset>
+        <div class="orderform-note order-item">
+            <div class="form-group row">
+                <label for="Dat" class="col-sm-2 col-form-label">Примечание к заказу:</label>
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(m => m.Note, new { @class = "form-control", @type = "text", @aria_describedby = "noteHelpBlock" })
+                    <small id="noteHelpBlock" class="form-text text-muted">
+                        * тут вы можете указать удобное для вас время доставки продукции и другие ваши пожелания
+                    </small>
+                </div>
+            </div>
+            <hr />
+            <div class="form-group row">
+                <div class="col-sm-10">
+                    <button type="submit" class="btn btn-primary btn-success">Сохранить</button>
+                </div>
             </div>
         </div>
-        <hr />
-        <div class="form-group row">
-            <div class="col-sm-10">
-                <button type="submit" class="btn btn-primary btn-success">Сохранить</button>
-            </div>
-        </div>
-    </div>
-}*@
+    }*@
 
 

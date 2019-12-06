@@ -38,10 +38,7 @@
         <div class="form-group row">
             <label for="ContractId" class="col-sm-2 col-form-label">Выберите договор:</label>
             <div class="col-sm-10">
-                @*@Html.DropDownList("SelectedContractId", (SelectList)ViewData["Contract"], new { @class = "form-control" })*@
                 @Html.DropDownList("SelectedContractId", (SelectList)ViewData["Contract"], new { onchange = "$(this.form).submit();" })
-
-                @*@Html.ValidationMessageFor(model => model.Contract, "", new { @class = "text-danger" })*@
             </div>
         </div>
         <hr />
