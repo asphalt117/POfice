@@ -12,20 +12,24 @@
 @*@section Scripts {
     @Scripts.Render("~/bundles/jqueryval")*@
 }
-
-<h1>Новый заказ @Model.OrderId </h1>
+@ViewBag.Order
+@*<h1>Новый заказ @Model.OrderId </h1>*@
 
 @{Html.RenderAction("GoodOrder", "Good", new { ord = Model.OrderId });}
+@Html.ActionLink("Изменить", "Categ", "Good", null, new { @class = "nav-link" })
 
-<div class="orderform-datetime disabled">
-    <label for="Dat" class="col-sm-2 col-form-label">Дата и смена выполнения заказа:</label>
-    <div class="form-group row disabled">
-        <div class="col-sm-10">
-            @{Html.RenderAction("DateOrder", "Ord", new { ord = Model.OrderId });}
+@if (Model.Invoice == 0)
+{
+    <div class="orderform-datetime disabled">
+        <label for="Dat" class="col-sm-2 col-form-label">Дата и смена выполнения заказа:</label>
+        <div class="form-group row disabled">
+            <div class="col-sm-10">
+                @{Html.RenderAction("DateOrder", "Ord", new { ord = Model.OrderId });}
+            </div>
         </div>
+        <hr />
     </div>
-    <hr />
-</div>
+}
 
 <div class="orderform-contract active order-item">
     <div class="form-group row">
@@ -49,45 +53,59 @@
     }
     else
     {
-        Html.RenderAction("TransOrder", "Transport", new { ord = Model.OrderId });
+        <div class="form-group">
+            <label for="ContractId" class="col-sm-2 col-form-label">Доставка:</label>
+            <div class="col-sm-10">
+                @{Html.RenderAction("TransOrder", "Transport", new { ord = Model.OrderId });
+                }
+            </div>
+        </div>
     }
 </div>
-
-<div class="orderform-contact order-item">
-    <div class="form-group row">
-        <label for="ContactId" class="col-sm-2 col-form-label">Укажите контактное лицо:</label>
-        <div class="col-sm-10">
-            @Html.DisplayFor(model => Model.Person)
+@if (Model.Invoice == 0)
+{
+    <div class="orderform-contact order-item">
+        <div class="form-group row">
+            <label for="ContactId" class="col-sm-2 col-form-label">Укажите контактное лицо:</label>
+            <div class="col-sm-10">
+                @Html.DisplayFor(model => Model.Person)
+            </div>
         </div>
     </div>
-
-</div>
-
-
+}
+else
+{
+    <div class="form-group">
+        <label for="ContractId" class="col-sm-2 col-form-label">Он лайн оплата:</label>
+        <div class="col-sm-10">
+            @Html.CheckBoxFor(model => model.isOnlinePay, new { @class = "form-control checkbox" })
+        </div>
+    </div>   
+}
 @using (Html.BeginForm("Booking", "Ord", FormMethod.Post, new { @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
-    {
-        @Html.AntiForgeryToken()
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <fieldset>
-            @Html.HiddenFor(model => model.OrderId)
-        </fieldset>
-        <div class="orderform-note order-item">
-            <div class="form-group row">
-                <label for="Dat" class="col-sm-2 col-form-label">Примечание к заказу:</label>
-                <div class="col-sm-10">
-                    @Html.TextBoxFor(m => m.Note, new { @class = "form-control", @type = "text", @aria_describedby = "noteHelpBlock" })
-                    <small id="noteHelpBlock" class="form-text text-muted">
-                        * тут вы можете указать удобное для вас время доставки продукции и другие ваши пожелания
-                    </small>
-                </div>
-            </div>
-            <hr />
-            <div class="form-group row">
-                <div class="col-sm-10">
-                    <button type="submit" class="btn btn-primary btn-success">Сохранить</button>
-                </div>
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <fieldset>
+        @Html.HiddenFor(model => model.OrderId)
+    </fieldset>
+    <div class="orderform-note order-item">
+        <div class="form-group row">
+            <label for="Dat" class="col-sm-2 col-form-label">Примечание к заказу:</label>
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.Note, new { @class = "form-control", @type = "text", @aria_describedby = "noteHelpBlock" })
+                <small id="noteHelpBlock" class="form-text text-muted">
+                    * тут вы можете указать удобное для вас время доставки продукции и другие ваши пожелания
+                </small>
             </div>
         </div>
-    }
+        <hr />
+        <div class="form-group row">
+            <div class="col-sm-10">
+                <button type="submit" class="btn btn-primary btn-success">Сохранить</button>
+            </div>
+        </div>
+    </div>
+}
 
 

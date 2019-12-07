@@ -16,8 +16,16 @@ namespace WebUI.Controllers
         // GET: Transport
         public ActionResult Index(int ord)
         {
-            TrancportView trans = new TrancportView(ord, (int)abzHash.CustID);
-            return View(trans);
+            Order order = db.Orders.Find(ord);
+            if (order.Invoice == 0)
+            {
+                TrancportView trans = new TrancportView(ord, (int)abzHash.CustID);
+                return View(trans);
+            }
+            else
+            {
+                return RedirectToAction("Finish", "Ord", new { ord = order.OrderId });
+            }
         }
         public ActionResult Trans(string id, int ord)
         {
@@ -45,7 +53,13 @@ namespace WebUI.Controllers
         public ActionResult TransOrder(int ord)
         {
             List<OrderDriv> orderDrivs = db.OrderDrivs.Where(a => a.OrderId == ord).ToList();
-            return PartialView(orderDrivs);
+            if (orderDrivs.Count>0)
+                return PartialView(orderDrivs);  
+            else
+            {
+                ViewBag.tr = "Самовывоз";
+                return PartialView();
+            }
         }
     }
 }

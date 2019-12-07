@@ -11,7 +11,7 @@ namespace Domain.Repository
 {
     public class OrdRepository
     {
-        private AbzContext db = new AbzContext();
+        private readonly AbzContext db = new AbzContext();
 
         //Получение списка заказов-счетов
         public async Task<List<OrderV>> GetOrder(int id, int invoice)
@@ -33,15 +33,10 @@ namespace Domain.Repository
             order.AdresId = 1;
             order.Invoice = invoice;
             db.Orders.Add(order);
-             await db.SaveChangesAsync();
+            await db.SaveChangesAsync();
             return order;
         }
 
-        public async Task<OrderV> GetOrderV(int id)
-        {
-            OrderV vsh = await db.OrderVs.FindAsync(id);
-             return vsh;
-        }
         public async Task<Order> SaveBooking(int ord, int status)
         {
             //Проверить что все заполнено, потом изменять статус
@@ -61,7 +56,32 @@ namespace Domain.Repository
             await db.SaveChangesAsync();
             return order;
         }
-        public async Task<int> SaveGoodl(int id, OrderProductView det)
+        public async Task<Order> SaveGood(int GoodID, int OrdID, decimal Quantity)
+        {
+            Order order = await db.Orders.FindAsync(OrdID);
+            OrderProduct products;
+            if (order.Step == 0)
+            {
+                //Значит 1е внесение
+                products = new OrderProduct();
+                await SaveStep(OrdID, 1);
+            }
+            else
+            {
+                products = await db.OrderProducts.FirstOrDefaultAsync(a => a.OrderId == OrdID);
+            }
+            products.GoodId = GoodID;
+            products.OrderId = OrdID;
+            products.Quant = Quantity;
+            if (order.Step == 1)
+                db.OrderProducts.Add(products);
+            else
+                db.Entry(products).State = EntityState.Modified;
+            await db.SaveChangesAsync();
+            return order;
+        }
+        
+        public async Task<int> SaveGood1(int id, OrderProductView det)
         {
             OrderProduct products = new OrderProduct();
             products.OrderProductId = det.OrderProductId;
@@ -73,8 +93,7 @@ namespace Domain.Repository
             else
                 db.Entry(products).State = EntityState.Modified;
             int iddet = await db.SaveChangesAsync();
-            //Order order = 
-                await SaveStep(id, 1);
+            
             return iddet;
         }
     }

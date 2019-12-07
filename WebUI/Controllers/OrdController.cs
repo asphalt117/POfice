@@ -75,7 +75,7 @@ namespace WebUI.Controllers
             OrderV order = db.OrderVs.Find(ord);
             string cTip = order.Invoice == 1 ? "Заказа" : "Счета";
             ViewBag.Order = "Оформление нового " + cTip;
-            if (order.Invoice == 1)
+            if (order.Invoice == 0)
             {
                 ViewBag.Order = ViewBag.Order + order.OrderId.ToString();
             }

@@ -14,7 +14,7 @@ namespace WebUI.Controllers
 {
     public class GoodController : BaseController
     {
-        private GoodRepository repo = new GoodRepository();
+        //private GoodRepository repo = new GoodRepository();
 
         public ActionResult GoodOrder(int ord)
         {
@@ -51,17 +51,9 @@ namespace WebUI.Controllers
         [HttpPost]
         public async Task<ActionResult> GoodAdd(int GoodID, int OrdID, decimal Quantity)
         {
-            Good good = await db.Goods.FindAsync(GoodID);
-            OrderProductView svd = new OrderProductView();
-            svd.GoodId = good.GoodID;
-            svd.Good = good.txt;
-            svd.Unit = good.Unit;
-            svd.OrderId = OrdID;
-            svd.Quant = Quantity;
-
             OrdRepository repo = new OrdRepository();
-            await repo.SaveGoodl(svd.OrderId, svd);
-            Order order = await db.Orders.FindAsync(OrdID);
+            Order order = await repo.SaveGood(GoodID, OrdID, Quantity);
+
             if (order.Invoice==0)
                 return RedirectToAction( "Index","datSelect", new {id= OrdID });
             else
