@@ -13,6 +13,30 @@ namespace Domain.Repository
     {
         private readonly AbzContext db = new AbzContext();
 
+        public async Task<OrderV> GetCopy(int id, int invoice = 0)
+        {
+            sv = await GetChange(id);
+            sv.OrderId = 0;
+            sv.Dat = DateTime.Now;
+            sv.CDat = DateToString.CDat(sv.Dat);
+            sv.Invoice = invoice;
+            int Orderid = await Save(sv);
+            sv.OrderId = Orderid;
+
+            //Разобраться. Повторяется!!!
+            foreach (var item in sv.Products)
+            {
+                OrderProduct products = new OrderProduct();
+                products.OrderProductId = item.OrderProductId;
+                products.GoodId = item.GoodId;
+                products.OrderId = Orderid;
+                products.Quant = item.Quant;
+                db.OrderProducts.Add(products);
+            }
+            await db.SaveChangesAsync();
+
+            return await GetChange(Orderid);
+        }
         //Получение списка заказов-счетов
         public async Task<List<OrderV>> GetOrder(int id, int invoice)
         {

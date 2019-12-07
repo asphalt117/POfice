@@ -16,7 +16,15 @@ namespace WebUI.Controllers
     public class OrdController : BaseController
     {
         private OrdRepository repo = new OrdRepository();
-        private OrderV order;
+        //private OrderV order;
+
+        public async Task<ActionResult> Copy(int id)
+        {
+            OrderV order = await repo.GetCopy(id);
+            //string cord = id.ToString();
+            //string act = "Копия заказа №" + cord + " Новый заказ";
+            return RedirectToAction("Finish");
+        }
         public async Task<ActionResult> Index(int id)
         {
             List<OrderV> orders = await repo.GetOrder(Cust.CustId, id);
