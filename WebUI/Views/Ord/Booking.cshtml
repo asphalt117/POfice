@@ -16,15 +16,18 @@
 
 @{Html.RenderAction("GoodOrder", "Good", new { ord = Model.OrderId });}
 
-<div class="orderform-datetime disabled">
-    <label for="Dat" class="col-sm-2 col-form-label">Дата и смена выполнения заказа:</label>
-    <div class="form-group row disabled">
-        <div class="col-sm-10">
-            @{Html.RenderAction("DateOrder", "Ord", new { ord = Model.OrderId });}
+@if (Model.Invoice == 0)
+{
+    <div class="orderform-datetime disabled">
+        <label for="Dat" class="col-sm-2 col-form-label">Дата и смена выполнения заказа:</label>
+        <div class="form-group row disabled">
+            <div class="col-sm-10">
+                @{Html.RenderAction("DateOrder", "Ord", new { ord = Model.OrderId });}
+            </div>
         </div>
+        <hr />
     </div>
-    <hr />
-</div>
+}
 
 @using (Html.BeginForm("Contract", "Ord", FormMethod.Post, new { @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
 {
@@ -44,11 +47,13 @@
         <hr />
     </div>
 }
+@if (Model.Invoice == 0)
+{
     <div class="orderform-delivery order-item">
         <div class="form-group">
             @Html.ActionLink("Самовывоз", "Index", "Transport", new { ord = Model.OrderId }, null)
             @Html.ActionLink("Транспорт АБЗ", "AdresOrder", "Adres", new { ord = Model.OrderId }, null)
         </div>
     </div>
-
+}
 

@@ -31,7 +31,6 @@ namespace WebUI.Controllers
         public async Task<ActionResult> Create(string act)
         {
             //Сохранить заказ в БД со всеми известными реквизитами.
-            //В ответ получить OrderView
             int ordertype = (act == "Заказы") ? 0 : 1;
             Order ord = await repo.GetNew(abzHash, ordertype);
             //Выбор материала

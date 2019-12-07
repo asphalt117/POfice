@@ -61,9 +61,11 @@ namespace WebUI.Controllers
 
             OrdRepository repo = new OrdRepository();
             await repo.SaveGoodl(svd.OrderId, svd);
-
-            return RedirectToAction( "Index","datSelect", new {id= svd.OrderId });
-
+            Order order = await db.Orders.FindAsync(OrdID);
+            if (order.Invoice==0)
+                return RedirectToAction( "Index","datSelect", new {id= OrdID });
+            else
+                return RedirectToAction("Booking", "Ord", new { ord = OrdID });
         }
 
     }
