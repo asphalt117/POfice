@@ -23,7 +23,7 @@ namespace WebUI.Controllers
             OrderV order = await repo.GetCopy(id);
             //string cord = id.ToString();
             //string act = "Копия заказа №" + cord + " Новый заказ";
-            return RedirectToAction("Finish");
+            return RedirectToAction("Finish", new { ord = order.OrderId });
         }
         public async Task<ActionResult> Index(int id)
         {

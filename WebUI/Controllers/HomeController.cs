@@ -25,8 +25,8 @@ namespace WebUI.Controllers
 
         [Authorize]
         public ActionResult Index(int SelectedCustId = -1, int SelectedContractId = -1)
-        {
-              if (abzHash==null)
+        { 
+            if (abzHash==null)
                 return RedirectToAction("Logout", "Account");          
             
             string usr = User.Identity.Name;

@@ -13,29 +13,49 @@ namespace Domain.Repository
     {
         private readonly AbzContext db = new AbzContext();
 
-        public async Task<OrderV> GetCopy(int id, int invoice = 0)
+        public async Task<Order> CloneableOrder(int id)
         {
-            sv = await GetChange(id);
-            sv.OrderId = 0;
-            sv.Dat = DateTime.Now;
-            sv.CDat = DateToString.CDat(sv.Dat);
-            sv.Invoice = invoice;
-            int Orderid = await Save(sv);
-            sv.OrderId = Orderid;
+            Order vsh = await db.Orders.FindAsync(id);
+            Order sv = new Order();
+            //sv.OrderId = vsh.OrderId;
+            sv.CustId = vsh.CustId;
 
-            //Разобраться. Повторяется!!!
-            foreach (var item in sv.Products)
-            {
-                OrderProduct products = new OrderProduct();
-                products.OrderProductId = item.OrderProductId;
-                products.GoodId = item.GoodId;
-                products.OrderId = Orderid;
-                products.Quant = item.Quant;
-                db.OrderProducts.Add(products);
-            }
+            sv.AdresId = vsh.AdresId;
+
+            sv.ContractId = vsh.ContractId;
+
+            sv.Centr = vsh.Centr;
+            sv.Dat = vsh.Dat;
+
+            sv.note = vsh.note;
+
+            sv.PersonId = vsh.PersonId;
+            sv.Invoice = vsh.Invoice;
+            //sv.isOnlinePay = vsh.isOnlinePay;
+            return sv;
+        }
+
+        public async Task<OrderV> GetCopy(int id, int invoice = -1)
+        {
+            Order order = await CloneableOrder(id);
+            order.DateExec = DateTime.Now.AddDays(1);
+            if (invoice > -1)
+                order.Invoice = invoice;
+ 
+            db.Orders.Add(order);
             await db.SaveChangesAsync();
 
-            return await GetChange(Orderid);
+
+            OrderProduct item = await db.OrderProducts.FirstOrDefaultAsync(a => a.OrderId == id);
+            OrderProduct product = new OrderProduct();
+            product.GoodId = item.GoodId;
+            product.OrderId = order.OrderId;
+            product.Quant = item.Quant;
+
+            db.OrderProducts.Add(product);
+            await db.SaveChangesAsync();
+            OrderV ord = await db.OrderVs.FindAsync(order.OrderId);
+            return ord;
         }
         //Получение списка заказов-счетов
         public async Task<List<OrderV>> GetOrder(int id, int invoice)
