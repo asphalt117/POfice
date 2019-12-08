@@ -15,9 +15,13 @@ namespace Domain.Repository
 
         public async Task<Order> CloneableOrder(int id)
         {
+            Order newOrder = await db.Orders.AsNoTracking().SingleOrDefaultAsync(a => a.OrderId == id);
+            newOrder.OrderId = 0;
+            db.Orders.Add(newOrder);
+            return newOrder;
+
             Order vsh = await db.Orders.FindAsync(id);
             Order sv = new Order();
-            //sv.OrderId = vsh.OrderId;
             sv.CustId = vsh.CustId;
 
             sv.AdresId = vsh.AdresId;
@@ -31,7 +35,7 @@ namespace Domain.Repository
 
             sv.PersonId = vsh.PersonId;
             sv.Invoice = vsh.Invoice;
-            //sv.isOnlinePay = vsh.isOnlinePay;
+            sv.Step = 6;
             return sv;
         }
 
@@ -125,20 +129,20 @@ namespace Domain.Repository
             return order;
         }
         
-        public async Task<int> SaveGood1(int id, OrderProductView det)
-        {
-            OrderProduct products = new OrderProduct();
-            products.OrderProductId = det.OrderProductId;
-            products.GoodId = det.GoodId;
-            products.OrderId = id;
-            products.Quant = det.Quant;
-            if (products.OrderProductId == 0)
-                db.OrderProducts.Add(products);
-            else
-                db.Entry(products).State = EntityState.Modified;
-            int iddet = await db.SaveChangesAsync();
+        //public async Task<int> SaveGood1(int id, OrderProductView det)
+        //{
+        //    OrderProduct products = new OrderProduct();
+        //    products.OrderProductId = det.OrderProductId;
+        //    products.GoodId = det.GoodId;
+        //    products.OrderId = id;
+        //    products.Quant = det.Quant;
+        //    if (products.OrderProductId == 0)
+        //        db.OrderProducts.Add(products);
+        //    else
+        //        db.Entry(products).State = EntityState.Modified;
+        //    int iddet = await db.SaveChangesAsync();
             
-            return iddet;
-        }
+        //    return iddet;
+        //}
     }
 }

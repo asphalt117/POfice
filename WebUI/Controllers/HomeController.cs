@@ -17,18 +17,27 @@ namespace WebUI.Controllers
 {
     public class HomeController : BaseController
     {
-        //private int CustID;
         private int ContractID;
         private CustRepository repo = new CustRepository();
         private IEnumerable<Contract> contracts;
         private Contract contract;
 
+        public async Task<Order> qqq()
+        {
+            int id = 5208;
+            Order newOrder = await db.Orders.AsNoTracking().SingleOrDefaultAsync(a => a.OrderId == id);
+            newOrder.OrderId = 0;
+            db.Orders.Add(newOrder);
+            return newOrder;
+        }
         [Authorize]
-        public ActionResult Index(int SelectedCustId = -1, int SelectedContractId = -1)
-        { 
-            if (abzHash==null)
-                return RedirectToAction("Logout", "Account");          
-            
+         //public  ActionResult Index(int SelectedCustId = -1, int SelectedContractId = -1)
+       public async Task<ActionResult> Index(int SelectedCustId = -1, int SelectedContractId = -1)
+        {
+            Order order = await qqq();
+            if (abzHash == null)
+                return RedirectToAction("Logout", "Account");
+
             string usr = User.Identity.Name;
 
             int state = CalcState(SelectedCustId, SelectedContractId);
@@ -63,7 +72,7 @@ namespace WebUI.Controllers
             }
             catch
             {
-                return RedirectToAction("Logout", "Account");
+                //return RedirectToAction("Logout", "Account");
             }
 
             contracts = repo.GetContracts(CustID);
@@ -74,7 +83,7 @@ namespace WebUI.Controllers
             }
             catch
             {
-                return RedirectToAction("Logout", "Account");
+                //return RedirectToAction("Logout", "Account");
             }
 
             if (abzHash != null)
@@ -83,7 +92,7 @@ namespace WebUI.Controllers
             }
             else 
             {
-                return RedirectToAction("Logout", "Account");
+                //return RedirectToAction("Logout", "Account");
             }
 
             ViewData["Contract"] = new SelectList(contracts, "ContractID", "Num", ContractID);
