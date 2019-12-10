@@ -12,7 +12,8 @@
     @Styles.Render("~/content/maincss")
     @Styles.Render("~/content/fa")
     @Scripts.Render("~/bundles/modernizr")
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>*@
+    <script src="~/Scripts/jquery-3.0.0.min.js"></script>
     <link href="~/Content/datepicker.min.css" rel="stylesheet" type="text/css">
     <script src="~/Scripts/datepicker.js"></script>
 </head>
@@ -63,6 +64,28 @@
             </div>
         </footer>
     }
+    <a id="totop" href="#top" title="Наверх" alt="Наверх"></a>
+    <script type="text/javascript">
+        var totopElem = document.getElementById("totop"),
+            pageYLabel = 0;
+
+        totopElem.onclick = function () {
+            window.scrollTo(0, 0);
+        };
+
+        window.onload = function () {
+            window.scrollTo(0, 0);
+            totopElem.className = "d-none";
+        };
+
+        window.onscroll = function () {
+            var n = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop,
+                t = document.documentElement.clientHeight;
+
+            n > t && (totopElem.className = "d-none");
+            n < t && (totopElem.className = "d-none-first");
+        };
+    </script>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)

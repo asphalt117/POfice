@@ -5,6 +5,18 @@
 }
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+
+
+
+
+
+
+
+
+
+
+
 }
 @section metatags
 {
@@ -12,43 +24,77 @@
     <meta name="keywords" content="@ViewBag.Title, АО 'АБЗ КАПОТНЯ'" />
     <meta name="robots" content="noindex, nofollow">
 }
-@Model.Good
-@*@Model.Quantity*@
-@Model.Unit
+
+
+<p>
+    <b>Вы заказываете:</b>&nbsp;@Model.Good&nbsp;&nbsp;, ед.изм - @Model.Unit
+</p>
+<hr/>
 @using (Html.BeginForm("DatAdd", "DatSelect", FormMethod.Post, new { @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
 {
     <fieldset>
         @Html.HiddenFor(model => model.OrderId)
     </fieldset>
     <div class="form-group row">
-        <label for="inputEmail3" class="col-sm-2 col-form-label">Введите дату:</label>
+        <label for="DateExec" class="col-sm-2 col-form-label">Введите дату:</label>
         <div class="col-sm-10">
             @Html.TextBoxFor(m => m.DateExec, new { @class = "datepicker-here form-control datefield", @type = "text", @aria_describedby = "dateHelpBlock" })
+            <script type="text/javascript">
+                $('#DateExec').datepicker({
+                    todayButton: new Date(),
+                    autoClose: true,
+                    minDate: new Date(),
+                    onSelect: function (fd, d, picker) {
+                        var dy = document.getElementById('gridRadios1'),
+                            nt = document.getElementById('gridRadios2'),
+                            btn = document.getElementById('btndatadd-next');
+
+                        btn.setAttribute('disabled', null);
+
+                        if (!d) {
+                            return;
+                        }
+                        else {
+                            if (dy.checked || nt.checked)
+                                btn.removeAttribute('disabled');
+                        }
+                    }
+                });
+
+                function checkdate() {
+                    var dat = document.getElementById('DateExec'),
+                        dy = document.getElementById('gridRadios1'),
+                        nt = document.getElementById('gridRadios2'),
+                        btn = document.getElementById('btndatadd-next');
+
+                    btn.setAttribute('disabled', null);
+
+                    if (!dat.value) {
+                        return;
+                    }
+                    else {
+                        if (dy.checked || nt.checked)
+                            btn.removeAttribute('disabled');
+                    }
+                };
+            </script>
             <small id="dateHelpBlock" class="form-text text-muted">
                 Выбор даты обязателен.
             </small>
         </div>
     </div>
-    @*<div class="form-group row">
-            <label for="inputPassword3" class="col-sm-2 col-form-label">время заказа:</label>
-            <div class="col-sm-10">
-                @Html.TextBoxFor(m => m.CTime, new { @class = "form-control datefield", @type = "text" })
-            </div>
-        </div>*@
     <fieldset class="form-group">
         <div class="row">
             <legend class="col-form-label col-sm-2 pt-0">выберите время суток выполнения заказа:</legend>
             <div class="col-sm-10">
                 <div class="form-check">
-                    @*<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>*@
-                    @Html.RadioButtonFor(m => m.SmenaID, 1, new { @class = "form-check-input", @type = "radio", @name = "gridRadios", @id = "gridRadios1", @value = "1" })
+                    @Html.RadioButtonFor(m => m.SmenaID, 1, new { @class = "form-check-input", @type = "radio", @name = "gridRadios", @id = "gridRadios1", @value = "1", @oninput = "checkdate();" })
                     <label class="form-check-label" for="gridRadios1">
                         день (06:00 - 19:00)
                     </label>
                 </div>
                 <div class="form-check">
-                    @*<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">*@
-                    @Html.RadioButtonFor(m => m.SmenaID, 2, new { @class = "form-check-input", @type = "radio", @name = "gridRadios", @id = "gridRadios2", @value = "2" })
+                    @Html.RadioButtonFor(m => m.SmenaID, 2, new { @class = "form-check-input", @type = "radio", @name = "gridRadios", @id = "gridRadios2", @value = "2", @oninput = "checkdate();" })
                     <label class="form-check-label" for="gridRadios2">
                         ночь (19:00 - 06:00(след. день))
                     </label>
@@ -61,9 +107,9 @@
     </small>
     <hr />
     <div class="form-group row">
-        <label for="inputEmail3" class="col-sm-2 col-form-label">Дополнительная информация о времени и количестве заказанного товара:</label>
-        <div class="col-sm-10">
-            @Html.TextBoxFor(m => m.Note, new { @class = "form-control", @type = "text", @aria_describedby = "dateNoteBlock" })
+        <label for="Note" class="col-md-3 col-lg-2 col-form-label">Дополнительная информация о времени и количестве заказанного товара:</label>
+        <div class="col-md-9 col-lg-10">
+            @Html.TextAreaFor(m => m.Note, new { @class = "form-control multi-line txtnote", @aria_describedby = "dateNoteBlock", @rows = "6", @wrap = "soft" })
             <small id="dateNoteBlock" class="form-text text-muted">
                 Вы можете указать информацию о сроках выполнения заказа, о количестве товара с разбивкой по часам и т.п.
             </small>
@@ -72,14 +118,7 @@
     <hr />
     <div class="form-group row">
         <div class="col-sm-10">
-            <button type="submit" class="btn btn-primary btn-success">Продолжить</button>
+            <button type="submit" id="btndatadd-next" class="btn btn-primary btn-success" disabled>Продолжить</button>
         </div>
     </div>
 }
-<script type="text/javascript">
-    $('#DateExec').datepicker({
-        todayButton: new Date(),
-        autoClose: true,
-        minDate: new Date()
-    });
-</script>

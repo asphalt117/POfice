@@ -88,26 +88,7 @@ $logo-height:38px;
 
 
 .footer-wrapper {
-    /*border-top: 4px solid #ea7400;*/
-    .back-to-top-wrap {
-        border-bottom: 1px solid #6c757d;
-    }
-
-    .back-to-top, .back-to-top:focus, .back-to-top:visited {
-        color: #777;
-        text-decoration: none;
-    }
-
-    .back-to-top:hover {
-        color: #ddd;
-        text-decoration: underline;
-        background-color: transparent;
-    }
-
-
-
     .footer-menu-wrapper.footer-info {
-        margin: 0 0 10px;
         padding: 10px 10px 5px;
     }
 
@@ -117,24 +98,14 @@ $logo-height:38px;
 
     .footer-menu-wrapper.footer-info, .footer-menu-wrapper.footer-info .url, .footer-menu-wrapper.footer-info .email {
         color: #aaa;
-        font-size: 12px;
+        font-size: 13px;
         text-decoration: none;
-    }
-
-    .footer-menu-wrapper.footer-info {
-        border-right: 1px solid #444;
     }
 
     .footer-menu-wrapper.footer-info .designed {
         color: #666;
+        margin:0;
     }
-
-    .nav.footer-menu > li.navbar-header {
-        margin-bottom: 10px;
-        font-weight: bold;
-        color: #ff8c00;
-    }
-
 
     .nav.footer-menu > li > a, .nav.footer-menu > li > a:visited {
         color: #999;
@@ -143,9 +114,8 @@ $logo-height:38px;
 
     .nav.footer-menu > li > a {
         padding: 3px 0;
-        font-size: 12px;
+        font-size: 13px;
     }
-
 
     .nav.footer-menu > li > a:hover {
         color: #ddd;
@@ -157,9 +127,36 @@ $logo-height:38px;
         color: #999;
         background-color: transparent;
     }
+
+    .footer-copyright-info {
+        padding-top: 0.3rem;
+    }
 }
 
+#totop {
+    width: 40px;
+    height: 40px;
+    background-color: #ff8c00;
+    text-align: center;
+    padding: 10px;
+    line-height: 20px;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    cursor: pointer;
+    color: #ddd;
+    font-size: 26px;
+    text-decoration: none;
+}
 
+#totop:hover, #totop:focus, #totop:active {
+    background-color: #ddd;
+    color: #ff8c00;
+}
+
+#totop:before {
+    content: '▲';
+}
 
 .product-category .nav-item .nav-link {
     color: #333;
@@ -187,6 +184,13 @@ $logo-height:38px;
     color: #fff;
 }
 
+.txtnote {
+    max-width: 600px;
+}
+
+
+
+
 
 
 
@@ -194,6 +198,10 @@ $logo-height:38px;
 
 
 /* MEDIA STYLES */
+
+/*@media (min-width: 991.98px) {
+
+}*/
 
 @media (max-width: 991.98px) {
     .logo-brand {
@@ -206,8 +214,6 @@ $logo-height:38px;
     .logoutform-md {
         width: 100%;
     }
-
-    
 }
 
 @media (max-width: 767.98px) {
