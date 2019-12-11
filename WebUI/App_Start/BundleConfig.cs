@@ -28,7 +28,17 @@ namespace WebUI
 
             bundles.Add(new StyleBundle("~/content/css").Include(
                       "~/Content/bootstrap.css"));
-            //,"~/Content/site.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/main").Include(
+                     "~/Scripts/main.js"));
+
+            bundles.Add(new StyleBundle("~/content/datepicker").Include(
+                      "~/Content/datepicker.min.css"));
+            bundles.Add(new ScriptBundle("~/bundles/datepicker").Include(
+                      "~/Scripts/datepicker.js"));
+
+         //   "~/Scripts/jquery-3.0.0.min.js",
+
 
             bundles.Add(new StyleBundle("~/content/fa").Include(
                     "~/Content/fontawesome.css",
@@ -44,9 +54,6 @@ namespace WebUI
             commonStyleBundle.Include("~/Content/main.scss");
             commonStyleBundle.Orderer = nullOrderer;
             bundles.Add(commonStyleBundle);
-
-
-
         }
     }
 }

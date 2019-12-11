@@ -12,6 +12,7 @@ namespace WebUI.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.MenuItem = "support";
             List<Comment> coment = db.Comments.Where(c => c.CustId == Cust.CustId).ToList();
             return View(coment);
         }

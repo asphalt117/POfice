@@ -100,7 +100,7 @@ namespace WebUI.Controllers
             //не верно для админа, однако работает?
             IEnumerable<OrgView> orgView = repo.GetCust(usr);
             ViewData["Cust"] = new SelectList(orgView, "ID", "Txt", CustID);
-
+            ViewBag.MenuItem = "recv";
             return View("Index", cust);
         }
         public ActionResult MainMenu(string menuItem)

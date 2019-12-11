@@ -28,7 +28,7 @@ namespace WebUI.Controllers
 
         public async Task<ActionResult> Index()
         {
-
+            ViewBag.MenuItem = "people";
             List<Person> persons =await repo.GetPerson(Cust.CustId);
             return View(persons);
         }

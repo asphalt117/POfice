@@ -118,6 +118,7 @@
     <Compile Include="Repository\CustRepository.cs" />
     <Compile Include="Repository\OrdRepository.cs" />
     <Compile Include="Repository\PersonRepository.cs" />
+    <Compile Include="Repository\TrustTecsRepository.cs" />
     <Compile Include="Repository\TtnRepository.cs" />
   </ItemGroup>
   <ItemGroup />

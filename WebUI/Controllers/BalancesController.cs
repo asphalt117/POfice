@@ -70,8 +70,7 @@ namespace WebUI.Controllers
         [Authorize]
         public ActionResult Index(int? selectedId, int? Id, int pageNum = 1)
         {
-            //Menu.ChangeSelected(3, 2);
-            //Session["Menu"] = Menu;
+            ViewBag.MenuItem = "rst";
             SetDat(selectedId, Id);
             DateOf datof = new DateOf(dm, year);
             ViewData["Month"] = new SelectList(datof.getMonth, "ID", "Mnth", dm);
@@ -146,8 +145,7 @@ namespace WebUI.Controllers
         public ActionResult Balance()
         {
             BalanceRepository repo = new BalanceRepository();
-            //Menu.ChangeSelected(3, 1);
-            //Session["Menu"] = Menu;
+            ViewBag.MenuItem = "balance";
             int ContractID;
             string dog = GetCookie("Dog");
             if (!String.IsNullOrWhiteSpace(dog))

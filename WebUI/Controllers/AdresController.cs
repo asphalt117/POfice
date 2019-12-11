@@ -34,6 +34,7 @@ namespace WebUI.Controllers
         
         public async Task<ActionResult> Index()
         {
+            ViewBag.MenuItem = "adres";
             List<Adres> adres = await db.Adreses.Where(p => p.CustId == Cust.CustId).OrderBy(x=>x.txt).ToListAsync();
             return View(adres);
         }

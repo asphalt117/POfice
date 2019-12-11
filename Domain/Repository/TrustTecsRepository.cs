@@ -22,7 +22,7 @@ namespace Domain.Repository
         {
             Transport trans= await db.Transports.Where(t => (Int32)t.CustID == (Int32)custID).FirstOrDefaultAsync(o => o.Gn == gn);
             TrustTecDet tecDet = new TrustTecDet();
-            tecDet.Driv = trans.Driv;
+           // tecDet.Driv = trans.Driv;
             tecDet.Gn = trans.Gn;
             tecDet.TecModel = trans.TecModel;
             return tecDet;

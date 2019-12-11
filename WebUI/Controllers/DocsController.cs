@@ -9,16 +9,19 @@ namespace WebUI.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.MenuItem = "trust";
             List<Trust> trusts = db.Trusts.Where(t => t.CustId == Cust.CustId).ToList();
             return View(trusts);
         }
         public ActionResult Contract()
         {
+            ViewBag.MenuItem = "contract";
             List<Contract> contracts = db.Contracts.Where(t => t.CustID == Cust.CustId).ToList();                
             return View(contracts);
         }
         public ActionResult SchFact()
         {
+            ViewBag.MenuItem = "chfact";
             ViewBag.mail = User.Identity.Name;                
             return View();
         }

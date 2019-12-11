@@ -14,6 +14,7 @@ namespace WebUI.Controllers
     {
         public async Task<ActionResult> Index()
         {
+            ViewBag.MenuItem = "sale";
             List<GraphSale> graph = await db.GraphSales.Where(p => p.CustId== Cust.CustId).ToListAsync();          
                 
             return View(graph);
@@ -25,7 +26,7 @@ namespace WebUI.Controllers
         }
         public async Task<ActionResult> Loadering()
         {
-            
+            ViewBag.MenuItem = "load";
             List<Sale> sale = await db.Sales.Where(p => p.CustId == Cust.CustId && p.Status==2).ToListAsync();
             return View( sale);
         }

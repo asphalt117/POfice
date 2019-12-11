@@ -24,6 +24,7 @@ namespace WebUI.Controllers
         }
         public async Task<ActionResult> Index()
         {
+            ViewBag.MenuItem = "tec";
             return View(await repo.Get());
         }
         public async Task<ActionResult> SelTrans()

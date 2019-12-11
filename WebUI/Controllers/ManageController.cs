@@ -75,6 +75,7 @@ namespace WebUI.Controllers
         // GET: /Manage/ChangePassword
         public ActionResult ChangePassword()
         {
+            ViewBag.MenuItem = "pass";
             return View();
         }
 

@@ -10,65 +10,55 @@
                 <ul class="mb-2 navbar-nav mainmenu-nav">
                     <li class="d-none d-md-flex justify-content-between align-items-center px-3 mt-2 mb-1 text-muted font-weight-bold sidebar-header"><span>ЛИЧНЫЙ КАБИНЕТ</span></li>
                     <li class="d-flex justify-content-between align-items-center px-3 mt-3 mb-1 text-muted sidebar-subheader"><span>Отгрузка и оплата</span></li>
-
-                    <li class="nav-item">
+                    <li class="nav-item @Html.Encode(ViewBag.MenuItem == "balance" ? "active" : "")">
                         @Html.ActionLink("Взаиморасчеты", "Balance", "Balances", null, new { @class = "nav-link" })
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item @Html.Encode(ViewBag.MenuItem == "rst" ? "active" : "")">
                         @Html.ActionLink("Реестр отгруженной продукции", "Index", "Balances", null, new { @class = "nav-link" })
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item @Html.Encode(ViewBag.MenuItem == "sale" ? "active" : "")">
                         @Html.ActionLink("Текущее выполнение", "Index", "Sale", null, new { @class = "nav-link" })
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item @Html.Encode(ViewBag.MenuItem == "load" ? "active" : "")">
                         @Html.ActionLink("Отправленные на погрузку", "Loadering", "Sale", null, new { @class = "nav-link" })
                     </li>
                     <li class="d-flex justify-content-between align-items-center px-3 mt-3 mb-1 text-muted sidebar-subheader"><span>Заявки</span></li>
-                    <li class="nav-item">
-                        @*@Html.ActionLink("Заказ продукции", "Order", "Ord", null, new { @class = "nav-link" })*@
+                    <li class="nav-item @Html.Encode(ViewBag.MenuItem == "ord" ? "active" : "")">
                         @Html.ActionLink("Заказы продукции", "Index", "Ord", new { id = 0 }, new { @class = "nav-link" })
-
                     </li>
-                    <li class="nav-item">
-                        @*@Html.ActionLink("Заказ счета", "Invoice", "Ord", null, new { @class = "nav-link" })*@
+                    <li class="nav-item @Html.Encode(ViewBag.MenuItem == "ordch" ? "active" : "")">
                         @Html.ActionLink("Заказы счетов", "Index", "Ord", new { id = 1 }, new { @class = "nav-link" })
                     </li>
                     <li class="d-flex justify-content-between align-items-center px-3 mt-3 mb-1 text-muted sidebar-subheader"><span>Ваша организация</span></li>
-                    <li class="nav-item active">
+                    <li class="nav-item @Html.Encode(ViewBag.MenuItem == "recv" ? "active" : "")">
                         @Html.ActionLink("Реквизиты", "Index", "Home", null, new { @class = "nav-link" })
                     </li>
-                    @*<li class="nav-item">
-            @Html.ActionLink("Категории new", "Categ", "Categ", null, new { @class = "nav-link" })
-        </li>
-        <li class="nav-item">
-            @Html.ActionLink("Категории", "Index", "Categ", null, new { @class = "nav-link" })
-        </li>*@
-                    <li class="nav-item">
+                    <li class="nav-item @Html.Encode(ViewBag.MenuItem == "trust" ? "active" : "")">
                         @Html.ActionLink("Действующие доверенности", "Index", "Docs", null, new { @class = "nav-link" })
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item @Html.Encode(ViewBag.MenuItem == "contract" ? "active" : "")">
                         @Html.ActionLink("Договоры", "Contract", "Docs", null, new { @class = "nav-link" })
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item @Html.Encode(ViewBag.MenuItem == "tec" ? "active" : "")">
                         @Html.ActionLink("Доверенный транспорт", "Index", "TrustTecs", null, new { @class = "nav-link" })
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item @Html.Encode(ViewBag.MenuItem == "people" ? "active" : "")">
                         @Html.ActionLink("Контакты", "Index", "People", null, new { @class = "nav-link" })
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item @Html.Encode(ViewBag.MenuItem == "adres" ? "active" : "")">
                         @Html.ActionLink("Адреса", "Index", "Adres", null, new { @class = "nav-link" })
                     </li>
                     <li class="d-flex justify-content-between align-items-center px-3 mt-3 mb-1 text-muted sidebar-subheader"><span>Настройки</span></li>
-                    <li class="nav-item">
+                    <li class="nav-item @Html.Encode(ViewBag.MenuItem == "pass" ? "active" : "")">
                         @Html.ActionLink("Изменить пароль", "ChangePassword", "Manage", null, new { @class = "nav-link" })
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item @Html.Encode(ViewBag.MenuItem == "support" ? "active" : "")">
                         @Html.ActionLink("Обращения, жалобы, предложения", "Index", "Support", null, new { @class = "nav-link" })
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item @Html.Encode(ViewBag.MenuItem == "info" ? "active" : "")">
                         @Html.ActionLink("Рассылка документов", "Index", "CustomInfo", null, new { @class = "nav-link" })
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item @Html.Encode(ViewBag.MenuItem == "chfact" ? "active" : "")">
                         @Html.ActionLink("Счет-фактура", "SchFact", "Docs", null, new { @class = "nav-link" })
                     </li>
                 </ul>

@@ -8,14 +8,12 @@
     <meta name="author" content="KADMII" />
     <title>@ViewBag.Title – Личный кабинет АО 'АБЗ КАПОТНЯ'</title>
     <link href="/images/favicon.ico" rel="shortcut icon" />
+    @RenderSection("styles", false)
     @Styles.Render("~/content/css")
     @Styles.Render("~/content/maincss")
     @Styles.Render("~/content/fa")
+    @Scripts.Render("~/bundles/main")
     @Scripts.Render("~/bundles/modernizr")
-    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>*@
-    <script src="~/Scripts/jquery-3.0.0.min.js"></script>
-    <link href="~/Content/datepicker.min.css" rel="stylesheet" type="text/css">
-    <script src="~/Scripts/datepicker.js"></script>
 </head>
 <body>
     <header>
@@ -59,7 +57,9 @@
             @{ Html.RenderPartial("~/Views/Home/FooterMenu.cshtml"); }
             <div class="container-fluid bg-light footer-bottom-wrapper">
                 <div class="container clearfix footer-bottom">
-                    <p class="footer-copyright-info">&copy;&nbsp;@DateTime.Now.Year.&nbsp;&nbsp;АО&nbsp;&quot;АБЗ КАПОТНЯ&quot;&nbsp;&nbsp;<span class="hidden-xs">Все права защищены.</span></p>
+                    <p class="footer-copyright-info">
+                        &copy;&nbsp;@DateTime.Now.Year.&nbsp;&nbsp;АО&nbsp;&quot;АБЗ КАПОТНЯ&quot;&nbsp;&nbsp;<span class="d-none d-sm-inline">Все права защищены.</span><label class="designed float-right">&#169;K&K Design</label>
+                    </p>
                 </div>
             </div>
         </footer>
@@ -82,8 +82,8 @@
             var n = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop,
                 t = document.documentElement.clientHeight;
 
-            n > t && (totopElem.className = "d-none");
-            n < t && (totopElem.className = "d-none-first");
+            n > t && (totopElem.classList.remove('d-none'));
+            n < t && (totopElem.classList.add('d-none'));
         };
     </script>
     @Scripts.Render("~/bundles/jquery")
@@ -91,39 +91,3 @@
     @RenderSection("scripts", required: false)
 </body>
 </html>
-
-
-
-
-@*<div class="container-fluid">
-        <div class="row">
-
-            main menu
-
-
-
-
-            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-
-                    555@RenderBody()
-
-                    <h1 class="h2">Dashboard</h1>
-                    <div class="btn-toolbar mb-2 mb-md-0">
-                        <div class="btn-group mr-2">
-                            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-                            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
-                        </div>
-                        <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                            <span data-feather="calendar"></span>
-                            This week
-                        </button>
-                    </div>
-                </div>
-
-
-            </main>
-
-
-        </div>
-    </div>*@

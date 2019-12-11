@@ -5,18 +5,10 @@
 }
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-
-
-
-
-
-
-
-
-
-
-
-
+    @Scripts.Render("~/bundles/datepicker")
+}
+@section Styles {
+    @Styles.Render("~/content/datepicker")
 }
 @section metatags
 {
@@ -24,12 +16,10 @@
     <meta name="keywords" content="@ViewBag.Title, АО 'АБЗ КАПОТНЯ'" />
     <meta name="robots" content="noindex, nofollow">
 }
-
-
 <p>
     <b>Вы заказываете:</b>&nbsp;@Model.Good&nbsp;&nbsp;, ед.изм - @Model.Unit
 </p>
-<hr/>
+<hr />
 @using (Html.BeginForm("DatAdd", "DatSelect", FormMethod.Post, new { @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
 {
     <fieldset>

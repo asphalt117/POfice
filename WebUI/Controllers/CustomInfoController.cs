@@ -27,6 +27,7 @@ namespace WebUI.Controllers
         }
         public ActionResult Details()
         {
+            ViewBag.MenuItem = "info";
             CustomInfo customInfo = db.CustomInfos.FirstOrDefault(d => d.Cod1s == Cust.Cod1s);
             if (customInfo == null)
             {
@@ -36,6 +37,7 @@ namespace WebUI.Controllers
         }
         public ActionResult Create()
         {
+            ViewBag.MenuItem = "info";
             return View();
         }
         [HttpPost]

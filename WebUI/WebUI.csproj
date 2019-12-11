@@ -302,6 +302,7 @@
     <Compile Include="Controllers\PeopleController.cs" />
     <Compile Include="Controllers\SaleController.cs" />
     <Compile Include="Controllers\SupportController.cs" />
+    <Compile Include="Controllers\TrustTecsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -496,6 +497,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\main.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.js.map" />
