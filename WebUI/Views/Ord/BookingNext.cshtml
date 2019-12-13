@@ -1,6 +1,7 @@
 ﻿@model Domain.Entities.OrderV
 @{
-    ViewBag.Title = ViewBag.Order;
+    ViewBag.Title = "Оформление заказа";
+    ViewBag.ContentTitle = ViewBag.Order;
 }
 @section metatags
 {
@@ -8,50 +9,37 @@
     <meta name="keywords" content="@ViewBag.Title, АБЗ-4" />
     <meta name="robots" content="noindex, nofollow">
 }
-@*@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")*@
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
 }
-
-<h1>Новый заказ @Model.OrderId </h1>
-
+<h5>Вы заказываете:</h5>
 @{Html.RenderAction("GoodOrder", "Good", new { ord = Model.OrderId });}
-
-<div class="orderform-datetime disabled">
-    <label for="Dat" class="col-sm-2 col-form-label">Дата и смена выполнения заказа:</label>
-    <div class="form-group row disabled">
-        <div class="col-sm-10">
-            @{Html.RenderAction("DateOrder", "Ord", new { ord = Model.OrderId });}
-        </div>
-    </div>
-    <hr />
-</div>
-
-<div class="orderform-contract active order-item">
+@{Html.RenderAction("DateOrder", "Ord", new { ord = Model.OrderId }); }
+<div>
     <div class="form-group row">
-        <label for="ContractId" class="col-sm-2 col-form-label">Договор:</label>
-        <div class="col-sm-10">
-            @Html.DisplayFor(model => Model.Contract)
+        <label for="ordercontractinfo" class="col-sm-2 col-form-label">Договор:</label>
+        <div class="col-sm-10" id="ordercontractinfo">
+            <b>@Model.Contract</b>
         </div>
     </div>
     <hr />
 </div>
-
-<div class="orderform-delivery order-item">
-    @if (Model.Centr)
-    {
-        <div class="form-group">
-            <label for="ContractId" class="col-sm-2 col-form-label">Адрес доставки:</label>
-            <div class="col-sm-10">
-                @Html.DisplayFor(model => Model.Adres)
+@if (Model.Centr)
+{
+    <div>
+        <div class="form-group row">
+            <label for="orderadresinfo" class="col-sm-2 col-form-label">Адрес доставки:</label>
+            <div class="col-sm-10" id="orderadresinfo">
+                <b>@Model.Adres</b>
             </div>
         </div>
-    }
-    else
-    {
-        Html.RenderAction("TransOrder", "Transport", new { ord = Model.OrderId });
-
-    }
-</div>
+        <hr />
+    </div>
+}
+else
+{
+    Html.RenderAction("TransOrder", "Transport", new { ord = Model.OrderId });
+}
 @using (Html.BeginForm("PersonOrder", "People", FormMethod.Post, new { @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
@@ -59,11 +47,10 @@
     <fieldset>
         @Html.HiddenFor(model => model.OrderId)
     </fieldset>
-
-    <div class="orderform-contract active order-item">
+    <div class="order-nodata">
         <div class="form-group row">
-            <label for="ContractId" class="col-sm-2 col-form-label">Выберите договор:</label>
-            <div class="col-sm-10">
+            <label for="ordercontactinfo" class="col-sm-2 col-form-label">Контактное лицо:</label>
+            <div class="col-sm-10" id="ordercontactinfo">
                 @Html.DropDownList("SelectedPersonId", (SelectList)ViewData["Person"], new { onchange = "$(this.form).submit();" })
             </div>
         </div>
@@ -74,20 +61,20 @@
 
 
 @*<div class="orderform-contact order-item">
-    <div class="form-group row">
-        <label for="ContactId" class="col-sm-2 col-form-label">Укажите контактное лицо:</label>
-        <div class="col-sm-10">
-            @Html.DropDownList("SelectedPersonId", (SelectList)ViewData["Person"], new { @class = "form-control" })
-            <p class="help-block">
-                <input name="Prs" type="submit" value="@HttpUtility.HtmlDecode("&#xe081;")" class="actionButtons btn btn-default" role="button" title="Внести новый контакт" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* выберите из списка контакт или внесите новый"
-            </p>
+        <div class="form-group row">
+            <label for="ContactId" class="col-sm-2 col-form-label">Укажите контактное лицо:</label>
+            <div class="col-sm-10">
+                @Html.DropDownList("SelectedPersonId", (SelectList)ViewData["Person"], new { @class = "form-control" })
+                <p class="help-block">
+                    <input name="Prs" type="submit" value="@HttpUtility.HtmlDecode("&#xe081;")" class="actionButtons btn btn-default" role="button" title="Внести новый контакт" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* выберите из списка контакт или внесите новый"
+                </p>
+            </div>
         </div>
-    </div>
-    <hr />
-    <div class="form-group row">
-        @Html.ActionLink("Продолжить", "Finish", new { ord = Model.OrderId }, null)
-    </div>
-</div>*@
+        <hr />
+        <div class="form-group row">
+            @Html.ActionLink("Продолжить", "Finish", new { ord = Model.OrderId }, null)
+        </div>
+    </div>*@
 
 
 @*@using (Html.BeginForm("Booking", "Ord", FormMethod.Post, new { @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))

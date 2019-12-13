@@ -550,7 +550,6 @@
     <Content Include="Views\Good\Index.cshtml" />
     <Content Include="Views\Good\CategoryMenu.cshtml" />
     <Content Include="Views\Admin\Register.cshtml" />
-    <Content Include="Views\Home\FooterMenu.cshtml" />
     <Content Include="Views\Support\Answer.cshtml" />
     <Content Include="Views\People\Create.cshtml" />
     <Content Include="Views\People\Delete.cshtml" />

@@ -1,39 +1,38 @@
 ﻿@model WebUI.ModelView.TrancportView
 @{
-    ViewBag.Title = "Транспорт";
+    ViewBag.Title = ViewBag.ContentTitle = "Транспорт";
 }
-<h2>Транспорт</h2>
 <p>
-    @Html.ActionLink("Добавить", "Create")
+    @Html.ActionLink("Добавить новый", "Create", null,
+                    new
+                    {
+                        @class = "btn btn-success",
+                        @role = "button",
+                        @title = "Добавить новый транспорт"
+                    })
 </p>
-<table class="table">
-    <tr>
-        <th>
-            Гос. №
-        </th>
-        <th>
-            Модель
-        </th>
-        @*<th>
-            Водитель
-        </th>*@
-        <th></th>
-    </tr>
-    @foreach (var item in Model.Transports) 
-    {
-        <tr>
-            <td>
-                @Html.ActionLink(item.Gn, "Trans", new { id = item.Gn,ord =Model.OrderId })
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TecModel)
-            </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.Driv)
-            </td>*@
-            <td>
-                @Html.ActionLink("Изменить", "Edit", new { id=item.Gn }) 
-            </td>
+<table class="table table-bordered table-hover mt-3">
+    <thead>
+        <tr class="table-active">
+            <th scope="col">Гос. №</th>
+            <th scope="col">Модель</th>
+            <th scope="col"></th>
         </tr>
-    }
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Transports)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(item.Gn, "Trans", new { id = item.Gn, ord = Model.OrderId })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TecModel)
+                </td>
+                <td>
+                    @Html.ActionLink("Изменить", "Edit", new { id = item.Gn })
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>

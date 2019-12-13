@@ -1,29 +1,33 @@
 ﻿@model WebUI.ModelView.AdresView
-
 @{
     ViewBag.Title = "Выбор адреса";
+    ViewBag.ContentTitle = "Выберите адрес доставки";
 }
-
-<h2>Выбор адреса</h2>
-
 <p>
-    @Html.ActionLink("Новый адрес", "Create")
+    @Html.ActionLink("Новый адрес", "Create", null,
+                        new
+                        {
+                            @class = "btn btn-success",
+                            @role = "button",
+                            @title = "Добавить новый адрес"
+                        })
 </p>
-<table class="table">
-    <tr>
-        <th>
-            Адрес
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model.Adres) {
-    <tr>
-        <td>
-            @Html.ActionLink(@item.txt, "SelectAdres", new { id=item.AdresID,ord=Model.OrderId  }) 
+<table class="table table-bordered table-hover mt-3">
+    <thead>
+        <tr class="table-active">
+            <th scope="col">Адрес</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Adres)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(@item.txt, "SelectAdres", new { id = item.AdresID, ord = Model.OrderId })
 
-        </td>
-    </tr>
-}
-
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>

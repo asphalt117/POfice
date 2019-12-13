@@ -1,54 +1,42 @@
 ﻿@model Domain.Entities.OrderDriv
-
 @{
-    ViewBag.Title = "TransOrder";
+    ViewBag.Title = ViewBag.ContentTitle = "Транспорт к заказу";
 }
-
-<h2>TransOrder</h2>
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
-    <div class="form-horizontal">
-        <h4>OrderDriv</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <fieldset>
         @Html.HiddenFor(model => model.OrderDrivId)
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.OrderId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.OrderId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.OrderId, "", new { @class = "text-danger" })
+    </fieldset>
+    <div class="form-horizontal">
+        <div class="form-group row">
+            <label for="orderidinfo" class="col-sm-2 col-form-label">Заказ №:</label>
+            <div class="col-sm-10" id="orderidinfo">
+                <b>@Model.OrderId</b>
             </div>
         </div>
-
-        <div class="form-group">
+        <hr />
+        <div class="form-group row">
             @Html.LabelFor(model => model.TecModel, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.TecModel, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.TecModel, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        <div class="form-group">
+        <div class="form-group row">
             @Html.LabelFor(model => model.Gn, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Gn, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Gn, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        <div class="form-group">
+        <hr />
+        <div class="form-group row">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Продолжить" class="btn btn-success" title="Сохранить и продложить оформление заказа" />
+                @Html.ActionLink(@HttpUtility.HtmlDecode("&laquo;") + " вернуться к списку транспорта", "Index", null, new { @class = "btn btn-default", @role = "button", @title = "Вернуться к списку транспорта" })
             </div>
         </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-

@@ -100,6 +100,7 @@ namespace WebUI.Controllers
 
             //EmailSend.EMailReg("kv@abz4.ru", "123");
             //return View("NoRegister");
+            reg.Email.Trim();
 
             AbzContext db = new AbzContext();
             var user = new ApplicationUser { UserName = reg.Email, Email = reg.Email, CustID = reg.CustId };

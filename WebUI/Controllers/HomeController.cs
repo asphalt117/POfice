@@ -123,11 +123,6 @@ namespace WebUI.Controllers
             return PartialView();
         }
 
-        public ActionResult FooterMenu()
-        {
-            return PartialView();
-        }
-
         private int CalcState(int SelectedCustId, int SelectedContractId)
         {
             string cst = GetCookie("Cust");

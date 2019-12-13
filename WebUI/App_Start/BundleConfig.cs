@@ -29,16 +29,14 @@ namespace WebUI
             bundles.Add(new StyleBundle("~/content/css").Include(
                       "~/Content/bootstrap.css"));
 
-            bundles.Add(new ScriptBundle("~/bundles/main").Include(
-                     "~/Scripts/main.js"));
+            //bundles.Add(new ScriptBundle("~/bundles/main").Include(
+            //         "~/Scripts/main.js"));
 
             bundles.Add(new StyleBundle("~/content/datepicker").Include(
                       "~/Content/datepicker.min.css"));
             bundles.Add(new ScriptBundle("~/bundles/datepicker").Include(
-                      "~/Scripts/datepicker.js"));
-
-         //   "~/Scripts/jquery-3.0.0.min.js",
-
+                      "~/Scripts/jquery-3.0.0.min.js",
+                      "~/Scripts/datepicker.min.js"));
 
             bundles.Add(new StyleBundle("~/content/fa").Include(
                     "~/Content/fontawesome.css",
