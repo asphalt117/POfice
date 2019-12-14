@@ -14,7 +14,7 @@
 }
 @ViewBag.Order
 
-@*<h1>Новый заказ @Model.OrderId </h1>*@
+
 
 @{Html.RenderAction("GoodOrder", "Good", new { ord = Model.OrderId });}
 @Html.ActionLink("Изменить", "Categ", "Good", null, new { @class = "nav-link" })

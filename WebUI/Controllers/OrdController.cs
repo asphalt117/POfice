@@ -40,13 +40,10 @@ namespace WebUI.Controllers
     public class OrdController : BaseController
     {
         private OrdRepository repo = new OrdRepository();
-        //private OrderV order;
-
+ 
         public async Task<ActionResult> Copy(int id)
         {
             OrderV order = await repo.GetCopy(id);
-            //string cord = id.ToString();
-            //string act = "Копия заказа №" + cord + " Новый заказ";
             return RedirectToAction("Finish", new { ord = order.OrderId });
         }
         public async Task<ActionResult> Index(int id)
@@ -56,11 +53,7 @@ namespace WebUI.Controllers
             ViewBag.MenuItem = (id == 0) ? "ord" : "ordch";
             return View(orders);
         }
-        //public ActionResult DateOrder(int ord)
-        //{
-        //    DataView dataview = new DataView(ord);
-        //    return PartialView(dataview);
-        //}
+
         public async Task<ActionResult> Create(string act)
         {
             //Сохранить заказ в БД со всеми известными реквизитами.
@@ -81,28 +74,32 @@ namespace WebUI.Controllers
             }
 
             //if (order.Step == 1 && order.Invoice == 1) || (order.Step == 2 && order.Invoice == 0)
-            if (order.Step<3)
+            if (order.Step<4)
             {
+                //После даты, контракта
                 IEnumerable<Contract> contracts = db.Contracts.Where(a => a.CustID == order.CustId).OrderBy(a => a.Num).AsEnumerable();
                 ViewData["Contract"] = new SelectList(contracts, "ContractID", "Num", order.ContractId);
                 return View(order);
             }
-            else if (order.Step == 3)
-            {
-                return View("BookingNext", order);
-            }
+            //else if (order.Step == 3)
+            //{
+            //    //После контракта
+            //    return View("BookingNext", order);
+            //}
             else if (order.Step > 3)
             {
+                //После Доставки
                 List<Person> people = db.Persons.Where(a => a.CustId == order.CustId).ToList();
                 Person person = new Person();
                 person.PersonId = 0;
                 people.Add(person);
-                //ViewData["Person"] = new SelectList(people, "PersonID", "Name", 0);
+                
                 ViewData["Person"] = new SelectList(people, "PersonID", "Name", 0);
-                if (order.Step==5)
+                if (order.Step==5 || order.Invoice==1)
                     return View("finish", order);
                 else
-                    return View("BookingNext", order);
+                    return View(order);
+                //return View("BookingNext", order);
             }
             return View("finish", order);
         }

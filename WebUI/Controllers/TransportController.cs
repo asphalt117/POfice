@@ -24,7 +24,7 @@ namespace WebUI.Controllers
             }
             else
             {
-                return RedirectToAction("Finish", "Ord", new { ord = order.OrderId });
+                return RedirectToAction("Booking", "Ord", new { ord = order.OrderId });
             }
         }
         public ActionResult Trans(string id, int ord)
