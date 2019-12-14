@@ -89,7 +89,7 @@ namespace WebUI.Controllers
             }
             else if (order.Step == 3)
             {
-
+                return View("BookingNext", order);
             }
             else if (order.Step > 3)
             {

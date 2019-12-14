@@ -624,6 +624,7 @@
     <Content Include="Views\Ord\Finish.cshtml" />
     <Content Include="Views\Ord\NotSaved.cshtml" />
     <Content Include="Views\Ord\Saved.cshtml" />
+    <Content Include="Views\DatSelect\DateOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

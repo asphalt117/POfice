@@ -24,6 +24,7 @@
     </div>
     <hr />
 </div>
+
 @if (Model.Centr)
 {
     <div>
@@ -40,67 +41,70 @@ else
 {
     Html.RenderAction("TransOrder", "Transport", new { ord = Model.OrderId });
 }
-@using (Html.BeginForm("PersonOrder", "People", FormMethod.Post, new { @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
+
+@if (Model.Invoice == 0)
 {
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <fieldset>
-        @Html.HiddenFor(model => model.OrderId)
-    </fieldset>
-    <div class="order-nodata">
-        <div class="form-group row">
-            <label for="ordercontactinfo" class="col-sm-2 col-form-label">Контактное лицо:</label>
-            <div class="col-sm-10" id="ordercontactinfo">
-                @Html.DropDownList("SelectedPersonId", (SelectList)ViewData["Person"], new { onchange = "$(this.form).submit();" })
-            </div>
-        </div>
-        <hr />
-    </div>
-}
-
-
-
-@*<div class="orderform-contact order-item">
-        <div class="form-group row">
-            <label for="ContactId" class="col-sm-2 col-form-label">Укажите контактное лицо:</label>
-            <div class="col-sm-10">
-                @Html.DropDownList("SelectedPersonId", (SelectList)ViewData["Person"], new { @class = "form-control" })
-                <p class="help-block">
-                    <input name="Prs" type="submit" value="@HttpUtility.HtmlDecode("&#xe081;")" class="actionButtons btn btn-default" role="button" title="Внести новый контакт" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* выберите из списка контакт или внесите новый"
-                </p>
-            </div>
-        </div>
-        <hr />
-        <div class="form-group row">
-            @Html.ActionLink("Продолжить", "Finish", new { ord = Model.OrderId }, null)
-        </div>
-    </div>*@
-
-
-@*@using (Html.BeginForm("Booking", "Ord", FormMethod.Post, new { @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
+    @using (Html.BeginForm("PersonOrder", "People", FormMethod.Post, new { @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <fieldset>
             @Html.HiddenFor(model => model.OrderId)
         </fieldset>
-        <div class="orderform-note order-item">
+        <div class="order-nodata">
             <div class="form-group row">
-                <label for="Dat" class="col-sm-2 col-form-label">Примечание к заказу:</label>
+                <label for="ordercontactinfo" class="col-sm-2 col-form-label">Контактное лицо:</label>
+                <div class="col-sm-10" id="ordercontactinfo">
+                    @Html.DropDownList("SelectedPersonId", (SelectList)ViewData["Person"], new { onchange = "$(this.form).submit();" })
+                </div>
+            </div>
+            <hr />
+        </div>
+    }
+}
+
+
+    @*<div class="orderform-contact order-item">
+            <div class="form-group row">
+                <label for="ContactId" class="col-sm-2 col-form-label">Укажите контактное лицо:</label>
                 <div class="col-sm-10">
-                    @Html.TextBoxFor(m => m.Note, new { @class = "form-control", @type = "text", @aria_describedby = "noteHelpBlock" })
-                    <small id="noteHelpBlock" class="form-text text-muted">
-                        * тут вы можете указать удобное для вас время доставки продукции и другие ваши пожелания
-                    </small>
+                    @Html.DropDownList("SelectedPersonId", (SelectList)ViewData["Person"], new { @class = "form-control" })
+                    <p class="help-block">
+                        <input name="Prs" type="submit" value="@HttpUtility.HtmlDecode("&#xe081;")" class="actionButtons btn btn-default" role="button" title="Внести новый контакт" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* выберите из списка контакт или внесите новый"
+                    </p>
                 </div>
             </div>
             <hr />
             <div class="form-group row">
-                <div class="col-sm-10">
-                    <button type="submit" class="btn btn-primary btn-success">Сохранить</button>
+                @Html.ActionLink("Продолжить", "Finish", new { ord = Model.OrderId }, null)
+            </div>
+        </div>*@
+
+
+    @*@using (Html.BeginForm("Booking", "Ord", FormMethod.Post, new { @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <fieldset>
+                @Html.HiddenFor(model => model.OrderId)
+            </fieldset>
+            <div class="orderform-note order-item">
+                <div class="form-group row">
+                    <label for="Dat" class="col-sm-2 col-form-label">Примечание к заказу:</label>
+                    <div class="col-sm-10">
+                        @Html.TextBoxFor(m => m.Note, new { @class = "form-control", @type = "text", @aria_describedby = "noteHelpBlock" })
+                        <small id="noteHelpBlock" class="form-text text-muted">
+                            * тут вы можете указать удобное для вас время доставки продукции и другие ваши пожелания
+                        </small>
+                    </div>
+                </div>
+                <hr />
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        <button type="submit" class="btn btn-primary btn-success">Сохранить</button>
+                    </div>
                 </div>
             </div>
-        </div>
-    }*@
+        }*@
 
 
