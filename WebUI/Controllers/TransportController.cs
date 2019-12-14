@@ -53,13 +53,21 @@ namespace WebUI.Controllers
         public ActionResult TransOrder(int ord)
         {
             OrderV order = db.OrderVs.Find(ord);
-            List<OrderDriv> orderDrivs = db.OrderDrivs.Where(a => a.OrderId == ord).ToList();
-            if (orderDrivs.Count>0)
-                return PartialView(orderDrivs);  
+            if (order.Step == 3)
+                return PartialView("Seltr", order);
             else
             {
-                ViewBag.tr = "Самовывоз";
-                return PartialView();
+                if (order.Centr)
+                    return PartialView("TransCentr", order);
+
+                List<OrderDriv> orderDrivs = db.OrderDrivs.Where(a => a.OrderId == ord).ToList();
+                if (orderDrivs.Count > 0)
+                    return PartialView(orderDrivs);
+                else
+                {
+                    ViewBag.tr = "Самовывоз";
+                    return PartialView();
+                }
             }
         }
     }

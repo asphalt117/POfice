@@ -73,31 +73,32 @@ namespace WebUI.Controllers
             {
                 ViewBag.Order = ViewBag.Order + order.OrderId.ToString();
             }
+            return View(order);
 
             //if (order.Step == 1 && order.Invoice == 1) || (order.Step == 2 && order.Invoice == 0)
             if (order.Step<4)
             {
                 //После даты, контракта
-                IEnumerable<Contract> contracts = db.Contracts.Where(a => a.CustID == order.CustId).OrderBy(a => a.Num).AsEnumerable();
-                ViewData["Contract"] = new SelectList(contracts, "ContractID", "Num", order.ContractId);
+                //IEnumerable<Contract> contracts = db.Contracts.Where(a => a.CustID == order.CustId).OrderBy(a => a.Num).AsEnumerable();
+                //ViewData["Contract"] = new SelectList(contracts, "ContractID", "Num", order.ContractId);
                 return View(order);
             }
             else if (order.Step > 3)
             {
                 //После Доставки
-                List<Person> people = db.Persons.Where(a => a.CustId == order.CustId).ToList();
-                Person person = new Person();
-                person.PersonId = 0;
-                people.Add(person);
+                //List<Person> people = db.Persons.Where(a => a.CustId == order.CustId).ToList();
+                //Person person = new Person();
+                //person.PersonId = 0;
+                //people.Add(person);
                 
-                ViewData["Person"] = new SelectList(people, "PersonID", "Name", 0);
+                //ViewData["Person"] = new SelectList(people, "PersonID", "Name", 0);
                 if (order.Step==5 || order.Invoice==1)
-                    return View("finish", order);
+                    return View(order);
                 else
                     return View(order);
                 //return View("BookingNext", order);
             }
-            return View("finish", order);
+            return View(order);
         }
 
         //public async Task<ActionResult> BookingNext(int ord)

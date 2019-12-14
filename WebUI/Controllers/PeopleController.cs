@@ -1,12 +1,11 @@
-﻿using System.Data;
-using System.Data.Entity;
-using System.Linq;
+﻿using System.Data.Entity;
 using System.Threading.Tasks;
 using System.Net;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using Domain.Entities;
 using Domain.Repository;
+using System.Linq;
 
 namespace WebUI.Controllers
 {
@@ -14,8 +13,19 @@ namespace WebUI.Controllers
     {
         PersonRepository repo = new PersonRepository();
 
+        public ActionResult PersonOrder(int ord)
+        {
+            OrderV order =  db.OrderVs.Find(ord);
+            List<Person> people = db.Persons.Where(a => a.CustId == order.CustId).ToList();
+            Person person = new Person();
+            person.PersonId = 0;
+            people.Add(person);
+
+            ViewData["Person"] = new SelectList(people, "PersonID", "Name", 0);
+            return PartialView(order);
+        }
         [HttpPost]
-        public async Task<ActionResult> PersonOrder(OrderV ord, int SelectedPersonId = -1)
+        public async Task<ActionResult> PersonSelect(OrderV ord, int SelectedPersonId = -1)
         {
             Order order = db.Orders.Find(ord.OrderId);
             order.PersonId = SelectedPersonId;
@@ -23,7 +33,7 @@ namespace WebUI.Controllers
             db.Orders.Add(order);
             db.Entry(order).State = EntityState.Modified;
             await db.SaveChangesAsync();
-            return RedirectToAction("Finish", "Ord", new { ord = order.OrderId });
+            return RedirectToAction("Booking", "Ord", new { ord = order.OrderId });
         }
 
         public async Task<ActionResult> Index()
