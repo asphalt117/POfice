@@ -63,7 +63,7 @@ namespace WebUI.Controllers
         public async Task<ActionResult> BookingNext(int ord)
         {
             OrderV order = db.OrderVs.Find(ord);
-            string cTip = order.Invoice == 0 ? "Заказа" : "Счета";
+            string cTip = order.Invoice == 0 ? "Заказа " : "Счета";
             ViewBag.Order = "Оформление нового " + cTip;
             if (order.Invoice == 0)
             {
