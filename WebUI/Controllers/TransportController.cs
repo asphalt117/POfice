@@ -52,6 +52,7 @@ namespace WebUI.Controllers
 
         public ActionResult TransOrder(int ord)
         {
+            OrderV order = db.OrderVs.Find(ord);
             List<OrderDriv> orderDrivs = db.OrderDrivs.Where(a => a.OrderId == ord).ToList();
             if (orderDrivs.Count>0)
                 return PartialView(orderDrivs);  

@@ -7,9 +7,9 @@ using System.Linq;
 
 namespace WebUI.ModelView
 {
-    public class DataView
+    public class DatView
     {
-        public DataView(int id)
+        public DatView(int id)
         {
             AbzContext db = new AbzContext();
             OrderV order = db.OrderVs.Find(id);

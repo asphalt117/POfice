@@ -66,8 +66,9 @@ namespace WebUI.Controllers
         public async Task<ActionResult> Booking(int ord)
         {
             OrderV order = await db.OrderVs.FindAsync(ord);
-            string cTip= order.Invoice == 0 ? "Заказа" : "Счета";
+            string cTip= order.Invoice == 0 ? "Заказа " : "Счета ";
             ViewBag.Order = "Оформление нового " + cTip;
+            ViewBag.Debug = order.Step.ToString();
             if (order.Invoice == 0)
             {
                 ViewBag.Order = ViewBag.Order + order.OrderId.ToString();
@@ -81,11 +82,6 @@ namespace WebUI.Controllers
                 ViewData["Contract"] = new SelectList(contracts, "ContractID", "Num", order.ContractId);
                 return View(order);
             }
-            //else if (order.Step == 3)
-            //{
-            //    //После контракта
-            //    return View("BookingNext", order);
-            //}
             else if (order.Step > 3)
             {
                 //После Доставки
@@ -104,38 +100,48 @@ namespace WebUI.Controllers
             return View("finish", order);
         }
 
-        public async Task<ActionResult> BookingNext(int ord)
+        //public async Task<ActionResult> BookingNext(int ord)
+        //{
+        //    OrderV order = db.OrderVs.Find(ord);
+        //    string cTip = order.Invoice == 0 ? "Заказа" : "Счета";
+        //    ViewBag.Order = "Оформление нового " + cTip;
+        //    if (order.Invoice == 0)
+        //    {
+        //        ViewBag.Order = ViewBag.Order + order.OrderId.ToString();
+        //    }
+        //    //IEnumerable<Person> persons = db.Persons.Where(a => a.CustId == order.CustId).OrderBy(a => a.Name).AsEnumerable();
+        //    List<Person> people = db.Persons.Where(a => a.CustId == order.CustId).ToList();
+        //    Person person = new Person();
+        //    person.PersonId = 0;
+        //    people.Add(person);
+        //    //ViewData["Person"] = new SelectList(people, "PersonID", "Name", 0);
+        //    ViewData["Person"] = new SelectList(people, "PersonID", "Name", 0);
+        //    return View(order);
+        //}
+
+        //public async Task<ActionResult> Finish(int ord)
+        //{
+        //    OrderV order = db.OrderVs.Find(ord);
+        //    string cTip = order.Invoice == 1 ? "Заказа " : "Счета ";
+        //    ViewBag.Order = "Оформление нового " + cTip;
+        //    if (order.Invoice == 0)
+        //    {
+        //        ViewBag.Order = ViewBag.Order + order.OrderId.ToString();
+        //    }
+        //    IEnumerable<Person> persons = db.Persons.Where(a => a.CustId == order.CustId).OrderBy(a => a.Name).AsEnumerable();
+        //    ViewData["Person"] = new SelectList(persons, "PersonID", "Name", 0);
+        //    return View(order);
+        //}
+
+
+        public  ActionResult ContractOrder(int ord)
         {
             OrderV order = db.OrderVs.Find(ord);
-            string cTip = order.Invoice == 0 ? "Заказа" : "Счета";
-            ViewBag.Order = "Оформление нового " + cTip;
-            if (order.Invoice == 0)
-            {
-                ViewBag.Order = ViewBag.Order + order.OrderId.ToString();
-            }
-            //IEnumerable<Person> persons = db.Persons.Where(a => a.CustId == order.CustId).OrderBy(a => a.Name).AsEnumerable();
-            List<Person> people = db.Persons.Where(a => a.CustId == order.CustId).ToList();
-            Person person = new Person();
-            person.PersonId = 0;
-            people.Add(person);
-            //ViewData["Person"] = new SelectList(people, "PersonID", "Name", 0);
-            ViewData["Person"] = new SelectList(people, "PersonID", "Name", 0);
-            return View(order);
+            IEnumerable<Contract> contracts = db.Contracts.Where(a => a.CustID == abzHash.CustID).OrderBy(a => a.Num).AsEnumerable();
+            ViewData["Contract"] = new SelectList(contracts, "ContractID", "Num", order.ContractId);
+            return PartialView(order);
         }
 
-        public async Task<ActionResult> Finish(int ord)
-        {
-            OrderV order = db.OrderVs.Find(ord);
-            string cTip = order.Invoice == 1 ? "Заказа" : "Счета";
-            ViewBag.Order = "Оформление нового " + cTip;
-            if (order.Invoice == 0)
-            {
-                ViewBag.Order = ViewBag.Order + order.OrderId.ToString();
-            }
-            IEnumerable<Person> persons = db.Persons.Where(a => a.CustId == order.CustId).OrderBy(a => a.Name).AsEnumerable();
-            ViewData["Person"] = new SelectList(persons, "PersonID", "Name", 0);
-            return View(order);
-        }
         [HttpPost]
         public async Task<ActionResult> Contract(OrderV ord, int SelectedContractId = -1)
         {

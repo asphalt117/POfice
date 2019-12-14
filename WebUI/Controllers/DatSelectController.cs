@@ -10,7 +10,7 @@ namespace WebUI.Controllers
     {
         public ActionResult DateOrder(int ord)
         {
-            DataView dataview = new DataView(ord);
+            DatView dataview = new DatView(ord);
             return PartialView(dataview);
         }
 

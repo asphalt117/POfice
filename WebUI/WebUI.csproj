@@ -320,7 +320,7 @@
     <Compile Include="Models\RegisterAdmin.cs" />
     <Compile Include="ModelView\AdresView.cs" />
     <Compile Include="ModelView\CategView.cs" />
-    <Compile Include="ModelView\DataView.cs" />
+    <Compile Include="ModelView\DatView.cs" />
     <Compile Include="ModelView\GoodView.cs" />
     <Compile Include="ModelView\PersonView.cs" />
     <Compile Include="ModelView\TrancportView.cs" />
@@ -625,6 +625,7 @@
     <Content Include="Views\Ord\NotSaved.cshtml" />
     <Content Include="Views\Ord\Saved.cshtml" />
     <Content Include="Views\DatSelect\DateOrder.cshtml" />
+    <Content Include="Views\Ord\ContractOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
