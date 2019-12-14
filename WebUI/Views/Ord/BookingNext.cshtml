@@ -14,7 +14,7 @@
 }
 <h5>Вы заказываете:</h5>
 @{Html.RenderAction("GoodOrder", "Good", new { ord = Model.OrderId });}
-@{Html.RenderAction("DateOrder", "Ord", new { ord = Model.OrderId }); }
+@{Html.RenderAction("DateOrder", "DatSelect", new { ord = Model.OrderId }); }
 <div>
     <div class="form-group row">
         <label for="ordercontractinfo" class="col-sm-2 col-form-label">Договор:</label>

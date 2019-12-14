@@ -17,25 +17,28 @@
     <meta name="robots" content="noindex, nofollow">
 }
 
-    <script src="~/Scripts/jquery-3.0.0.min"></script>
+<script src="~/Scripts/jquery-3.0.0.min"></script>
 
 <p>
     <b>Вы заказываете:</b>&nbsp;@Model.Good&nbsp;&nbsp;, ед.изм - @Model.Unit
-     data-today-button="new Date()" onselect="alert('ss')" 
-<input type="text" class="datepicker1 datepicker-here" data-position="right top" data-auto-close="true" data-onselect="function() { alert('ss');}" data-todaybutton="new Date()" />
-<script type="text/javascript">
-    $('.datepicker1').datepicker({
-        autoClose: true
-    })
-</script>
-
-
-    <input type="text" name="launch_date" value="2017-11-25" data-date-format="yyyy-mm-dd" class="form-control datepicker-here input-lg edited"  id="id_launch_date" placeholder=""/>
+</p>
+<p>
+    Выбор даты  выполнения заказа
+</p>
+    <input type="text" class="datepicker1 datepicker-here" data-position="right top" data-auto-close="true" data-onselect="function() { alert('ss');}" data-todaybutton="new Date()" />
     <script type="text/javascript">
-      $('#id_launch_date').datepicker({
-       autoClose: true
-    })
-</script>
+        $('.datepicker1').datepicker({
+            autoClose: true
+        })
+    </script>
+
+
+    @*<input type="text" name="launch_date" value="2017-11-25" data-date-format="yyyy-mm-dd" class="form-control datepicker-here input-lg edited"  id="id_launch_date" placeholder=""/>
+            <script type="text/javascript">
+              $('#id_launch_date').datepicker({
+               autoClose: true
+            })
+        </script>*@
 
 </p>
 <hr />

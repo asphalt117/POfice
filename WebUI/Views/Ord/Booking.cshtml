@@ -13,7 +13,9 @@
 }
 <h5>Вы заказываете:</h5>
 @{Html.RenderAction("GoodOrder", "Good", new { ord = Model.OrderId });}
-@if (Model.Invoice == 0) {Html.RenderAction("DateOrder", "Ord", new { ord = Model.OrderId });}
+
+@if (Model.Invoice == 0) {Html.RenderAction("DateOrder", "DatSelect", new { ord = Model.OrderId });}
+
 <div class="order-nodata">
     @using (Html.BeginForm("Contract", "Ord", FormMethod.Post, new { @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
     {
@@ -32,16 +34,16 @@
             <hr />
         </div>
     }
-    @if (Model.Invoice == 0)
-    {
+    @*@if (Model.Invoice == 0)*@
+    
         <div class="orderform-delivery order-item">
             <div class="form-group">
                 @Html.ActionLink("Самовывоз >>", "Index", "Transport", new { ord = Model.OrderId }, new {@class="btn btn-success" })
                 @Html.ActionLink("Транспорт АБЗ >>", "AdresOrder", "Adres", new { ord = Model.OrderId }, new { @class = "btn btn-success" })
             </div>
         </div>
-    }
-    else
+    
+    @*else
     {
         <div class="orderform-delivery order-item">
             <div class="form-group">
@@ -50,6 +52,6 @@
             </div>
         </div>
 
-    }
+    }*@
 </div>
 

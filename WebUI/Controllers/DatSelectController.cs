@@ -1,18 +1,19 @@
 ﻿using Domain.Entities;
-using Domain.ModelView;
-using Domain.Repository;
-using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
+using WebUI.ModelView;
 
 namespace WebUI.Controllers
 {
     public class DatSelectController : BaseController
     {
+        public ActionResult DateOrder(int ord)
+        {
+            DataView dataview = new DataView(ord);
+            return PartialView(dataview);
+        }
+
         public async Task<ActionResult> Index(int id)
         {
             OrderV ord = await db.OrderVs.FindAsync(id);

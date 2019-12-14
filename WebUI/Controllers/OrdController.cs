@@ -13,6 +13,30 @@ using System.Data.Entity;
 
 namespace WebUI.Controllers
 {
+    //Step
+    //1. После выбора материала
+    //2. После выбора даты
+    //3. После выбора контракта
+    //4. После выбора доставки
+    //5. После выбора контакта
+    //6. После сохранения
+
+    // При заказе
+    // 1. Материал
+    // 2. Дата
+    // 3. Контракт
+    // 4. Доставка
+    // 5. Контакт
+
+    // Счет
+    // 1. Материал
+    // 
+    // 3. Контракт
+    // 4. Доставка
+    // 
+
+
+
     public class OrdController : BaseController
     {
         private OrdRepository repo = new OrdRepository();
@@ -32,11 +56,11 @@ namespace WebUI.Controllers
             ViewBag.MenuItem = (id == 0) ? "ord" : "ordch";
             return View(orders);
         }
-        public ActionResult DateOrder(int ord)
-        {
-            DataView dataview = new DataView(ord);
-            return PartialView(dataview);
-        }
+        //public ActionResult DateOrder(int ord)
+        //{
+        //    DataView dataview = new DataView(ord);
+        //    return PartialView(dataview);
+        //}
         public async Task<ActionResult> Create(string act)
         {
             //Сохранить заказ в БД со всеми известными реквизитами.
@@ -51,19 +75,42 @@ namespace WebUI.Controllers
             OrderV order = await db.OrderVs.FindAsync(ord);
             string cTip= order.Invoice == 0 ? "Заказа" : "Счета";
             ViewBag.Order = "Оформление нового " + cTip;
-            if (order.Invoice == 1)
+            if (order.Invoice == 0)
             {
                 ViewBag.Order = ViewBag.Order + order.OrderId.ToString();
             }
-            IEnumerable<Contract> contracts= db.Contracts.Where(a => a.CustID == order.CustId).OrderBy(a => a.Num).AsEnumerable();
-            ViewData["Contract"] = new SelectList(contracts, "ContractID", "Num", order.ContractId);
-            return View(order);
+
+            //if (order.Step == 1 && order.Invoice == 1) || (order.Step == 2 && order.Invoice == 0)
+            if (order.Step<3)
+            {
+                IEnumerable<Contract> contracts = db.Contracts.Where(a => a.CustID == order.CustId).OrderBy(a => a.Num).AsEnumerable();
+                ViewData["Contract"] = new SelectList(contracts, "ContractID", "Num", order.ContractId);
+                return View(order);
+            }
+            else if (order.Step == 3)
+            {
+
+            }
+            else if (order.Step > 3)
+            {
+                List<Person> people = db.Persons.Where(a => a.CustId == order.CustId).ToList();
+                Person person = new Person();
+                person.PersonId = 0;
+                people.Add(person);
+                //ViewData["Person"] = new SelectList(people, "PersonID", "Name", 0);
+                ViewData["Person"] = new SelectList(people, "PersonID", "Name", 0);
+                if (order.Step==5)
+                    return View("finish", order);
+                else
+                    return View("BookingNext", order);
+            }
+            return View("finish", order);
         }
 
         public async Task<ActionResult> BookingNext(int ord)
         {
             OrderV order = db.OrderVs.Find(ord);
-            string cTip = order.Invoice == 0 ? "Заказа " : "Счета";
+            string cTip = order.Invoice == 0 ? "Заказа" : "Счета";
             ViewBag.Order = "Оформление нового " + cTip;
             if (order.Invoice == 0)
             {
