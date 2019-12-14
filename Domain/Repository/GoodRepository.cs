@@ -35,28 +35,7 @@ namespace Domain.Repository
             else
                 db.Entry(products).State = EntityState.Modified;
             int iddet = await db.SaveChangesAsync();
-            //Order order = 
-
-
             return order;
         }
-        //public IQueryable<Good> GetSkipTake(int skip, int take, int categId)
-        //{
-        //    return db.Goods.Where(w => w.CategId == categId)
-        //            .OrderBy(b => b.txt)
-        //            .Skip(skip)
-        //            .Take(take);
-        //} 
-
-        //public int GetCountItems(int categoryId = 0)
-        //{
-        //    if (categoryId == 0)
-        //    {
-        //        return db.Goods.Count();
-        //    }
-        //    else 
-        //        return db.Goods.Where(a => a.CategId == categoryId).Count();
-        //}
-
     }
 }

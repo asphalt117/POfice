@@ -14,8 +14,6 @@ namespace WebUI.Controllers
 {
     public class GoodController : BaseController
     {
-        //private GoodRepository repo = new GoodRepository();
-
         public ActionResult GoodOrder(int ord)
         {
             OrderProductView product = db.OrderProductViews.FirstOrDefault(a => a.OrderId == ord);
