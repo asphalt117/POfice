@@ -44,7 +44,7 @@ namespace WebUI.Controllers
         public async Task<ActionResult> Copy(int id)
         {
             OrderV order = await repo.GetCopy(id);
-            return RedirectToAction("Finish", new { ord = order.OrderId });
+            return RedirectToAction("Booking", new { ord = order.OrderId });
         }
         public async Task<ActionResult> Index(int id)
         {
@@ -118,7 +118,7 @@ namespace WebUI.Controllers
             //ViewBag.Order = "Заказ №  " + order.OrderId.ToString() + " отправлен";
             //OrderV orderV= db.OrderVs.Find(ord.OrderId);
             return RedirectToAction("Index", "Ord", new { id = order.OrderId });
-            return View("Saved", orderV);
+            //return View("Saved", orderV);
         }
     }
 }

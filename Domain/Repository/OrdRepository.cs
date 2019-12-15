@@ -108,6 +108,7 @@ namespace Domain.Repository
         {
             Order order = await db.Orders.FindAsync(OrdID);
             OrderProduct products;
+            bool nAdd=false;
             if (order.Step == 0)
             {
                 //Значит 1е внесение
@@ -117,32 +118,18 @@ namespace Domain.Repository
             else
             {
                 products = await db.OrderProducts.FirstOrDefaultAsync(a => a.OrderId == OrdID);
+                nAdd = true;
             }
             products.GoodId = GoodID;
             products.OrderId = OrdID;
             products.Quant = Quantity;
-            if (order.Step == 1)
+            if (!nAdd)
+                //(order.Step == 1)
                 db.OrderProducts.Add(products);
             else
                 db.Entry(products).State = EntityState.Modified;
             await db.SaveChangesAsync();
             return order;
         }
-        
-        //public async Task<int> SaveGood1(int id, OrderProductView det)
-        //{
-        //    OrderProduct products = new OrderProduct();
-        //    products.OrderProductId = det.OrderProductId;
-        //    products.GoodId = det.GoodId;
-        //    products.OrderId = id;
-        //    products.Quant = det.Quant;
-        //    if (products.OrderProductId == 0)
-        //        db.OrderProducts.Add(products);
-        //    else
-        //        db.Entry(products).State = EntityState.Modified;
-        //    int iddet = await db.SaveChangesAsync();
-            
-        //    return iddet;
-        //}
     }
 }

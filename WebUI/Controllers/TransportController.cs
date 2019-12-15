@@ -43,7 +43,8 @@ namespace WebUI.Controllers
             db.SaveChanges();
             Order order = db.Orders.Find(orderDriv.OrderId);
             order.Centr = false;
-            order.Step = 4;
+            if (order.Step < 4)
+                order.Step = 4;
             db.Orders.Add(order);
             db.Entry(order).State = EntityState.Modified;
             db.SaveChanges();
@@ -53,7 +54,7 @@ namespace WebUI.Controllers
         public ActionResult TransOrder(int ord)
         {
             OrderV order = db.OrderVs.Find(ord);
-            if (order.Step == 3)
+            if (order.Step <4)
                 return PartialView("Seltr", order);
             else
             {
