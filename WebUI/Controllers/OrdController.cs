@@ -75,64 +75,7 @@ namespace WebUI.Controllers
             }
             return View(order);
 
-            //if (order.Step == 1 && order.Invoice == 1) || (order.Step == 2 && order.Invoice == 0)
-            if (order.Step<4)
-            {
-                //После даты, контракта
-                //IEnumerable<Contract> contracts = db.Contracts.Where(a => a.CustID == order.CustId).OrderBy(a => a.Num).AsEnumerable();
-                //ViewData["Contract"] = new SelectList(contracts, "ContractID", "Num", order.ContractId);
-                return View(order);
-            }
-            else if (order.Step > 3)
-            {
-                //После Доставки
-                //List<Person> people = db.Persons.Where(a => a.CustId == order.CustId).ToList();
-                //Person person = new Person();
-                //person.PersonId = 0;
-                //people.Add(person);
-                
-                //ViewData["Person"] = new SelectList(people, "PersonID", "Name", 0);
-                if (order.Step==5 || order.Invoice==1)
-                    return View(order);
-                else
-                    return View(order);
-                //return View("BookingNext", order);
-            }
-            return View(order);
         }
-
-        //public async Task<ActionResult> BookingNext(int ord)
-        //{
-        //    OrderV order = db.OrderVs.Find(ord);
-        //    string cTip = order.Invoice == 0 ? "Заказа" : "Счета";
-        //    ViewBag.Order = "Оформление нового " + cTip;
-        //    if (order.Invoice == 0)
-        //    {
-        //        ViewBag.Order = ViewBag.Order + order.OrderId.ToString();
-        //    }
-        //    //IEnumerable<Person> persons = db.Persons.Where(a => a.CustId == order.CustId).OrderBy(a => a.Name).AsEnumerable();
-        //    List<Person> people = db.Persons.Where(a => a.CustId == order.CustId).ToList();
-        //    Person person = new Person();
-        //    person.PersonId = 0;
-        //    people.Add(person);
-        //    //ViewData["Person"] = new SelectList(people, "PersonID", "Name", 0);
-        //    ViewData["Person"] = new SelectList(people, "PersonID", "Name", 0);
-        //    return View(order);
-        //}
-
-        //public async Task<ActionResult> Finish(int ord)
-        //{
-        //    OrderV order = db.OrderVs.Find(ord);
-        //    string cTip = order.Invoice == 1 ? "Заказа " : "Счета ";
-        //    ViewBag.Order = "Оформление нового " + cTip;
-        //    if (order.Invoice == 0)
-        //    {
-        //        ViewBag.Order = ViewBag.Order + order.OrderId.ToString();
-        //    }
-        //    IEnumerable<Person> persons = db.Persons.Where(a => a.CustId == order.CustId).OrderBy(a => a.Name).AsEnumerable();
-        //    ViewData["Person"] = new SelectList(persons, "PersonID", "Name", 0);
-        //    return View(order);
-        //}
 
 
         public  ActionResult ContractOrder(int ord)
@@ -167,12 +110,14 @@ namespace WebUI.Controllers
             order.note = ord.Note;
             order.StatusId = 1;
             order.Step = 6;
+            order.isOnlinePay = ord.isOnlinePay;
             db.Orders.Add(order);
             db.Entry(order).State = EntityState.Modified;
             await db.SaveChangesAsync();
 
-            ViewBag.Order = "Заказ №  " + order.OrderId.ToString() + " отправлен";
-            OrderV orderV= db.OrderVs.Find(ord.OrderId);
+            //ViewBag.Order = "Заказ №  " + order.OrderId.ToString() + " отправлен";
+            //OrderV orderV= db.OrderVs.Find(ord.OrderId);
+            return RedirectToAction("Index", "Ord", new { id = order.OrderId });
             return View("Saved", orderV);
         }
     }

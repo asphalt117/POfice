@@ -16,13 +16,24 @@ namespace WebUI.Controllers
         public ActionResult PersonOrder(int ord)
         {
             OrderV order =  db.OrderVs.Find(ord);
-            List<Person> people = db.Persons.Where(a => a.CustId == order.CustId).ToList();
-            Person person = new Person();
-            person.PersonId = 0;
-            people.Add(person);
+            if (order.Invoice==0)
+            {
+                if (order.Step < 5)
+                {
+                    List<Person> people = db.Persons.Where(a => a.CustId == order.CustId).ToList();
+                    Person person = new Person();
+                    person.PersonId = 0;
+                    people.Add(person);
 
-            ViewData["Person"] = new SelectList(people, "PersonID", "Name", 0);
-            return PartialView(order);
+                    ViewData["Person"] = new SelectList(people, "PersonID", "Name", 0);
+                    return PartialView(order);
+                }
+                else
+                {
+                    return PartialView("Person",order);
+                }
+            }
+            return PartialView("PersonEmpty",order);
         }
         [HttpPost]
         public async Task<ActionResult> PersonSelect(OrderV ord, int SelectedPersonId = -1)

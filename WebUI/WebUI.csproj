@@ -629,6 +629,8 @@
     <Content Include="Views\Transport\Seltr.cshtml" />
     <Content Include="Views\Transport\TransCentr.cshtml" />
     <Content Include="Views\People\PersonOrder.cshtml" />
+    <Content Include="Views\People\Person.cshtml" />
+    <Content Include="Views\People\PersonEmpty.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
