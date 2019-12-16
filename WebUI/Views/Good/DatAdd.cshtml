@@ -15,8 +15,6 @@
 @Model.Good
 @using (Html.BeginForm("DatAdd", "Good", FormMethod.Post, new { @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
 {
-
-    <input type='text' class="datepicker-here" id="RRR"/>
     <fieldset>
         @Html.HiddenFor(model => model.OrderId)
     </fieldset>
@@ -77,8 +75,9 @@
     </div>
 }
 <script type="text/javascript">
-    $('#RRR').datepicker({
+    $('#CDat').datepicker({
         todayButton: new Date(),
-        autoClose: true
+        autoClose: true,
+        minDate: new Date()
     })
 </script>

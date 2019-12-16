@@ -77,11 +77,15 @@ $logo-height:38px;
 }
 
 .mainmenu-wrapper {
-    padding: 0.5rem 0.5rem!important;
+    padding: 0.5rem 0.5rem !important;
 
     .mainmenu-nav {
         .nav-link {
             padding: 0.1rem 0.5rem !important;
+        }
+
+        .nav-item.active > .nav-link {
+            color: #ffb000;
         }
     }
 }
