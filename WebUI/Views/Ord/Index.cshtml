@@ -76,7 +76,7 @@
                 <td>
                     @*@if (item.StatusId == 1)
                         {*@
-                    @Html.ActionLink(HttpUtility.HtmlDecode("&#xe065;"), "Finish", new { ord = item.OrderId }, new { @class = "actionButtons btn btn-xs-sm-md btn-default glyphicon glyph-btn", @role = "button", @title = "Редактировать заказ" })
+                    @Html.ActionLink(HttpUtility.HtmlDecode("&#xe065;"), "Booking", new { ord = item.OrderId }, new { @class = "actionButtons btn btn-xs-sm-md btn-default glyphicon glyph-btn", @role = "button", @title = "Редактировать заказ" })
                     @Html.ActionLink(HttpUtility.HtmlDecode("&#xe020;"), "Delete", new { ord = item.OrderId }, new { @class = "actionButtons btn btn-xs-sm-md btn-default glyphicon glyph-btn", @role = "button", @title = "Удалить заказ" })
                     @*}*@
                     @Html.ActionLink(HttpUtility.HtmlDecode("&#xe224;"), "Copy", new { id = item.OrderId }, new { @class = "actionButtons btn btn-xs-sm-md btn-default glyphicon glyph-btn", @role = "button", @title = "Копировать заказ" })

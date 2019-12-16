@@ -73,10 +73,8 @@ namespace WebUI.Controllers
                 ViewBag.Order = ViewBag.Order + order.OrderId.ToString();
             }
             return View(order);
-
         }
-
-
+        
         public  ActionResult ContractOrder(int ord)
         {
             OrderV order = db.OrderVs.Find(ord);
@@ -96,8 +94,7 @@ namespace WebUI.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("Booking", "Ord", new { ord = order.OrderId });
         }
-
-
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Booking(OrderV ord)
