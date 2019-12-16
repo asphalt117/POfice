@@ -30,7 +30,6 @@ namespace WebUI.Controllers
 
     // Счет
     // 1. Материал
-    // 
     // 3. Контракт
     // 4. Доставка
     // 
@@ -91,7 +90,7 @@ namespace WebUI.Controllers
         {
             Order order = db.Orders.Find(ord.OrderId);
             order.ContractId = SelectedContractId;
-            order.Step = 3;
+            if (order.Step < 3) order.Step = 3;
             db.Orders.Add(order);
             db.Entry(order).State = EntityState.Modified;
             await db.SaveChangesAsync();
