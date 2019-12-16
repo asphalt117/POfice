@@ -21,28 +21,36 @@ namespace WebUI.Controllers
         }
 
         //Выбор продукции
-        public ActionResult Categ(int ord,int categ = 2, int subcateg = 16)
+        public ActionResult Categ(int ord, int? subcateg,int categ = 2)
         {
             List<Good> goods;
-            List<Categ> subcategs;
+            List<Categ> subcategs = db.Categs.Where(c => c.ParentCategId == categ && c.IsVisible == 0).ToList();
             GoodView goodView = new GoodView();
             goodView.OrderID = ord;
-            if (categ == 2)
+            //int ctg;
+            if (subcategs != null)
             {
+                if (subcateg == null)
+                {
+                    subcateg = subcategs.ElementAt(0).CategID;
+                }
+                //else
+                //    ctg = (int)subcateg;
                 goods = db.Goods.Where(g => g.IsFolder == subcateg).ToList();
-                subcategs = db.Categs.Where(c => c.ParentCategId == categ && c.IsVisible == 0).ToList();
+                goodView.SubCategID = (int)subcateg;
             }
             else
             {
                 subcategs = null;
                 goods = db.Goods.Where(g => g.CategId == categ).ToList();
+                goodView.SubCategID = 0;
             }
             List<Categ> categs = db.Categs.Where(c => c.ParentCategId == null && c.IsVisible == 0).ToList();
             goodView.Categs = categs;
             goodView.SubCategs = subcategs;
             goodView.Goods = goods;
             goodView.CategID = categ;
-            goodView.SubCategID = subcateg;
+            //goodView.SubCategID = iif(subcateg==null,0,subcateg);
             return View(goodView);
         }
 
