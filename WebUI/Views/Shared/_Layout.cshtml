@@ -12,9 +12,10 @@
     @Styles.Render("~/content/css")
     @Styles.Render("~/content/maincss")
     @Styles.Render("~/content/fa")
-    @*@Scripts.Render("~/bundles/main")*@
+    @Scripts.Render("~/bundles/main")
     @Scripts.Render("~/bundles/modernizr")
-    <script src="~/Scripts/jquery-3.0.0.min"></script>
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
 </head>
 <body>
     <header>
@@ -100,8 +101,6 @@
             n < t && (totopElem.classList.add('d-none'));
         };
     </script>
-    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
 </body>
 </html>

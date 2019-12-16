@@ -16,33 +16,11 @@
     <meta name="keywords" content="@ViewBag.Title, АО 'АБЗ КАПОТНЯ'" />
     <meta name="robots" content="noindex, nofollow">
 }
-
-<script src="~/Scripts/jquery-3.0.0.min"></script>
-
 <p>
     <b>Вы заказываете:</b>&nbsp;@Model.Good&nbsp;&nbsp;, ед.изм - @Model.Unit
 </p>
-<p>
-    Выбор даты  выполнения заказа
-</p>
-    <input type="text" class="datepicker1 datepicker-here" data-position="right top" data-auto-close="true" data-onselect="function() { alert('ss');}" data-todaybutton="new Date()" />
-    <script type="text/javascript">
-        $('.datepicker1').datepicker({
-            autoClose: true
-        })
-    </script>
-
-
-    @*<input type="text" name="launch_date" value="2017-11-25" data-date-format="yyyy-mm-dd" class="form-control datepicker-here input-lg edited"  id="id_launch_date" placeholder=""/>
-            <script type="text/javascript">
-              $('#id_launch_date').datepicker({
-               autoClose: true
-            })
-        </script>*@
-
-</p>
 <hr />
-@using (Html.BeginForm("DatAdd", "DatSelect", FormMethod.Post, new { @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
+@using (Html.BeginForm("DatAdd", "DatSelect", FormMethod.Post, new { @id="frmdatadd", @class = "form-horizontal order-nodata", @role = "form", @enctype = "multipart/form-data" }))
 {
     <fieldset>
         @Html.HiddenFor(model => model.OrderId)
@@ -50,7 +28,8 @@
     <div class="form-group row">
         <label for="DateExec" class="col-sm-2 col-form-label">Введите дату:</label>
         <div class="col-sm-10">
-            @Html.TextBoxFor(m => m.DateExec, new { @class = "datepicker-here form-control datefield", @type = "text", @aria_describedby = "dateHelpBlock" })
+            @*@Html.TextBoxFor(m => m.DateExec, new { @class = "datepicker-here form-control", @type = "text", @aria_describedby = "dateHelpBlock" })*@
+            <input aria-describedby="dateHelpBlock" class="datepicker-here form-control input-validation-error" data-val="true" data-val-required="Требуется поле Дата выпонения." id="DateExec" name="DateExec" type="text" aria-invalid="true">
             <script type="text/javascript">
                 $('#DateExec').datepicker({
                     todayButton: new Date(),
@@ -59,16 +38,23 @@
                     onSelect: function (fd, d, picker) {
                         var dy = document.getElementById('gridRadios1'),
                             nt = document.getElementById('gridRadios2'),
-                            btn = document.getElementById('btndatadd-next');
+                            btn = document.getElementById('btndatadd-next'),
+                            btnwrap = document.getElementById('btndatadd-next-wrap'),
+                            frm = document.getElementById('frmdatadd');
 
                         btn.setAttribute('disabled', null);
+                        btnwrap.classList.add('d-none');
+                        frm.classList.add('order-nodata');
 
                         if (!d) {
                             return;
                         }
                         else {
-                            if (dy.checked || nt.checked)
+                            if (dy.checked || nt.checked) {
                                 btn.removeAttribute('disabled');
+                                btnwrap.classList.remove('d-none');
+                                frm.classList.remove('order-nodata');
+                            }
                         }
                     }
                 });
@@ -77,16 +63,23 @@
                     var dat = document.getElementById('DateExec'),
                         dy = document.getElementById('gridRadios1'),
                         nt = document.getElementById('gridRadios2'),
-                        btn = document.getElementById('btndatadd-next');
+                        btn = document.getElementById('btndatadd-next'),
+                        btnwrap = document.getElementById('btndatadd-next-wrap'),
+                        frm = document.getElementById('frmdatadd');
 
                     btn.setAttribute('disabled', null);
+                    btnwrap.classList.add('d-none');
+                    frm.classList.add('order-nodata');
 
                     if (!dat.value) {
                         return;
                     }
                     else {
-                        if (dy.checked || nt.checked)
+                        if (dy.checked || nt.checked) {
                             btn.removeAttribute('disabled');
+                            btnwrap.classList.remove('d-none');
+                            frm.classList.remove('order-nodata');
+                        }
                     }
                 };
             </script>
@@ -118,9 +111,9 @@
         * Обязательно укажите время суток выполнения заказа. Без этой информации заказ не будет создан.
     </small>
     <hr />
-    <div class="form-group row">
+    <div class="form-group row d-none" id="btndatadd-next-wrap">
         <div class="col-sm-10">
-            <button type="submit" id="btndatadd-next" class="btn btn-primary btn-success" disabled>Продолжить</button>
+            <button type="submit" id="btndatadd-next" class="btn btn-primary btn-success" disabled title="Продолжить оформление заказа">Продолжить >></button>
         </div>
     </div>
 }

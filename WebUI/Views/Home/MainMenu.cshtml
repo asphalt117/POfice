@@ -1,4 +1,30 @@
-﻿@if (Request.IsAuthenticated)
+﻿@{
+    string cookieName = "menuitem";
+    HttpCookie cookie = Request.Cookies[cookieName];
+    cookie = Request.Cookies[cookieName];
+    string menuactive = "";
+    if (cookie == null)
+    {
+        cookie = new HttpCookie(cookieName, menuactive);
+        Response.Cookies.Add(cookie);
+    }
+    else
+    {
+        menuactive = cookie.Value;
+    }
+
+    if (ViewBag.MenuItem != null && !string.IsNullOrEmpty(ViewBag.MenuItem))
+    {
+        menuactive = ViewBag.MenuItem;
+        cookie = new HttpCookie(cookieName, menuactive);
+        Response.Cookies.Add(cookie);
+    }
+    else
+    {
+        ViewBag.MenuItem = menuactive;
+    }
+}
+@if (Request.IsAuthenticated)
 {
     <div class="col-md-3 col-lg-2 navbar-container bg-dark sidebar">
         <nav class="navbar navbar-expand-md navbar-dark mainmenu-wrapper">
