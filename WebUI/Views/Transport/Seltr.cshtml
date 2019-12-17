@@ -1,8 +1,9 @@
 ﻿@model Domain.Entities.OrderV
-<div class="form-group" id="frmtrans">
-    @Html.ActionLink("Самовывоз >>", "Index", "Transport", new { ord = Model.OrderId }, new { @class = "btn btn-success" })
-    @Html.ActionLink("Транспорт АБЗ >>", "AdresOrder", "Adres", new { ord = Model.OrderId }, new { @class = "btn btn-success" })
-</div>
+    @*<div class="form-group" id="frmtrans">*@
+        <div class="form-group" id="trans">
+            @Html.ActionLink("Самовывоз >>", "Index", "Transport", new { ord = Model.OrderId }, new { @class = "btn btn-success" })
+            @Html.ActionLink("Транспорт АБЗ >>", "AdresOrder", "Adres", new { ord = Model.OrderId }, new { @class = "btn btn-success" })
+        </div>
 
 
 

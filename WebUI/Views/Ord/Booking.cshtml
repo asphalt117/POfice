@@ -57,19 +57,19 @@
     }
 }
 <script type="text/javascript">
-    var trans = $('#frmtrans'),
+    var /*trans = $('#frmtrans'),*/
         person = $('#frmperson'),
         note = $('#frmnote');
 
-    trans.addClass('d-none');
+    //trans.addClass('d-none');
     person.addClass('d-none');
     note.addClass('d-none');
 
     function checkorderitems() {
-        if (!$('#frmcontractadd').hasClass('order-nodata')) {
-            trans.removeClass('d-none');
-            trans.addClass('order-nodata');
-        };
+        //if (!$('#frmcontractadd').hasClass('order-nodata')) {
+        //    trans.removeClass('d-none');
+        //    trans.addClass('order-nodata');
+        //};
 
         if (!$('#frmtrans').hasClass('order-nodata')) {
             person.removeClass('d-none');
