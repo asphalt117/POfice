@@ -3,20 +3,16 @@
     ViewBag.Title = ViewBag.ContentTitle = "Транспорт";
 }
 <p>
-    @Html.ActionLink("Добавить новый", "Create", null,
-                    new
-                    {
-                        @class = "btn btn-success",
-                        @role = "button",
-                        @title = "Добавить новый транспорт"
-                    })
+    <a class="btn btn-light" role="button" title="Добавить новый транспорт" href="@Url.Action("Create", "Transport", null)">
+        <i class="fa fa-plus-square"></i>&nbsp;&nbsp;Добавить
+    </a>
 </p>
 <table class="table table-bordered table-hover mt-3">
     <thead>
         <tr class="table-active">
             <th scope="col">Гос. №</th>
             <th scope="col">Модель</th>
-            <th scope="col"></th>
+            <th scope="col" width="1"></th>
         </tr>
     </thead>
     <tbody>
@@ -30,7 +26,7 @@
                     @Html.DisplayFor(modelItem => item.TecModel)
                 </td>
                 <td>
-                    @Html.ActionLink("Изменить", "Edit", new { id = item.Gn })
+                    <a class="btn btn-light" role="button" title="Изменить транспорт" href="@Url.Action("Edit", "Transport", new { id = item.Gn })"><i class="fa fa-edit"></i></a>
                 </td>
             </tr>
         }

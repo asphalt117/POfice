@@ -1,20 +1,17 @@
 ﻿@model Domain.Entities.OrderV
-
-@using (Html.BeginForm("PersonSelect", "People", FormMethod.Post, new { @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
+@using (Html.BeginForm("PersonSelect", "People", FormMethod.Post, new { @id="frmperson", @class = "form-horizontal order-nodata", @role = "form", @enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <fieldset>
         @Html.HiddenFor(model => model.OrderId)
     </fieldset>
-    <div class="order-nodata">
-        <div class="form-group row">
-            <label for="ordercontactinfo" class="col-sm-2 col-form-label">Контактное лицо:</label>
-            <div class="col-sm-10" id="ordercontactinfo">
-                @Html.DropDownList("SelectedPersonId", (SelectList)ViewData["Person"], new { onchange = "$(this.form).submit();" })
-            </div>
+    <div class="form-group row">
+        <label for="PersonId" class="col-sm-2 col-form-label">Контактное лицо:</label>
+        <div class="col-sm-10" id="ordercontactinfo">
+            @Html.DropDownList("SelectedPersonId", (SelectList)ViewData["Person"], new { onchange = "$(this.form).submit();" })
         </div>
-        <hr />
     </div>
+    <hr />
 }
 
