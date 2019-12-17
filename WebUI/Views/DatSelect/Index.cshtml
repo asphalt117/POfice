@@ -29,7 +29,7 @@
         <label for="DateExec" class="col-sm-2 col-form-label">Введите дату:</label>
         <div class="col-sm-10">
             @*@Html.TextBoxFor(m => m.DateExec, new { @class = "datepicker-here form-control", @type = "text", @aria_describedby = "dateHelpBlock" })*@
-            <input aria-describedby="dateHelpBlock" class="datepicker-here form-control input-validation-error" data-val="true" data-val-required="Требуется поле Дата выпонения." id="DateExec" name="DateExec" type="text" aria-invalid="true">
+            <input autocomplete="off" aria-describedby="dateHelpBlock" class="datepicker-here form-control input-validation-error" data-val="true" data-val-required="Требуется поле Дата выпонения." id="DateExec" name="DateExec" type="text" aria-invalid="true" />
             <script type="text/javascript">
                 $('#DateExec').datepicker({
                     todayButton: new Date(),

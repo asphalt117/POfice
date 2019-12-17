@@ -1,19 +1,19 @@
 ﻿@model  Domain.Entities.OrderProductView
-    <div>
-        <div class="form-group row">
-            <label for="ordergoodinfo" class="col-sm-2 col-form-label">Продукция:</label>
-            <div class="col-sm-10" id="ordergoodinfo">
-                <b>@Model.Good</b>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="orderquantityinfo" class="col-sm-2 col-form-label">Кол-во:</label>
-            <div class="col-sm-10" id="orderquantityinfo">
-                <b>@Model.Quant</b>, ед.изм - <b>@Model.Unit</b>
-            </div>
-        </div>
-        @Html.ActionLink("Изменить", "Index", "DatSelect", null, new { @class = "nav-link" })
-
-        <hr />
+<div class="form-group row">
+    <label for="ordergoodinfo" class="col-sm-2 col-form-label">Продукция:</label>
+    <div class="col-sm-10" id="ordergoodinfo">
+        <b>@Model.Good</b>
     </div>
+</div>
+<div class="form-group row">
+    <label for="orderquantityinfo" class="col-sm-2 col-form-label">Кол-во:</label>
+    <div class="col-sm-10" id="orderquantityinfo">
+        <b>@Model.Quant</b>, ед.изм - <b>@Model.Unit</b>
+    </div>
+</div>
+<a class = "btn btn-light" role="button" title="Отредактировать заказываемую продукцию и количество" href="@Url.Action("Index", "DatSelect", null)">
+    <i class="fa fa-edit"></i>&nbsp;&nbsp;Изменить
+</a>
+<hr />
+
 

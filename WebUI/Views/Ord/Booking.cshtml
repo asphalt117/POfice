@@ -12,20 +12,15 @@
     @Scripts.Render("~/bundles/jqueryval")
 }
 <h5>Ваш заказ:</h5>
+<hr />
 @{Html.RenderAction("GoodOrder", "Good", new { ord = Model.OrderId });}
-
-@if (Model.Invoice == 0)
-    { Html.RenderAction("DateOrder", "DatSelect", new { ord = Model.OrderId }); }
-
+@if (Model.Invoice == 0) { Html.RenderAction("DateOrder", "DatSelect", new { ord = Model.OrderId }); }
 @{Html.RenderAction("ContractOrder", "Ord", new { ord = Model.OrderId });}
-
 @{Html.RenderAction("TransOrder", "Transport", new { ord = Model.OrderId });}
-
 @{Html.RenderAction("PersonOrder", "People", new { ord = Model.OrderId });}
-
 @if (Model.Step > 3)
 {
-    using (Html.BeginForm("Booking", "Ord", FormMethod.Post, new { @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
+    using (Html.BeginForm("Booking", "Ord", FormMethod.Post, new { @id="frmnote", @class = "form-horizontal order-nodata", @role = "form", @enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -61,4 +56,28 @@
         </div>
     }
 }
+<script type="text/javascript">
+    var trans = $('#frmtrans'),
+        person = $('#frmperson'),
+        note = $('#frmnote');
 
+    trans.addClass('d-none');
+    person.addClass('d-none');
+    note.addClass('d-none');
+
+    function checkorderitems() {
+        if (!$('#frmcontractadd').hasClass('order-nodata')) {
+            trans.removeClass('d-none');
+            trans.addClass('order-nodata');
+        };
+
+        if (!$('#frmtrans').hasClass('order-nodata')) {
+            person.removeClass('d-none');
+            note.addClass('order-nodata');
+        };
+
+        if (!$('#frmperson').hasClass('order-nodata')) {
+            note.removeClass('d-none');
+        };
+    };
+</script>

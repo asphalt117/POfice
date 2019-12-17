@@ -1,36 +1,37 @@
 ﻿@model Domain.Entities.OrderV
-
-    <div class="order-nodata">
-        @if (Model.Step < 3)
-        {
-            using (Html.BeginForm("Contract", "Ord", FormMethod.Post, new { @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
-            {
-                @Html.AntiForgeryToken()
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <fieldset>
-                    @Html.HiddenFor(model => model.OrderId)
-                </fieldset>
-                <div class="orderform-contract active order-item">
-                    <div class="form-group row">
-                        <label for="ContractId" class="col-sm-2 col-form-label">Выберите договор:</label>
-                        <div class="col-sm-10">
-                            @Html.DropDownList("SelectedContractId", (SelectList)ViewData["Contract"], new { onchange = "$(this.form).submit();" })
-                        </div>
-                    </div>
-                    <hr />
-                </div>
-            }
-        }
-        else
-        {
-            <div>
-                <div class="form-group row">
-                    <label for="ordercontractinfo" class="col-sm-2 col-form-label">Договор:</label>
-                    <div class="col-sm-10" id="ordercontractinfo">
-                        <b>@Model.Contract</b>
-                    </div>
-                </div>
-                <hr />
+@if (Model.Step < 3)
+{
+    using (Html.BeginForm("Contract", "Ord", FormMethod.Post, new { @id = "frmcontractadd", @class = "form-horizontal order-nodata", @role = "form", @enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <fieldset>
+            @Html.HiddenFor(model => model.OrderId)
+        </fieldset>
+        <div class="form-group row">
+            <label for="ContractId"  id="label-contract" class="col-sm-2 col-form-label">Выберите договор:</label>
+            <div class="col-sm-10">
+                @Html.DropDownList("SelectedContractId", (SelectList)ViewData["Contract"], new { onchange = "submitcontract();", @title="Выберите договор из списка" })
+                <script type="text/javascript">
+                    function submitcontract() {
+                        $('#label-contract').innerHTML = 'Договор:';
+                        $('#label-contract').text('Договор:');
+                        $('#frmcontractadd').removeClass('order-nodata');
+                        $(this.form).submit();
+                        checkorderitems();
+                    }
+                </script>
             </div>
-        }
+        </div>
+    }
+}
+else
+{
+    <div class="form-group row">
+        <label for="ordercontractinfo" class="col-sm-2 col-form-label">Договор:</label>
+        <div class="col-sm-10" id="ordercontractinfo">
+            <b>@Model.Contract</b>
+        </div>
     </div>
+}
+<hr />
