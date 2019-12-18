@@ -8,6 +8,7 @@
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <fieldset>
         @Html.HiddenFor(model => model.OrderDrivId)
+        @Html.HiddenFor(model => model.OrderId)
     </fieldset>
     <div class="form-group row">
         <label for="orderidinfo" class="col-sm-2 col-form-label">Заказ №:</label>

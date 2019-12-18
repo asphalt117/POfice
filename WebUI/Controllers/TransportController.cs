@@ -48,7 +48,7 @@ namespace WebUI.Controllers
             db.Orders.Add(order);
             db.Entry(order).State = EntityState.Modified;
             db.SaveChanges();
-            return RedirectToAction("BookingNext", "Ord", new { ord = orderDriv.OrderId });
+            return RedirectToAction("Booking", "Ord", new { ord = orderDriv.OrderId });
         }
 
         public ActionResult TransOrder(int ord)
