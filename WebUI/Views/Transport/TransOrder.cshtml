@@ -1,47 +1,51 @@
 ﻿@model IEnumerable<Domain.Entities.OrderDriv>
-
-@if (Model == null)
-{   
-    @*@ViewBag.tr*@
-}
-else
-{
+<div id="frmtrans">
     <p>
-        @Html.ActionLink("Create New", "Create")
+        <a class="btn btn-light" role="button" title="Добавить новый адрес" href="@Url.Action("Create", "Transport", null)">
+            <i class="fa fa-plus-square"></i>&nbsp;&nbsp;Добавить
+        </a>
     </p>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.OrderId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TecModel)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Gn)
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.OrderId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TecModel)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Gn)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.OrderDrivId }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.OrderDrivId }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.OrderDrivId })
-                </td>
+    <table class="table table-bordered table-hover mt-3">
+        <thead>
+            <tr class="table-active">
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.OrderId)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.TecModel)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.Gn)
+                </th>
+                <th scope="col">
+                    Управление
+                </th>
             </tr>
-        }
-
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OrderId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TecModel)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Gn)
+                    </td>
+                    <td>
+                        <a class="btn btn-light" role="button" title="Редактировать транспорт" href="@Url.Action("Edit", "Transport", new { id = item.OrderDrivId })"><i class="fa fa-edit"></i></a>
+                        <a class="btn btn-light" role="button" title="Подробнее" href="@Url.Action("Details", "Transport", new { id = item.OrderDrivId })"><i class="fa fa-trash-alt"></i></a>
+                        <a class="btn btn-light" role="button" title="Удалить транспорт" href="@Url.Action("Delete", "Transport", new { id = item.OrderDrivId })"><i class="fa fa-copy"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
     </table>
-}
+</div>
+<script>
+    $('#frmtrans').removeClass('order-nodata');
+   checkorderitems();
+</script>
