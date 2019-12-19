@@ -23,7 +23,6 @@ namespace WebUI.Controllers
         private Contract contract;
 
         [Authorize]
-         //public  ActionResult Index(int SelectedCustId = -1, int SelectedContractId = -1)
        public async Task<ActionResult> Index(int SelectedCustId = -1, int SelectedContractId = -1)
         {
             if (abzHash == null)
