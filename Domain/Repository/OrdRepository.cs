@@ -65,7 +65,8 @@ namespace Domain.Repository
         public async Task<List<OrderV>> GetOrder(int id, int invoice)
         {
             List<OrderV> orders = await db.OrderVs.Where(d => d.CustId == id &&
-                                                d.StatusId > 0 && d.Invoice == invoice).OrderByDescending(x => x.DateExec).ToListAsync();
+                                                d.Invoice == invoice).OrderByDescending(x => x.DateExec).ToListAsync();
+            //d.StatusId > 0 && d.Invoice == invoice).OrderByDescending(x => x.DateExec).ToListAsync();
             return orders;
         }
 

@@ -22,19 +22,10 @@ namespace WebUI.Controllers
         private IEnumerable<Contract> contracts;
         private Contract contract;
 
-        public async Task<Order> qqq()
-        {
-            int id = 5208;
-            Order newOrder = await db.Orders.AsNoTracking().SingleOrDefaultAsync(a => a.OrderId == id);
-            newOrder.OrderId = 0;
-            db.Orders.Add(newOrder);
-            return newOrder;
-        }
         [Authorize]
          //public  ActionResult Index(int SelectedCustId = -1, int SelectedContractId = -1)
        public async Task<ActionResult> Index(int SelectedCustId = -1, int SelectedContractId = -1)
         {
-            Order order = await qqq();
             if (abzHash == null)
                 return RedirectToAction("Logout", "Account");
 
