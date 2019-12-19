@@ -13,7 +13,6 @@ namespace WebUI.Controllers
         public Cust Cust;
         public AbzContext db = new AbzContext();
         public AbzHash abzHash;
-        //public ApplicationDbContext dba;
         public AdminContext dba;
         public int CustID;
 
