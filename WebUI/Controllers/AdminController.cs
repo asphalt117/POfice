@@ -48,8 +48,6 @@ namespace WebUI.Controllers
         //Получить всех юзеров
         public ActionResult Index(string sortOrder = "SmalName")
         {
-            //Menu.ChangeSelected(6, 1);
-            //Session["Menu"] = Menu;
             AdminRepository repo = new AdminRepository();
             return View(repo.GetAdmins(sortOrder));
         }
@@ -63,8 +61,10 @@ namespace WebUI.Controllers
         public ActionResult Privat(string id)
         {
             var user = UserManager.FindById(id);
-            //MyMenu menu = (MyMenu)Session["Menu"];
             Cust cust = db.Custs.Find(user.CustID);
+            abzHash.CustID = cust.CustId;
+            UpdateHash(abzHash);
+
             BalanceRepository bl = new BalanceRepository();
             //menu.Cust = cust.SmalName;
             //menu.sm = bl.GetBalance(cust.CustId,Menu.ContractId);
@@ -72,7 +72,7 @@ namespace WebUI.Controllers
             //menu.UserId = id;
             //menu.ChangeSelected(1, 1);
             //Session["Menu"] = menu;
-            return RedirectToAction("Index", "Custs",new { SelectedId = cust.CustId });
+            return RedirectToAction("Index", "Home",new { SelectedCustId = cust.CustId });
         }
         public ActionResult Register()
         {
