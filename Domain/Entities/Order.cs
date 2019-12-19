@@ -47,5 +47,6 @@ namespace Domain.Entities
         public int SmenaID { get; set; }
         public int? RelatedOrderId { get; set; }
         public int Step { get; set; }
+        public int Ismark { get; set; }
     }
 }

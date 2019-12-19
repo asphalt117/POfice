@@ -11,7 +11,7 @@
         <b>@Model.Smena</b>
     </div>
 </div>
-<a class="btn btn-light" role="button" title="Отредактировать дату выполнения и смену" href="@Url.Action("Index", "DatSelect", null)">
+<a class="btn btn-light" role="button" title="Отредактировать дату выполнения и смену" href="@Url.Action("Index", "DatSelect", new { id = Model.OrderId })">
     <i class="fa fa-edit"></i>&nbsp;&nbsp;Изменить
 </a>
 <hr />

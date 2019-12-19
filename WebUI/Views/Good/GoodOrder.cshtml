@@ -11,7 +11,7 @@
         <b>@Model.Quant</b>, ед.изм - <b>@Model.Unit</b>
     </div>
 </div>
-<a class = "btn btn-light" role="button" title="Отредактировать заказываемую продукцию и количество" href="@Url.Action("Index", "DatSelect", null)">
+<a class = "btn btn-light" role="button" title="Отредактировать заказываемую продукцию и количество" href="@Url.Action("Categ", "Good", new { ord = Model.OrderId })">
     <i class="fa fa-edit"></i>&nbsp;&nbsp;Изменить
 </a>
 <hr />

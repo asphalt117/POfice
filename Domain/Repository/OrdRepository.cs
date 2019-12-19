@@ -19,24 +19,6 @@ namespace Domain.Repository
             newOrder.OrderId = 0;
             db.Orders.Add(newOrder);
             return newOrder;
-
-            Order vsh = await db.Orders.FindAsync(id);
-            Order sv = new Order();
-            sv.CustId = vsh.CustId;
-
-            sv.AdresId = vsh.AdresId;
-
-            sv.ContractId = vsh.ContractId;
-
-            sv.Centr = vsh.Centr;
-            sv.Dat = vsh.Dat;
-
-            sv.note = vsh.note;
-
-            sv.PersonId = vsh.PersonId;
-            sv.Invoice = vsh.Invoice;
-            sv.Step = 6;
-            return sv;
         }
 
         public async Task<OrderV> GetCopy(int id, int invoice = -1)
@@ -65,7 +47,7 @@ namespace Domain.Repository
         public async Task<List<OrderV>> GetOrder(int id, int invoice)
         {
             List<OrderV> orders = await db.OrderVs.Where(d => d.CustId == id &&
-                                                d.Invoice == invoice).OrderByDescending(x => x.DateExec).ToListAsync();
+                                             d.Invoice == invoice).OrderByDescending(x => x.DateExec).ToListAsync();
             //d.StatusId > 0 && d.Invoice == invoice).OrderByDescending(x => x.DateExec).ToListAsync();
             return orders;
         }

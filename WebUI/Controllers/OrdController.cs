@@ -32,9 +32,6 @@ namespace WebUI.Controllers
     // 1. Материал
     // 3. Контракт
     // 4. Доставка
-    // 
-
-
 
     public class OrdController : BaseController
     {
@@ -113,8 +110,34 @@ namespace WebUI.Controllers
 
             //ViewBag.Order = "Заказ №  " + order.OrderId.ToString() + " отправлен";
             //OrderV orderV= db.OrderVs.Find(ord.OrderId);
-            return RedirectToAction("Index", "Ord", new { id = order.OrderId });
+            return RedirectToAction("Index", "Ord", new { id = order.Invoice });
             //return View("Saved", orderV);
         }
+
+        public async Task<ActionResult> Delete(int id)
+        {
+            Order order = await db.Orders.FindAsync(id);
+            int invoice = order.Invoice;
+            order.Ismark = 1;
+            db.Entry(order).State = EntityState.Modified;
+            await db.SaveChangesAsync();
+            return RedirectToAction("Index", "Ord", new { id = order.Invoice });
+            ViewBag.Order = "Удаление заказа";
+            return View(order);
+        }
+        //[HttpPost]
+        //public async Task<ActionResult> Delete()
+        //{
+        //    await repo.Delete(orderSes.id);
+        //    return RedirectToAction("Index");
+        //}
+
+        //public async Task<int> Delete(int id)
+        //{
+        //    Order ord = await db.Orders.FindAsync(id);
+        //    db.Orders.Remove(ord);
+        //    await db.SaveChangesAsync();
+        //    return id;
+        //}
     }
 }
