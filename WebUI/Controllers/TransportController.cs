@@ -62,6 +62,8 @@ namespace WebUI.Controllers
                     return PartialView("TransCentr", order);
 
                 List<OrderDriv> orderDrivs = db.OrderDrivs.Where(a => a.OrderId == ord).ToList();
+                ViewBag.OrderId = ord;
+                //TrancportView trancportView = new TrancportView(ord, abzHash.CustID);
                 if (orderDrivs.Count > 0)
                     return PartialView(orderDrivs);
                 else

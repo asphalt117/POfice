@@ -100,6 +100,8 @@ namespace WebUI.Controllers
             //Примечание
             //Оплата он-лайн
             Order order = db.Orders.Find(ord.OrderId);
+            //Проверить дату, и возможно другие поля.
+
             order.note = ord.Note;
             order.StatusId = 1;
             order.Step = 6;
@@ -125,19 +127,5 @@ namespace WebUI.Controllers
             ViewBag.Order = "Удаление заказа";
             return View(order);
         }
-        //[HttpPost]
-        //public async Task<ActionResult> Delete()
-        //{
-        //    await repo.Delete(orderSes.id);
-        //    return RedirectToAction("Index");
-        //}
-
-        //public async Task<int> Delete(int id)
-        //{
-        //    Order ord = await db.Orders.FindAsync(id);
-        //    db.Orders.Remove(ord);
-        //    await db.SaveChangesAsync();
-        //    return id;
-        //}
-    }
+     }
 }
