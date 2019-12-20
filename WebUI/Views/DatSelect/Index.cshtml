@@ -20,7 +20,7 @@
     <b>Вы заказываете:</b>&nbsp;@Model.Good&nbsp;&nbsp;, ед.изм - @Model.Unit
 </p>
 <hr />
-@using (Html.BeginForm("DatAdd", "DatSelect", FormMethod.Post, new { @id="frmdatadd", @class = "form-horizontal order-nodata", @role = "form", @enctype = "multipart/form-data" }))
+@using (Html.BeginForm("DatAdd", "DatSelect", FormMethod.Post, new { @id = "frmdatadd", @class = "form-horizontal order-nodata", @role = "form", @enctype = "multipart/form-data" }))
 {
     <fieldset>
         @Html.HiddenFor(model => model.OrderId)
@@ -29,9 +29,10 @@
         <label for="DateExec" class="col-sm-2 col-form-label">Введите дату:</label>
         <div class="col-sm-10">
             @*@Html.TextBoxFor(m => m.DateExec, new { @class = "datepicker-here form-control", @type = "text", @aria_describedby = "dateHelpBlock" })*@
-            <input autocomplete="off" aria-describedby="dateHelpBlock" class="datepicker-here form-control input-validation-error" data-val="true" data-val-required="Требуется поле Дата выпонения." id="DateExec" name="DateExec" type="text" aria-invalid="true" />
+            @*<input autocomplete="off" aria-describedby="dateHelpBlock" class="datepicker-here form-control input-validation-error" data-val="true" data-val-required="Требуется поле Дата выпонения." id="DateExec" name="DateExec" type="text" aria-invalid="true" />*@
+            <input autocomplete="off" aria-describedby="dateHelpBlock" class="datepicker-here form-control input-validation-error" data-val="true" data-val-required="Требуется поле Дата выпонения." id="cDat" name="cDat" type="text" aria-invalid="true" />
             <script type="text/javascript">
-                $('#DateExec').datepicker({
+                $('#cDat').datepicker({
                     todayButton: new Date(),
                     autoClose: true,
                     minDate: new Date(),
@@ -60,7 +61,7 @@
                 });
 
                 function checkdate() {
-                    var dat = document.getElementById('DateExec'),
+                    var dat = document.getElementById('cDat'),
                         dy = document.getElementById('gridRadios1'),
                         nt = document.getElementById('gridRadios2'),
                         btn = document.getElementById('btndatadd-next'),

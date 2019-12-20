@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Domain.Engine;
+using Domain.Entities;
 using System.Data.Entity;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -26,7 +27,7 @@ namespace WebUI.Controllers
         {
             //Закомментировано пока нет получения Даты, смены
             Order order= await db.Orders.FindAsync(ord.OrderId);
-            order.DateExec = ord.DateExec;
+            order.DateExec = StringToDate.Date(ord.CDat);
             order.SmenaID = ord.SmenaID;
             order.note = ord.Note;
             order.Step = 2;

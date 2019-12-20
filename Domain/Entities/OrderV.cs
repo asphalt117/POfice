@@ -28,8 +28,10 @@ namespace Domain.Entities
         public int PersonId { get; set; }
         [Display(Name = "Доставка нашим транспортом")]
         public bool Centr { get; set; }
+
         [Display(Name = "Доставка")]
         public string CentrName { get; set; }
+        
         [Display(Name = "Дата выпонения")]
         [DataType(DataType.Date)]
         [UIHint("Date")]
@@ -43,6 +45,12 @@ namespace Domain.Entities
         //public DateTime Dat { get; set; }
         //[Display(Name = "Количество")]
         //public decimal Quant { get; set; }
+
+
+        [Display(Name = "Дата выполнения")]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        public string CDat { get; set; }
+
         [Display(Name = "Примечание")]
         [DataType(DataType.MultilineText)]
         public string Note { get; set; }

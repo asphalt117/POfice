@@ -30,7 +30,7 @@ namespace Domain.Entities
         //[StringLength(20)]
         //public string tel { get; set; }
 
-        //[StringLength(50)]
+        [StringLength(50)]
         public string email { get; set; }
 
         public string note { get; set; }
@@ -43,7 +43,7 @@ namespace Domain.Entities
         public bool isOnlinePay { get; set; }
         public int StatusId { get; set; }
         public int Invoice { get; set; }
-        public int OrderType { get; set; }
+        //public int OrderType { get; set; }
         public int SmenaID { get; set; }
         public int? RelatedOrderId { get; set; }
         public int Step { get; set; }

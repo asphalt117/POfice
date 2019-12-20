@@ -69,8 +69,11 @@
                     @Html.DisplayFor(modelItem => item.Note)
                 </td>
                 <td>
-                    <a class="btn btn-light" role="button" title="Редактировать заказ" href="@Url.Action("Booking", "Ord", new { ord = item.OrderId })"><i class="fa fa-edit"></i></a>
-                    <a class="btn btn-light" role="button" title="Удалить заказ" href="@Url.Action("Delete", "Ord", new { id = item.OrderId })"><i class="fa fa-trash-alt"></i></a>
+                    @if (item.StatusId < 2)
+                    {
+                        <a class="btn btn-light" role="button" title="Редактировать заказ" href="@Url.Action("Booking", "Ord", new { ord = item.OrderId })"><i class="fa fa-edit"></i></a>
+                        <a class="btn btn-light" role="button" title="Удалить заказ" href="@Url.Action("Delete", "Ord", new { id = item.OrderId })"><i class="fa fa-trash-alt"></i></a>
+                    }
                     <a class="btn btn-light" role="button" title="Копировать заказ" href="@Url.Action("Copy", "Ord", new { id = item.OrderId })"><i class="fa fa-copy"></i></a>
                 </td>
             </tr>
