@@ -93,25 +93,25 @@ namespace WebUI.Controllers
             ViewBag.MenuItem = "recv";
             return View("Index", cust);
         }
-        public ActionResult MainMenu(string menuItem)
-        {
-            ViewBag.MenuItem = menuItem;
-            return PartialView();
-        }
+        //public ActionResult MainMenu(string menuItem)
+        //{
+        //    ViewBag.MenuItem = menuItem;
+        //    return PartialView();
+        //}
 
-        public ActionResult HeadMenu()
-        {
-            BalanceRepository bl = new BalanceRepository();
+        //public ActionResult HeadMenu()
+        //{
+        //    BalanceRepository bl = new BalanceRepository();
 
-            ViewBag.cust = Cust.SmalName;
+        //    ViewBag.cust = Cust.SmalName;
 
-            ViewBag.sm = bl.GetBalance(CustID, (int)abzHash.ContractID);
-            contract = db.Contracts.Find((int)abzHash.ContractID);
-            if (contract != null)
-                ViewBag.Contract = "Договор № " + contract.Num;
+        //    ViewBag.sm = bl.GetBalance(CustID, (int)abzHash.ContractID);
+        //    contract = db.Contracts.Find((int)abzHash.ContractID);
+        //    if (contract != null)
+        //        ViewBag.Contract = "Договор № " + contract.Num;
 
-            return PartialView();
-        }
+        //    return PartialView();
+        //}
 
         private int CalcState(int SelectedCustId, int SelectedContractId)
         {
