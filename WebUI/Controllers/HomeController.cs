@@ -62,7 +62,7 @@ namespace WebUI.Controllers
             }
             catch
             {
-                //return RedirectToAction("Logout", "Account");
+                //return Red--irectToAction("Logout", "Account");
             }
 
             contracts = repo.GetContracts(CustID);
@@ -91,6 +91,21 @@ namespace WebUI.Controllers
             IEnumerable<OrgView> orgView = repo.GetCust(usr);
             ViewData["Cust"] = new SelectList(orgView, "ID", "Txt", CustID);
             ViewBag.MenuItem = "recv";
+
+            BalanceRepository bl = new BalanceRepository();
+            ViewBag.customer = cust.SmalName;
+            ViewBag.balance = bl.GetBalance(CustID, (int)abzHash.ContractID).ToString();
+            ViewBag.contractn = "";
+            Contract contractcc = db.Contracts.Find((int)abzHash.ContractID);
+            if (contractcc != null)
+            {
+                ViewBag.contractn = "Договор № " + contractcc.Num;
+            }
+
+            SetCookie("customer", ViewBag.customer);
+            SetCookie("balance", ViewBag.balance);
+            SetCookie("contract", ViewBag.contractn);
+
             return View("Index", cust);
         }
         //public ActionResult MainMenu(string menuItem)

@@ -1,4 +1,67 @@
-﻿<!DOCTYPE html>
+﻿﻿@using Microsoft.AspNet.Identity
+@{
+    string customer = "";
+    string contract = "";
+    string balance = "";
+    HttpCookie cookie;
+
+    if (ViewBag.customer != null)
+    {
+        customer = ViewBag.customer;
+    }
+    else
+    {
+        cookie = Request.Cookies["customer"];
+        if (cookie != null)
+        { customer = cookie.Value; }
+    }
+
+    if (ViewBag.contractn != null)
+    {
+        contract = ViewBag.contractn;
+    }
+    else
+    {
+        cookie = Request.Cookies["contract"];
+        if (cookie != null)
+        { contract = cookie.Value; }
+    }
+
+    if (ViewBag.balance != null)
+    {
+        balance = ViewBag.balance;
+    }
+    else
+    {
+        cookie = Request.Cookies["balance"];
+        if (cookie != null) { balance = cookie.Value; }
+    }
+
+    string cookieName = "menuitem";
+    cookie = Request.Cookies[cookieName];
+    string menuactive = "";
+    if (cookie == null)
+    {
+        cookie = new HttpCookie(cookieName, menuactive);
+        Response.Cookies.Add(cookie);
+    }
+    else
+    {
+        menuactive = cookie.Value;
+    }
+
+    if (ViewBag.MenuItem != null && !string.IsNullOrEmpty(ViewBag.MenuItem))
+    {
+        menuactive = ViewBag.MenuItem;
+        cookie = new HttpCookie(cookieName, menuactive);
+        Response.Cookies.Add(cookie);
+    }
+    else
+    {
+        ViewBag.MenuItem = menuactive;
+    }
+}
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -20,7 +83,7 @@
 <body>
     <header>
         <nav class="navbar navbar-dark bg-dark flex-lg-nowrap p-1 shadow header-wrapper">
-            <a class="navbar-brand col-12 col-lg-2 mw-100 mr-0 logo-brand" href="https://personal.abz4.ru" title="Акционерное общество 'Асфальтобетонный завод 'Капотня' - Личный кабинет пользователя">
+            <a class="navbar-brand col-6 col-lg-2 mw-100 mr-0 logo-brand" href="https://personal.abz4.ru" title="Акционерное общество 'Асфальтобетонный завод 'Капотня' - Личный кабинет пользователя">
                 <b>
                     А&nbsp;Б&nbsp;З&nbsp;
                     <img class="logotype d-inline" src="/images/logo.png" width="56" height="38" alt="Акционерное общество 'Асфальтобетонный завод 'Капотня' - Личный кабинет пользователя"
@@ -28,36 +91,29 @@
                     &nbsp;<font color="orange">К&nbsp;А&nbsp;П&nbsp;О&nbsp;Т&nbsp;Н&nbsp;Я</font>
                 </b>
             </a>
-            @*@if (Request.IsAuthenticated)
-                {@Html.Action("HeadMenu", "Home")}*@
-            @Html.Partial("_LoginPartial", "md")
+            @Html.Partial("_LoginPartial")
         </nav>
     </header>
     <div class="container-fluid">
         @if (Request.IsAuthenticated)
         {
-        <div class="row">
-
-            @*                @{ Html.RenderAction("MainMenu", "Home", new { menuItem = ViewBag.MenuItem }); }*@
-
-
-
+            <div class="row">
                 <div class="col-md-3 col-lg-2 navbar-container bg-dark sidebar">
                     <nav class="navbar navbar-expand-md navbar-dark mainmenu-wrapper">
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainmenu" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" title="Меню пользователя">
                             <span class="navbar-toggler-icon"></span>
                         </button>
-                        @Html.Partial("_LoginPartial", "sm")
                         <div class="collapse navbar-collapse" id="mainmenu">
                             <ul class="mb-2 navbar-nav mainmenu-nav">
                                 <li class="d-none d-md-flex justify-content-between align-items-center px-3 mt-2 mb-1 text-muted font-weight-bold sidebar-header"><span>ЛИЧНЫЙ КАБИНЕТ</span></li>
                                 <li class="d-flex justify-content-between align-items-center px-3 mt-3 mb-1 text-muted sidebar-subheader"><span>Отгрузка и оплата</span></li>
-                               
-                                <li class="nav-item @Html.Encode(ViewBag.MenuItem == "balance" ? "active" : "")">
+                                @if (Context.User.IsInRole("Administrator"))
+                                {
+                                <li class="nav-item @Html.Encode(ViewBag.MenuItem == "admin" ? "active" : "")">
                                     @Html.ActionLink("Администрирование", "Index", "Admin", null, new { @class = "nav-link" })
                                 </li>
-                                
-                                <li class="nav-item @Html.Encode(ViewBag.MenuItem == "balance" ? "active" : "")">
+                                }
+                                <li class="nav-item @Html.Encode(ViewBag.MenuItem == "balance" ? "active" : "")"> 
                                     @Html.ActionLink("Взаиморасчеты", "Balance", "Balances", null, new { @class = "nav-link" })
                                 </li>
                                 <li class="nav-item @Html.Encode(ViewBag.MenuItem == "rst" ? "active" : "")">
@@ -112,14 +168,21 @@
                         </div>
                     </nav>
                 </div>
-
-
-
-            <main role="main" class="col-md-9 col-lg-10 pt-4 pb-4 content-container">
-                <h1 class="h1">@ViewBag.ContentTitle</h1>
-                @RenderBody()
-            </main>
-        </div>
+                <main role="main" class="col-md-9 col-lg-10 pt-4 pb-4 content-container">
+                    @if (Request.IsAuthenticated)
+                    {
+                        <div class="form-control mw-100 w-100 h-auto mb-3 customer-info">
+                            <span class="client-name">@customer</span>
+                            <span>&nbsp;/&nbsp;</span>
+                            <span class="client-contract">@contract</span>
+                            <span>&nbsp;/&nbsp;</span>
+                            <span class="client-balance"><i class="fas fa-coins"></i>&nbsp;Баланс:&nbsp;<b>@balance руб.</b></span>
+                        </div>
+                    }
+                    <h1 class="h1">@ViewBag.ContentTitle</h1>
+                    @RenderBody()
+                </main>
+            </div>
         }
         else
         {

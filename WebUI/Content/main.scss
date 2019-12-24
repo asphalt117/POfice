@@ -27,12 +27,9 @@ textarea {
 }
 
 
-
-
 /*  MAIN STYLES  */
-
-$logo-width:56px;
-$logo-height:38px;
+$logo-width: 56px;
+$logo-height: 38px;
 
 
 .img-center, .carmap-img {
@@ -54,13 +51,17 @@ $logo-height:38px;
 
 .logo-brand {
     .logotype {
-        width: $logo-width;
-        height: $logo-height;
+        width: ($logo-width*6)/10;
+        height: ($logo-height*6)/10;
     }
 }
 
-.header-info {
+.customer-info {
     border-radius: 1px;
+    border-top: none !important;
+    border-right: none !important;
+    border-left: none !important;
+    border-bottom: 2px solid #666 !important;
 }
 
 
@@ -160,18 +161,12 @@ footer {
     color: #ff7900;
     font-weight: bolder;
     border: 1px dotted #ff8000;
-    /*border-radius: 1px;
-    background: #aaa;
-    color: #fff;*/
 }
 
 .product-category .nav-item .nav-link:hover,
 .product-subcategory .nav-item .nav-link:hover,
 .product-category .nav-item .nav-link:focus,
 .product-subcategory .nav-item .nav-link:focus {
-    /*border-radius: 1px;
-    background: #aaa;
-    color: #fff;*/
     background: transparent;
     color: #ff8000;
 }
@@ -211,25 +206,11 @@ footer {
 
 }*/
 
-@media (max-width: 991.98px) {
-    .logo-brand {
-        .logotype {
-            width: ($logo-width*6)/10;
-            height: ($logo-height*6)/10;
-        }
-    }
-
-    .logoutform-md {
-        width: 100%;
-    }
-}
+/*@media (max-width: 991.98px) {
+}*/
 
 @media (max-width: 767.98px) {
-    /*#logoutForm {
-        width: auto;
-    }*/
-
-    .sidebar {
+     .sidebar {
         border-top: none;
     }
 
@@ -242,12 +223,7 @@ footer {
 
 
 
-
-
-
-
-
-
+/*  ДЛЯ ОСНОВНОГО МЕНЮ  */
     @media (min-width: 768px) {
         .navbar-container {
             position: sticky;

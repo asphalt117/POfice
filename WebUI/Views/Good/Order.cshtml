@@ -35,7 +35,7 @@
                         {
                             @Html.Hidden("GoodID", item.GoodID)
                             @Html.Hidden("OrdID", Model.OrderID)
-                            <input type="text" name="Quantity" value="@Html.Encode(Model.Quantity)" @*size="2" width="100"*@ placeholder="Укажите количество товара"  pattern="\d+(,\d{0,3})?" required />
+                            <input type="text" name="Quantity" value="@Html.Encode(Model.Quantity == 0 ? null : Model.Quantity)" @*size="2" width="100"*@ placeholder="Укажите количество товара"  pattern="\d+(,\d{0,3})?" autofocus required />
                             <input class="actionButtons btn btn-xs-sm btn-success" type="submit" value="Заказать" title="Заказать товар" />
                         }
                     </td>
