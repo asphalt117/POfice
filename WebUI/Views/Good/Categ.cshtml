@@ -52,12 +52,13 @@
                 </td>
                 <td align="left">
                     @using (Html.BeginForm("GoodAdd", "Good"))
-                    {
-                        @Html.Hidden("GoodID", item.GoodID)
-                        @Html.Hidden("OrdID", Model.OrderID)
-                        <input id="@Html.Encode("good"+item.GoodID.ToString())" type="text" name="Quantity" value="@Html.Encode(Model.Quantity)" placeholder="Укажите количество товара" pattern="\d+(,\d{0,3})?" required oninput="checkval(this.id);" onfocus="getfocus(this.id)" />
-                        <input id="@Html.Encode("btngood"+item.GoodID.ToString())" class="actionButtons btn btn-success" type="submit" value="Заказать >>" title="Заказать товар" disabled/>
-                    }
+    {
+                @Html.Hidden("GoodID", item.GoodID)
+                @Html.Hidden("OrdID", Model.OrderID)
+                //value="@Html.Encode(Model.Quantity == 0 ? null : Model.Quantity)"
+                <input id="@Html.Encode("good"+item.GoodID.ToString())" type="text" name="Quantity"  placeholder="Укажите количество товара" pattern="\d+(,\d{0,3})?" autofocus autocomplete="off" required oninput="checkval(this.id);" onfocus="getfocus(this.id)" />
+                <input id="@Html.Encode("btngood"+item.GoodID.ToString())" class="actionButtons btn btn-success" type="submit" value="Заказать >>" title="Заказать товар" disabled />
+}
                 </td>
             </tr>
             }

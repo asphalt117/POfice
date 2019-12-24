@@ -1,21 +1,7 @@
-﻿@model  string
-@{
-    string classfor = "clearfix p-0";
-    if (Model == "md")
-    {
-        //classfor = classfor + " d-md-block d-none w-100 logoutform-md";
-        classfor = classfor + " d-md-block d-none logoutform-md";
-    }
-
-    if (Model == "sm")
-    {
-        classfor = classfor + " d-sm-flex d-md-none w-auto logoutform-sm";
-    }
-}
-@using Microsoft.AspNet.Identity
+﻿@using Microsoft.AspNet.Identity
 @if (Request.IsAuthenticated)
 {
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { @class = classfor, @id= "logoutForm" }))
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { @class = "clearfix p-0", @id= "logoutForm" }))
     {
         @Html.AntiForgeryToken()
         <ul class="navbar-nav px-3 flex-row float-right">

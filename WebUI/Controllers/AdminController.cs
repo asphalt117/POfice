@@ -46,9 +46,11 @@ namespace WebUI.Controllers
             }
         }
         //Получить всех юзеров
+        [Authorize(Roles = "Administrator")]
         public ActionResult Index(string sortOrder = "SmalName")
         {
             AdminRepository repo = new AdminRepository();
+            ViewBag.MenuItem = "admin";
             return View(repo.GetAdmins(sortOrder));
         }
         public ActionResult Good()
