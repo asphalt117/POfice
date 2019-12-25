@@ -45,7 +45,7 @@ namespace WebUI.Controllers
         public async Task<ActionResult> Index(int id)
         {
             List<OrderV> orders = await repo.GetOrder(Cust.CustId, id);
-            ViewBag.Title = (id == 0) ? "Заказы" : "Счета";
+            ViewBag.typeord = id;
             ViewBag.MenuItem = (id == 0) ? "ord" : "ordch";
             return View(orders);
         }

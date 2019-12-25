@@ -1,22 +1,17 @@
 ﻿@model IEnumerable<Domain.Entities.Adres>
 
 @{
-    ViewBag.Title = "Адреса";
+    ViewBag.Title = "Список адресов";
+    ViewBag.ContentTitle = "Адреса";
 }
-
-
 <p>
-    @Html.ActionLink("Новый адрес", "Create", null,
-                new
-                {
-                    @class = "actionButtons btn btn-default btn-success",
-                    @role = "button",
-                    @title = "Создать новый адрес"
-                })
+    <a class="btn btn-light" role="button" title="Создать новый адрес" href="@Url.Action("Create", "Adres")">
+        <i class="fa fa-plus-square"></i>&nbsp;&nbsp;Новый адрес
+    </a>
 </p>
-<table align="center" class="table table-hover table-bordered table-grey-header">
+<table class="table table-bordered table-hover mt-3">
     <thead>
-        <tr>
+        <tr class="table-active">
             <th>
                 @Html.DisplayNameFor(model => model.txt)
             </th>
@@ -26,18 +21,19 @@
             <th></th>
         </tr>
     </thead>
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.txt)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Rast)
-        </td>
-        <td>
-            @Html.ActionLink(HttpUtility.HtmlDecode("&#xe015;"), "Details", new { id = item.AdresID }, new { @class = "actionButtons btn btn-xs-sm-md btn-default glyphicon glyph-btn", @role = "button", @title = "Просмотр контакта" })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.txt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rast)
+            </td>
+            <td>
+                @Html.ActionLink(HttpUtility.HtmlDecode("&#xe015;"), "Details", new { id = item.AdresID }, new { @class = "actionButtons btn btn-xs-sm-md btn-default glyphicon glyph-btn", @role = "button", @title = "Просмотр контакта" })
+            </td>
+        </tr>
+    }
 
 </table>

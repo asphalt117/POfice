@@ -28,7 +28,7 @@ namespace WebUI.Controllers
             GoodView goodView = new GoodView();
             goodView.OrderID = ord;
             //int ctg;
-            if (subcategs != null)
+            if (subcategs != null && subcategs.Any())
             {
                 if (subcateg == null)
                 {

@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<Domain.Entities.TrustTecV>
 
 @{
-    ViewBag.Title = "Доверенный транспорт";
+    ViewBag.Title = ViewBag.ContentTitle = "Доверенный транспорт";
 }
 <p>
     @Html.ActionLink("Новая доверенность на транспорт", "Create", null,
                 new
                 {
-                    @class = "actionButtons btn btn-default btn-success",
+                    @class = "btn btn-light",
                     @role = "button",
                     @title = "Создать  новую доверенность на транспорт"
                 })

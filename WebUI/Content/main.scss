@@ -21,11 +21,9 @@ textarea {
     max-width: 280px;
 }
 
-
 textarea {
     max-width: 600px!important;
 }
-
 
 /*  MAIN STYLES  */
 $logo-width: 56px;
@@ -43,7 +41,6 @@ $logo-height: 38px;
     margin-top: 3px !important;
     margin-bottom: 3px !important;
 }
-
 
 
 .header-wrapper {
@@ -199,16 +196,7 @@ footer {
 }
 
 
-
 /* MEDIA STYLES */
-
-/*@media (min-width: 991.98px) {
-
-}*/
-
-/*@media (max-width: 991.98px) {
-}*/
-
 @media (max-width: 767.98px) {
      .sidebar {
         border-top: none;
@@ -219,8 +207,6 @@ footer {
         font-size: small;
     }
 }
-
-
 
 
 /*  ДЛЯ ОСНОВНОГО МЕНЮ  */

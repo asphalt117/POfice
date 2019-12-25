@@ -1,7 +1,15 @@
 ﻿@model IEnumerable<Domain.Entities.OrderV>
 @{
-    ViewBag.Title = "Список заказов";
-    ViewBag.ContentTitle = "Заказы";
+    if (ViewBag.typeord == 0)
+    {
+        ViewBag.Title = "Список заказов";
+        ViewBag.ContentTitle = "Заказы";
+    }
+    else
+    {
+        ViewBag.Title = "Список счетов";
+        ViewBag.ContentTitle = "Счета";
+    }
 }
 <p>
     <a class="btn btn-light" role="button" title="Создать новый заказ" href="@Url.Action("Create", "Ord", new { act = ViewBag.ContentTitle })">

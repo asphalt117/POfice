@@ -90,6 +90,7 @@ namespace WebUI.Controllers
             //не верно для админа, однако работает?
             IEnumerable<OrgView> orgView = repo.GetCust(usr);
             ViewData["Cust"] = new SelectList(orgView, "ID", "Txt", CustID);
+
             ViewBag.MenuItem = "recv";
 
             BalanceRepository bl = new BalanceRepository();
@@ -102,6 +103,8 @@ namespace WebUI.Controllers
                 ViewBag.contractn = "Договор № " + contractcc.Num;
             }
 
+            SetCookie("custid", CustID.ToString());
+            SetCookie("contractid", abzHash.ContractID.ToString());
             SetCookie("customer", ViewBag.customer);
             SetCookie("balance", ViewBag.balance);
             SetCookie("contract", ViewBag.contractn);
@@ -130,12 +133,13 @@ namespace WebUI.Controllers
 
         private int CalcState(int SelectedCustId, int SelectedContractId)
         {
-            string cst = GetCookie("Cust");
+            string cst = GetCookie("custid");
             if (!String.IsNullOrWhiteSpace(cst))
                 CustID = Convert.ToInt32(cst);
             else
                 CustID = 0;
-            string dog = GetCookie("Dog");
+
+            string dog = GetCookie("contractid");
             if (!String.IsNullOrWhiteSpace(dog))
                 ContractID = Convert.ToInt32(dog);
             else
