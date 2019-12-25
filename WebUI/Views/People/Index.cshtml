@@ -1,19 +1,14 @@
 ﻿@model IEnumerable<Domain.Entities.Person>
 
 @{
-    ViewBag.Title = "Контакты";
+    ViewBag.Title = ViewBag.ContentTitle = "Контакты";
 }
-
 <p>
-    @Html.ActionLink("Новый контакт", "Create", null,
-                new
-                {
-                    @class = "actionButtons btn btn-default btn-success",
-                    @role = "button",
-                    @title = "Создать новый контакт"
-                })
+    <a class="btn btn-light" role="button" title="Создать новый контакт" href="@Url.Action("Create", "People", null)">
+        <i class="fa fa-plus-square"></i>&nbsp;&nbsp;Новый контакт
+    </a>
 </p>
-<table align="center" class="table table-hover table-bordered table-grey-header">
+<table class="table table-bordered table-hover mt-3">
     <thead>
         <tr>
             <th>
@@ -28,24 +23,24 @@
             <th></th>
         </tr>
     </thead>
-@foreach (var item in Model)
-{
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tel)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.ActionLink(HttpUtility.HtmlDecode("&#xe065;"), "Edit", new { id = item.PersonId }, new { @class = "actionButtons btn btn-xs-sm-md btn-default glyphicon glyph-btn", @role = "button", @title = "Редактировать контакт" })
-            @Html.ActionLink(HttpUtility.HtmlDecode("&#xe015;"), "Details", new { id = item.PersonId }, new { @class = "actionButtons btn btn-xs-sm-md btn-default glyphicon glyph-btn", @role = "button", @title = "Просмотр контакта" })
-            @Html.ActionLink(HttpUtility.HtmlDecode("&#xe020;"), "Delete", new { id = item.PersonId }, new { @class = "actionButtons btn btn-xs-sm-md btn-default glyphicon glyph-btn", @role = "button", @title = "Удалить контакт" })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.ActionLink(HttpUtility.HtmlDecode("&#xe065;"), "Edit", new { id = item.PersonId }, new { @class = "actionButtons btn btn-xs-sm-md btn-default glyphicon glyph-btn", @role = "button", @title = "Редактировать контакт" })
+                @Html.ActionLink(HttpUtility.HtmlDecode("&#xe015;"), "Details", new { id = item.PersonId }, new { @class = "actionButtons btn btn-xs-sm-md btn-default glyphicon glyph-btn", @role = "button", @title = "Просмотр контакта" })
+                @Html.ActionLink(HttpUtility.HtmlDecode("&#xe020;"), "Delete", new { id = item.PersonId }, new { @class = "actionButtons btn btn-xs-sm-md btn-default glyphicon glyph-btn", @role = "button", @title = "Удалить контакт" })
+            </td>
+        </tr>
+    }
 
 </table>

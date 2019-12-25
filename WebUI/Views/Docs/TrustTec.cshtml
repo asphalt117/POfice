@@ -1,67 +1,67 @@
 ﻿@model IEnumerable<Domain.Entities.OrgTrustTec>
 
 @{
-    ViewBag.Title = "Выбор доверенного транспорта";
+    ViewBag.Title = ViewBag.ContentTitle = "Выбор доверенного транспорта";
 }
-
-<h3>Доверенный транспорт</h3>
-
+<h2>Доверенный транспорт</h2>
 <p>
-    @Html.ActionLink("Создать новую доверенность", "CreateTec")
+    @Html.ActionLink("Создать новую доверенность", "CreateTec",null, new {@class="btn btn-light" })
 </p>
 @if (Model.Count() > 0)
 {
-<table>
-    <tr  style="background-color:#f3f3f3;">
-        <th>
-            @Html.DisplayNameFor(model => model.TecModel)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Gn)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Driv)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Good)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BeginDat)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EndDat)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TecModel)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Gn)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Driv)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Good)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BeginDat)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EndDat)
-            </td>
-        </tr>
-    }
-
-</table>
+    <table class="table table-bordered table-hover mt-3">
+        <thead>
+            <tr class="table-active">
+                <th>
+                    @Html.DisplayNameFor(model => model.TecModel)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Gn)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Driv)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Good)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BeginDat)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EndDat)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TecModel)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Gn)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Driv)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Good)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BeginDat)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndDat)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 }
 else
 {
-    <h3>У вас нет действующих доверенностей</h3>
+    <h2>У вас нет действующих доверенностей</h2>
 }
 

@@ -22,8 +22,8 @@
 <div id="selectttn">
     <p>
         <br />
-        <a href="@Url.Action("Export")" class="btn btn-xs-sm-md btn-default btn-primary" role="button" title="Скачать реестр в Excel">
-            <span class="glyphicon glyphicon-download-alt"></span>&nbsp;&nbsp;скачать реестр в Excel
+        <a href="@Url.Action("Export")" class="btn btn-light" role="button" title="Скачать реестр в Excel">
+            <i class="fa fa-file-download"></i>&nbsp;&nbsp;скачать реестр в Excel
         </a>
     </p>
     @Html.PageSelectNRecByPage(Model.PageInfo.pageSize)
@@ -46,9 +46,9 @@
 
 
     <div class="table-responsive product-table-wrapper">
-        <table class="table table-hover table-bordered table-grey-header">
+        <table class="table table-bordered table-hover mt-3">
             <thead>
-                <tr>
+                <tr class="table-active">
                     <th>V</th>
                     <th>№</th>
                     <th>Дата</th>
@@ -66,23 +66,23 @@
             </thead>
             <tbody>
                 @foreach (var item in Model.Ttns)
-                {
-                <tr>
-                    <td><input type="checkbox" onchange="JavaScript: chg(this);" class="chv" /></td>
-                    <td>@Html.DisplayFor(modelItem => item.Num)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Dat)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Tm)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Good)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Adres)</td>
-                    <td>@Html.TextBoxFor(modelItem => item.Kol, new { @class = "kol", @readonly = "", @id="" })</td>
-                    <td>@Html.DisplayFor(modelItem => item.Price)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Sm)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Amodel)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Ab)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Gn)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Driv)</td>
-                </tr>
-                }
+        {
+            <tr>
+                <td><input type="checkbox" onchange="JavaScript: chg(this);" class="chv" /></td>
+                <td>@Html.DisplayFor(modelItem => item.Num)</td>
+                <td>@Html.DisplayFor(modelItem => item.Dat)</td>
+                <td>@Html.DisplayFor(modelItem => item.Tm)</td>
+                <td>@Html.DisplayFor(modelItem => item.Good)</td>
+                <td>@Html.DisplayFor(modelItem => item.Adres)</td>
+                <td>@Html.TextBoxFor(modelItem => item.Kol, new { @class = "kol", @readonly = "", @id = "" })</td>
+                <td>@Html.DisplayFor(modelItem => item.Price)</td>
+                <td>@Html.DisplayFor(modelItem => item.Sm)</td>
+                <td>@Html.DisplayFor(modelItem => item.Amodel)</td>
+                <td>@Html.DisplayFor(modelItem => item.Ab)</td>
+                <td>@Html.DisplayFor(modelItem => item.Gn)</td>
+                <td>@Html.DisplayFor(modelItem => item.Driv)</td>
+            </tr>
+}
             </tbody>
         </table>
         <p>

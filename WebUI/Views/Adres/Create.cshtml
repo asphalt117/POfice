@@ -1,7 +1,7 @@
 ﻿@model Domain.Entities.Adres
 
 @{
-    ViewBag.Title = "Новый адрес";
+    ViewBag.Title = ViewBag.ContentTitle = "Новый адрес";
 }
 
 @using (Html.BeginForm()) 
@@ -20,7 +20,7 @@
             <hr />
             @Html.ActionLink(@HttpUtility.HtmlDecode("&laquo;") + " вернуться к списку адресов", "Index", null, new { @class = "btn btn-xs-sm-md btn-default", @role = "button", @title = "Вернуться к списку адресов" })
             &nbsp;&nbsp;&nbsp;
-            <input type="submit" value="Сохранить" class="actionButtons btn btn-xs-sm-md btn-success" />
+            <input type="submit" value="Сохранить" class="btn btn-success" />
         </div>
     </div>
 }

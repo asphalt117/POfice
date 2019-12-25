@@ -1,21 +1,17 @@
 ﻿@model WebUI.Models.TransportList
 @{
-    ViewBag.Title = "Транспорт";
+    ViewBag.Title = ViewBag.ContentTitle = "Транспорт";
 }
 <p>
-    @Html.ActionLink("Новый доверенный транспорт", "CreateTransport", "TrustTecs", new { fnew = "new" },
-                new
-                {
-                    @class = "actionButtons btn btn-default btn-success",
-                    @role = "button",
-                    @title = "Создать  новую доверенность на транспорт"
-                })
+    <a class="btn btn-light" role="button" title="Создать новый доверенный транспорт" href="@Url.Action("CreateTransport", "TrustTecs", new { fnew = "new" })">
+        <i class="fa fa-plus-square"></i>&nbsp;&nbsp;Новый доверенный транспорт
+    </a>
 </p>
-<table align="center" class="table table-hover table-bordered table-grey-header">
+<table class="table table-bordered table-hover mt-3">
     <thead>
-        <tr>
+        <tr class="table-active">
             <th>
-               Тип
+                Тип
             </th>
             <th>
                 @Html.DisplayNameFor(m => m.Trans.FirstOrDefault().Gn)
@@ -44,7 +40,9 @@
         {
             <tr class="@Html.Encode((item.istrust) ? "tr-grey" : "")">
                 <td>
-                    @if (item.istrust) { @Html.Encode("Доверенный"); }
+                    @if (item.istrust)
+                    {@Html.Encode("Доверенный");
+                }
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Gn)

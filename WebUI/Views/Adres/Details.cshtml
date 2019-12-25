@@ -1,7 +1,7 @@
 ﻿@model Domain.Entities.Adres
 
 @{
-    ViewBag.Title = "Просмотр адреса";
+    ViewBag.Title = ViewBag.ContentTitle = "Просмотр адреса";
 }
 <div>
     <dl class="dl-horizontal">
@@ -25,5 +25,5 @@
 </div>
 <p>
     <hr />
-    @Html.ActionLink(@HttpUtility.HtmlDecode("&laquo;") + " вернуться к списку адресов", "Index", null, new { @class = "btn btn-xs-sm-md btn-default", @role = "button", @title = "Вернуться к списку адресов" })
+    @Html.ActionLink(@HttpUtility.HtmlDecode("&laquo;") + " вернуться к списку адресов", "Index", null, new { @class = "btn btn-light", @role = "button", @title = "Вернуться к списку адресов" })
 </p>

@@ -1,7 +1,6 @@
 ﻿@model string
-
 @{
-    ViewBag.Title = "Реестр отгруженной продукции за период";
+    ViewBag.Title = ViewBag.ContentTitle = "Реестр отгруженной продукции за период";
 
     AjaxOptions ajaxOpts = new AjaxOptions
     {
@@ -10,8 +9,7 @@
         LoadingElementId = "loading"
     };
 }
-@*<h2>Реестр отгруженной продукции за период</h2>*@
-<table>
+<<table class="table table-bordered table-hover mt-3">
     <tr>
         <td>
             <h3>Год</h3>
