@@ -8,14 +8,14 @@
     @Html.AntiForgeryToken()
 
     <div>
-        @Html.DropDownList("SelectedCustId", (SelectList)ViewData["Cust"], new { onchange = "$(this.form).submit();" })
+        @Html.DropDownList("SelectedCustId", (SelectList)ViewData["Cust"], new { onchange = "$(this.form).submit();", @class= "form-control col-12 col-sm-10 col-md-8 col-lg-5" })
     </div>
 
     if (ViewData["Contract"] != null)
     {
         <div class="mt-2">
             <span><b>Договор</b></span><br />
-            @Html.DropDownList("SelectedContractId", (SelectList)ViewData["Contract"], new { onchange = "$(this.form).submit();" })
+            @Html.DropDownList("SelectedContractId", (SelectList)ViewData["Contract"], new { onchange = "$(this.form).submit();", @class= "form-control col-12 col-sm-6 col-md-4 col-lg-2" })
         </div>
     }
 }

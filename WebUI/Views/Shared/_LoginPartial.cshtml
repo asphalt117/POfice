@@ -6,7 +6,7 @@
         @Html.AntiForgeryToken()
         <ul class="navbar-nav px-3 flex-row float-right">
             <li class="nav-item text-nowrap d-inline">
-                <a href="@Url.Action("ChangePassword", "Account")" title="Изменить пароль" class="nav-link mr-3 log-user">
+                <a href="@Url.Action("ChangePassword", "Account")" title="Изменить пароль" class="nav-link mr-2 log-user">
                     <i class="fas fa-user-alt"></i>&nbsp;@User.Identity.GetUserName()
                 </a>
             </li>

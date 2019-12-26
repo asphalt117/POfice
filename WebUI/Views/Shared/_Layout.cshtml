@@ -1,4 +1,5 @@
 ﻿﻿@using Microsoft.AspNet.Identity
+@using WebUI.Helpers;
 @{
     string customer = "";
     string contract = "";
@@ -83,12 +84,13 @@
 <body>
     <header>
         <nav class="navbar navbar-dark bg-dark flex-lg-nowrap p-1 shadow header-wrapper">
-            <a class="navbar-brand col-6 col-lg-2 mw-100 mr-0 logo-brand" href="https://personal.abz4.ru" title="Акционерное общество 'Асфальтобетонный завод 'Капотня' - Личный кабинет пользователя">
+            <a class="navbar-brand col-6 col-lg-2 mw-100 mr-0 logo-brand" href="https://lk.abz4.ru" title="Акционерное общество 'Асфальтобетонный завод 'Капотня' - Личный кабинет пользователя">
                 <b>
-                    А&nbsp;Б&nbsp;З&nbsp;
-                    <img class="logotype d-inline" src="/images/logo.png" width="56" height="38" alt="Акционерное общество 'Асфальтобетонный завод 'Капотня' - Личный кабинет пользователя"
+                    @Html.logobrand1()&nbsp;
+                    <img class="logotype d-inline" src="/images/logo.png" width="56" height="38"
+                         alt="Акционерное общество 'Асфальтобетонный завод 'Капотня' - Личный кабинет пользователя"
                          title="Акционерное общество 'Асфальтобетонный завод 'Капотня' - Личный кабинет пользователя">
-                    &nbsp;<font color="orange">К&nbsp;А&nbsp;П&nbsp;О&nbsp;Т&nbsp;Н&nbsp;Я</font>
+                    &nbsp;<font color="orange"> @Html.logobrand2()</font>
                 </b>
             </a>
             @Html.Partial("_LoginPartial")
@@ -176,7 +178,7 @@
                             <span>&nbsp;/&nbsp;</span>
                             <span class="client-contract">@contract</span>
                             <span>&nbsp;/&nbsp;</span>
-                            <span class="client-balance"><i class="fas fa-coins"></i>&nbsp;Баланс:&nbsp;<b>@balance руб.</b></span>
+                            <span class="client-balance"><i class="fas fa-coins"></i>&nbsp;Баланс:&nbsp;<strong>@balance руб.</strong></span>
                         </div>
                     }
                     <h1 class="h1">@ViewBag.ContentTitle</h1>
@@ -213,7 +215,8 @@
             <div class="container-fluid bg-light">
                 <div class="container clearfix">
                     <p class="footer-copyright-info">
-                        &copy;&nbsp;@DateTime.Now.Year.&nbsp;&nbsp;АО&nbsp;&quot;АБЗ КАПОТНЯ&quot;&nbsp;&nbsp;<span class="d-none d-sm-inline">Все права защищены.</span><label class="float-right">&#169;K&K Design</label>
+                        &copy;@Html.SpanSpacerMd()@DateTime.Now.Year.&nbsp;@Html.SpanSpacerMd()АО@{@Html.SpanSpacerMd()}&quot;АБЗ&nbsp;КАПОТНЯ&quot;@Html.SpanSpacerMd()&nbsp;
+                        <span class="d-none d-sm-inline">Все&nbsp;права&nbsp;защищены.</span><label class="float-right">&#169;K&K&nbsp;Design</label>
                     </p>
                 </div>
             </div>

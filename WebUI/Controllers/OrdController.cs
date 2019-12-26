@@ -124,8 +124,8 @@ namespace WebUI.Controllers
             db.Entry(order).State = EntityState.Modified;
             await db.SaveChangesAsync();
             return RedirectToAction("Index", "Ord", new { id = order.Invoice });
-            ViewBag.Order = "Удаление заказа";
-            return View(order);
+         //   ViewBag.Order = "Удаление заказа";
+           // return View(order);
         }
      }
 }

@@ -1,4 +1,26 @@
-﻿/*@import "~/Content/bootstrap/bootstrap.scss";*/
+﻿h1, .h1 {
+    font-size: 1.6rem!important;
+}
+
+h2, .h2 {
+    font-size: 1.4rem!important;
+}
+
+h3, .h3 {
+    font-size: 1.3rem!important;
+}
+
+h4, .h4 {
+    font-size: 1.2rem!important;
+}
+
+h5, .h5 {
+    font-size: 1.1rem!important;
+}
+
+h6, .h6 {
+    font-size: 1rem!important;
+}
 
 
 /* Set padding to keep content from hitting the edges */
@@ -59,6 +81,8 @@ $logo-height: 38px;
     border-right: none !important;
     border-left: none !important;
     border-bottom: 2px solid #666 !important;
+    color:#222;
+    font-weight:500;
 }
 
 
