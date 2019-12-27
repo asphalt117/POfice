@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<Domain.Entities.Comment>
 
 @{
-    ViewBag.Title = "Обращения";
+    ViewBag.Title = ViewBag.ContentTitle = "Обращения";
 }
 <p>
     @Html.ActionLink("Создать новое сообщение", "Create", null,
                 new
                 {
-                    @class = "actionButtons btn btn-default btn-success",
+                    @class = "btn btn-light",
                     @role = "button",
                     @title = "Создать новое сообщение"
                 })

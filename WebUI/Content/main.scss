@@ -75,6 +75,17 @@ $logo-height: 38px;
     }
 }
 
+.customer-topinfo {
+    margin: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    background: #6c757d !important;
+    color: rgba(255, 255, 255, 0.85);
+    text-shadow: black 1px 1px 1px;
+    font-weight: 500;
+}
+
+
 .customer-info {
     border-radius: 1px;
     border-top: none !important;

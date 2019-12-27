@@ -93,6 +93,16 @@
                     &nbsp;<font color="orange"> @Html.logobrand2()</font>
                 </b>
             </a>
+            @if (Request.IsAuthenticated)
+            {
+                <div class="form-control mw-100 w-100 h-auto customer-topinfo d-none d-md-flex">
+                    <span class="client-name">@customer</span>
+                    <span>&nbsp;/&nbsp;</span>
+                    <span class="client-contract">@contract</span>
+                    <span>&nbsp;/&nbsp;</span>
+                    <span class="client-balance"><i class="fas fa-coins"></i>&nbsp;Баланс:&nbsp;<strong>@balance руб.</strong></span>
+                </div>
+            }
             @Html.Partial("_LoginPartial")
         </nav>
     </header>
@@ -173,7 +183,7 @@
                 <main role="main" class="col-md-9 col-lg-10 pt-4 pb-4 content-container">
                     @if (Request.IsAuthenticated)
                     {
-                        <div class="form-control mw-100 w-100 h-auto mb-3 customer-info">
+                        <div class="form-control mw-100 w-100 h-auto mb-3 customer-info d-flex d-md-none d-lg-none d-xl-none">
                             <span class="client-name">@customer</span>
                             <span>&nbsp;/&nbsp;</span>
                             <span class="client-contract">@contract</span>

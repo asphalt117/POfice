@@ -1,8 +1,8 @@
 ﻿@model Domain.ModelView.BalanceView
 @{
-    ViewBag.Title = "Взаиморасчеты";
+    ViewBag.Title = ViewBag.ContentTitle = "Взаиморасчеты";
 }
-
+<hr />
 <h2>
     Выверенный остаток  по договору № <strong>@Html.DisplayFor(model => model.Contract) </strong>
     на  <font color="red">@Html.DisplayFor(model => model.Fin.Dat)</font> равен

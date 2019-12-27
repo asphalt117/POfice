@@ -1,18 +1,18 @@
 ﻿@model IEnumerable<Domain.Entities.GraphSale>
 
 @{
-    ViewBag.Title = "Текущее выполнение";
+    ViewBag.Title = ViewBag.ContentTitle = "Текущее выполнение";
 }
 
-<table class="table table-hover table-bordered table-grey-header">
+<table class="table table-bordered table-hover mt-3">
     <thead>
-    <tr>
+    <tr class="table-active">
         <th>
             @Html.DisplayNameFor(model => model.Dat)
         </th>
         @*<th>
-            @Html.DisplayNameFor(model => model.Centr)
-        </th>*@
+                @Html.DisplayNameFor(model => model.Centr)
+            </th>*@
         <th>
             @Html.DisplayNameFor(model => model.Adres)
         </th>
@@ -33,40 +33,40 @@
         </th>
         <th></th>
     </tr>
-        </thead>
+    </thead>
 
-@foreach (var item in Model)
-{
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Dat)
-        </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.Centr)
-        </td>*@
-        <td>
-            @Html.DisplayFor(modelItem => item.Adres)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Good)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Num)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Plan)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Ld)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Fact)
-        </td>
-        <td>
-            @if ((item.Fact > 0) | (item.Ld > 0))
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dat)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.Centr)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Adres)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Good)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Num)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Plan)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ld)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fact)
+            </td>
+            <td>
+                @if ((item.Fact > 0) | (item.Ld > 0))
                 {@Html.ActionLink("Подробно", "Details", new { id = item.GraphSaleId })}
-        </td>
-    </tr>
-}
+            </td>
+        </tr>
+    }
 
 </table>
