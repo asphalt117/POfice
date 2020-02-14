@@ -24,10 +24,10 @@
                 <th scope="col">
                     № Заказа
                 </th>
-                <th scope="col">
-                    @Html.DisplayNameFor(model => model.DateExec)
-                </th>
             }
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.DateExec)
+            </th>
             <th scope="col">
                 @Html.DisplayNameFor(model => model.Good)
             </th>
@@ -51,40 +51,40 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                @if (ViewBag.ContentTitle == "Заказы")
+        <tr>
+            @if (ViewBag.ContentTitle == "Заказы")
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderId)
+                </td>
+            }
+            <td>
+                @Html.DisplayFor(modelItem => item.DateExec)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Good)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Adres)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Contract)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Note)
+            </td>
+            <td>
+                @if (item.StatusId < 2)
                 {
-                    <td>
-                        @Html.DisplayFor(modelItem => item.OrderId)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DateExec)
-                    </td>
+                    <a class="btn btn-light" role="button" title="Редактировать заказ" href="@Url.Action("Booking", "Ord", new { ord = item.OrderId })"><i class="fa fa-edit"></i></a>
+                    <a class="btn btn-light" role="button" title="Удалить заказ" href="@Url.Action("Delete", "Ord", new { id = item.OrderId })"><i class="fa fa-trash-alt"></i></a>
                 }
-                <td>
-                    @Html.DisplayFor(modelItem => item.Good)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Adres)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Contract)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Status)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Note)
-                </td>
-                <td>
-                    @if (item.StatusId < 2)
-                    {
-                        <a class="btn btn-light" role="button" title="Редактировать заказ" href="@Url.Action("Booking", "Ord", new { ord = item.OrderId })"><i class="fa fa-edit"></i></a>
-                        <a class="btn btn-light" role="button" title="Удалить заказ" href="@Url.Action("Delete", "Ord", new { id = item.OrderId })"><i class="fa fa-trash-alt"></i></a>
-                    }
-                    <a class="btn btn-light" role="button" title="Копировать заказ" href="@Url.Action("Copy", "Ord", new { id = item.OrderId })"><i class="fa fa-copy"></i></a>
-                </td>
-            </tr>
+                <a class="btn btn-light" role="button" title="Копировать заказ" href="@Url.Action("Copy", "Ord", new { id = item.OrderId })"><i class="fa fa-copy"></i></a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>
