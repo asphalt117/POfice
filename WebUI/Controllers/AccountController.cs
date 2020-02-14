@@ -81,6 +81,7 @@ namespace WebUI.Controllers
             //}
 
             ViewBag.ReturnUrl = returnUrl;
+            ViewBag.Login = true;
             return View();
         }
 
