@@ -55,6 +55,10 @@ namespace WebUI.Controllers
             //Сохранить заказ в БД со всеми известными реквизитами.
             int ordertype = (act == "Заказы") ? 0 : 1;
             Order ord = await repo.GetNew(abzHash, ordertype);
+            Response.Cookies["Order"].Value = ord.OrderId.ToString();
+            Response.Cookies["Order"].Expires = DateTime.Now.AddHours(2);
+                
+            //SetCookie("Order", ord.OrderId.ToString());
             //Выбор материала
             return RedirectToAction("Categ", "Good", new { ord = ord.OrderId });
         }
