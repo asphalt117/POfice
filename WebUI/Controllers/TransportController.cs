@@ -14,6 +14,7 @@ namespace WebUI.Controllers
     public class TransportController : BaseController
     {
         // GET: Transport
+        [Authorize]
         public ActionResult Index(int ord)
         {
             Order order = db.Orders.Find(ord);

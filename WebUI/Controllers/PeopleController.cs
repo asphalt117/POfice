@@ -47,7 +47,7 @@ namespace WebUI.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("Booking", "Ord", new { ord = order.OrderId });
         }
-
+        [Authorize]
         public async Task<ActionResult> Index()
         {
             ViewBag.MenuItem = "people";

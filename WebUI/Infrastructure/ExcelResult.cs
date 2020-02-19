@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
@@ -31,6 +32,11 @@ namespace WebUI.Infrastructure
             Html = html;
         }
 
+        //public ExcelResult(string fileName, MemoryStream html)
+        //{
+        //    FileName = fileName;
+        //    Html = html;
+        //}
         /// <summary>
         /// StringBuilder с подготовленным отчетом (html)
         /// </summary>

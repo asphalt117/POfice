@@ -22,6 +22,7 @@ namespace WebUI.Controllers
             base.Initialize(requestContext);
             repo = new TrustTecsRepository(Cust.CustId);
         }
+        [Authorize]
         public async Task<ActionResult> Index()
         {
             ViewBag.MenuItem = "tec";

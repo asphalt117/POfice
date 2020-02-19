@@ -139,6 +139,9 @@
                                 <li class="nav-item @Html.Encode(ViewBag.MenuItem == "recv" ? "active" : "")">
                                     @Html.ActionLink("Реквизиты", "Index", "Home", null, new { @class = "nav-link" })
                                 </li>
+                                <li class="nav-item @Html.Encode(ViewBag.MenuItem == "doc" ? "active" : "")">
+                                    @Html.ActionLink("Документы", "Doc", "Docs", null, new { @class = "nav-link" })
+                                </li>
                                 <li class="nav-item @Html.Encode(ViewBag.MenuItem == "trust" ? "active" : "")">
                                     @Html.ActionLink("Действующие доверенности", "Index", "Docs", null, new { @class = "nav-link" })
                                 </li>

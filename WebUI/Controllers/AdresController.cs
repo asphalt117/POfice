@@ -32,7 +32,7 @@ namespace WebUI.Controllers
             db.SaveChanges();
             return RedirectToAction("Booking", "Ord", new { ord = ord });
         }
-        
+        [Authorize]
         public async Task<ActionResult> Index()
         {
             ViewBag.MenuItem = "adres";

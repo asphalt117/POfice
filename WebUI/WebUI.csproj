@@ -707,6 +707,7 @@
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Views\Transport\pickup.cshtml" />
+    <Content Include="Views\Docs\Doc.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

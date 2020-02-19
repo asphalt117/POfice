@@ -1,0 +1,58 @@
+﻿@model Domain.Entities.Doc
+
+@{
+    ViewBag.Title = "Doc";
+}
+
+<h2>Doc</h2>
+
+<div>
+    <h4>Doc</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CustID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CustID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DocName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DocName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FileName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FileName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Dat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Dat)
+        </dd>
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.DocBin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DocBin)
+        </dd>*@
+
+    </dl>
+</div>
+@*<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.DocsId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>*@

@@ -39,7 +39,8 @@ namespace Domain.Entities
         public DbSet<UserAdmin> UserAdmins { get; set; }
         public DbSet<Statistic> Statistics { get; set; }
         public DbSet<Smena> Smenas { get; set; }
-        
+        public DbSet<Doc> Docs { get; set; }
+
     }
 
 }

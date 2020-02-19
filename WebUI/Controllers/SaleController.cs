@@ -12,6 +12,7 @@ namespace WebUI.Controllers
 {
     public class SaleController : BaseController
     {
+        [Authorize]
         public async Task<ActionResult> Index()
         {
             ViewBag.MenuItem = "sale";
