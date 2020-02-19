@@ -112,7 +112,6 @@ namespace WebUI.Controllers
                     AbzHash abzHash = new AbzHash();
 
                     abzHash.AbzHashID = Guid.NewGuid().ToString();
-                    SetCookie("Auth", abzHash.AbzHashID);
                     abzHash.Email = MyCrypto.Shifrovka(model.Email);
                     abzHash.Password = MyCrypto.Shifrovka(model.Password);
                     abzHash.TerminationDate= DateTime.Now.AddDays(2);
@@ -120,6 +119,7 @@ namespace WebUI.Controllers
                     abzHash.IP = ip;
                     dba.AbzHashs.Add(abzHash);
                     dba.SaveChanges();
+                    SetCookie("Auth", abzHash.AbzHashID);
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
