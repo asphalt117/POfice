@@ -8,19 +8,26 @@
     <meta name="keywords" content="@ViewBag.Title, АБЗ-4" />
     <meta name="robots" content="noindex, nofollow">
 }
-@section Scripts {
+@*@section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     @Styles.Render("~/Content/datetimepickercss")
     @Scripts.Render("~/bundles/datetimepickerjs")
+}*@
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/datepicker")
 }
-@using (Html.BeginForm()) 
+@section Styles {
+    @Styles.Render("~/content/datepicker")
+}
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     <div class="form-horizontal client-form">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <p class="help-block">
-            <input name="tr" type="submit" value="Добавить транспорт" 
-                   class="actionButtons btn btn-xs-sm-md btn-default btn-success" 
+            <input name="tr" type="submit" value="Добавить транспорт"
+                   class="actionButtons btn btn-xs-sm-md btn-default btn-success"
                    role="button" title="Добавить транспорт" />
         </p>
         <div class="table-responsive">
@@ -45,11 +52,11 @@
                         {
                             <tr>
                                 @*@if (Model.IsTrust)
-                                {
-                                    <td>
-                                        @Html.DisplayFor(model => item.Driv)
-                                    </td>
-                                }*@
+                                    {
+                                        <td>
+                                            @Html.DisplayFor(model => item.Driv)
+                                        </td>
+                                    }*@
                                 <td>
                                     @Html.DisplayFor(model => item.Gn)
                                 </td>
@@ -63,35 +70,37 @@
                         }
                     }
                     @*<tr>
-                        <td>
-                            <input name="driv" id="driv" type="text" class="form-control" />
-                        </td>
-                        <td>
-                            <input name="gn" id="gn" type="text" class="form-control" />
-                        </td>
-                        <td>
-                            <input name="tecmodel" id="tecmodel" type="text" class="form-control" />
-                        </td>
-                    </tr>*@
+                            <td>
+                                <input name="driv" id="driv" type="text" class="form-control" />
+                            </td>
+                            <td>
+                                <input name="gn" id="gn" type="text" class="form-control" />
+                            </td>
+                            <td>
+                                <input name="tecmodel" id="tecmodel" type="text" class="form-control" />
+                            </td>
+                        </tr>*@
                 </tbody>
             </table>
         </div>
         @*<p class="help-block">
-            <input name="st" type="submit" value="Добавить еще строку"
-                   class="actionButtons btn btn-xs-sm-md btn-default btn-success"
-                   role="button" title="Добавить еще одну строку для ввода транспорта" />
-        </p>*@
+                <input name="st" type="submit" value="Добавить еще строку"
+                       class="actionButtons btn btn-xs-sm-md btn-default btn-success"
+                       role="button" title="Добавить еще одну строку для ввода транспорта" />
+            </p>*@
 
         <div class="form-group">
             @Html.LabelFor(model => model.BeginDat, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextBoxFor(model => model.BeginDat, new { @class = "form-control datefield dateselector", @type = "text" })
+                @*@Html.TextBoxFor(model => model.BeginDat, new { @class = "form-control datefield dateselector", @type = "text" })*@
+                <input autocomplete="off" aria-describedby="dateHelpBlock" class="datepicker-here form-control input-validation-error" data-val="true" data-val-required="Требуется поле Дата начала." id="BeginDat" name="BeginDat" type="text" aria-invalid="true" />
             </div>
         </div>
         <div class="form-group">
             @Html.LabelFor(model => model.EndDat, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextBoxFor(model => model.EndDat, new { @class = "form-control datefield dateselector", @type = "text" })
+                @*@Html.TextBoxFor(model => model.EndDat, new { @class = "form-control datefield dateselector", @type = "text" })*@
+                <input autocomplete="off" aria-describedby="dateHelpBlock" class="datepicker-here form-control input-validation-error" data-val="true" data-val-required="Требуется поле Дата окончания." id="EndDat" name="EndDat" type="text" aria-invalid="true" />
             </div>
         </div>
 
@@ -112,11 +121,23 @@
         </div>
     </div>
 }
-<script type="text/javascript">
-            $(function () {
-                $('.dateselector').datetimepicker({
-                    locale: 'ru', format: 'DD.MM.YYYY'
-                });
-            });
-    </script>
+@*<script type="text/javascript">
+    $(function () {
+        $('.dateselector').datetimepicker({
+            locale: 'ru', format: 'DD.MM.YYYY'
+        });
+    });
+</script>*@
 
+<script type="text/javascript">
+    $('#BeginDat').datepicker({
+        todayButton: new Date(),
+        autoClose: true,
+        minDate: new Date()
+    });
+     $('#EndDat').datepicker({
+        todayButton: new Date(),
+        autoClose: true,
+        minDate: new Date()
+    });
+</script>
