@@ -58,7 +58,6 @@ namespace WebUI.Controllers
             Response.Cookies["Order"].Value = ord.OrderId.ToString();
             Response.Cookies["Order"].Expires = DateTime.Now.AddHours(2);
                 
-            //SetCookie("Order", ord.OrderId.ToString());
             //Выбор материала
             return RedirectToAction("Categ", "Good", new { ord = ord.OrderId });
         }
