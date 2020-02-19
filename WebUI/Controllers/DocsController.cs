@@ -2,10 +2,6 @@
 using System.Web.Mvc;
 using System.Collections.Generic;
 using System.Linq;
-using System.IO;
-using WebUI.Infrastructure;
-using System.Text;
-using System.Web;
 
 namespace WebUI.Controllers
 {
@@ -22,18 +18,13 @@ namespace WebUI.Controllers
         public ActionResult Doc()
         {
             ViewBag.MenuItem = "doc";
-            //return RedirectToAction("MyGetBytes");
-            //return RedirectToAction("DownLoadFile");
             List<Doc> docs = db.Docs.Where(d => d.CustID == Cust.CustId).ToList();
             return View(docs);
         }
 
         [HttpGet]
         public FileResult DownLoadFile(int id)
-        //public FileResult DownLoadFile()
-        //public FileResult MyGetBytes()
         {
-            //int id = 6;
             Doc doc = db.Docs.Find(id);
             return File(doc.DocBin, "application//vnd.ms-excel", doc.FileName);
         }
