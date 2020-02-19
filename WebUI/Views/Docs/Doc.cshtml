@@ -1,58 +1,36 @@
-﻿@model Domain.Entities.Doc
+﻿@model IEnumerable<Domain.Entities.Doc>
 
 @{
-    ViewBag.Title = "Doc";
+    ViewBag.Title = "Докуметы";
 }
 
-<h2>Doc</h2>
+    <h2>Докуметы</h2>
 
-<div>
-    <h4>Doc</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.CustID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CustID)
-        </dd>
-
-        <dt>
+<table class="table">
+    <tr>
+        <th>
             @Html.DisplayNameFor(model => model.DocName)
-        </dt>
+        </th>
 
-        <dd>
-            @Html.DisplayFor(model => model.DocName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FileName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FileName)
-        </dd>
-
-        <dt>
+        <th>
             @Html.DisplayNameFor(model => model.Dat)
-        </dt>
+        </th>
+        <th></th>
+    </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.Dat)
-        </dd>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DocName)
+        </td>
 
-        @*<dt>
-            @Html.DisplayNameFor(model => model.DocBin)
-        </dt>
+        <td>
+            @Html.DisplayFor(modelItem => item.Dat)
+        </td>
+        <td>
+            @Html.ActionLink("Скачать", "DownLoadFile", new { id=item.DocsId }) 
+        </td>
+    </tr>
+}
 
-        <dd>
-            @Html.DisplayFor(model => model.DocBin)
-        </dd>*@
-
-    </dl>
-</div>
-@*<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.DocsId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>*@
+</table>
