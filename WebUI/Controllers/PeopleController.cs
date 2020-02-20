@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Domain.Entities;
 using Domain.Repository;
 using System.Linq;
+using System;
 
 namespace WebUI.Controllers
 {
@@ -46,7 +47,7 @@ namespace WebUI.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("Booking", "Ord", new { ord = order.OrderId });
         }
-
+        [Authorize]
         public async Task<ActionResult> Index()
         {
             ViewBag.MenuItem = "people";
@@ -79,7 +80,17 @@ namespace WebUI.Controllers
                 person.CustId = Cust.CustId;
                 db.Persons.Add(person);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+
+                string cord = GetCookie("Order");
+                if (String.IsNullOrWhiteSpace(cord))
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    int ord = int.Parse(cord);
+                    return RedirectToAction("PersonOrder", ord);
+                }
             }
 
             return View(person);

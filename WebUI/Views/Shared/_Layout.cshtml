@@ -50,7 +50,7 @@
         menuactive = cookie.Value;
     }
 
-    if (ViewBag.MenuItem != null && !string.IsNullOrEmpty(ViewBag.MenuItem))
+    if (!string.IsNullOrEmpty(ViewBag.MenuItem))
     {
         menuactive = ViewBag.MenuItem;
         cookie = new HttpCookie(cookieName, menuactive);
@@ -61,6 +61,7 @@
         ViewBag.MenuItem = menuactive;
     }
 }
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -95,7 +96,9 @@
         </nav>
     </header>
     <div class="container-fluid">
-        @if (Request.IsAuthenticated)
+        @*(Request.IsAuthenticated)*@
+
+        @if (ViewBag.Login == null)
         {
             <div class="row">
                 <div class="col-md-3 col-lg-2 navbar-container bg-dark sidebar">
@@ -109,11 +112,11 @@
                                 <li class="d-flex justify-content-between align-items-center px-3 mt-3 mb-1 text-muted sidebar-subheader"><span>Отгрузка и оплата</span></li>
                                 @if (Context.User.IsInRole("Administrator"))
                                 {
-                                <li class="nav-item @Html.Encode(ViewBag.MenuItem == "admin" ? "active" : "")">
-                                    @Html.ActionLink("Администрирование", "Index", "Admin", null, new { @class = "nav-link" })
-                                </li>
+                                    <li class="nav-item @Html.Encode(ViewBag.MenuItem == "admin" ? "active" : "")">
+                                        @Html.ActionLink("Администрирование", "Index", "Admin", null, new { @class = "nav-link" })
+                                    </li>
                                 }
-                                <li class="nav-item @Html.Encode(ViewBag.MenuItem == "balance" ? "active" : "")"> 
+                                <li class="nav-item @Html.Encode(ViewBag.MenuItem == "balance" ? "active" : "")">
                                     @Html.ActionLink("Взаиморасчеты", "Balance", "Balances", null, new { @class = "nav-link" })
                                 </li>
                                 <li class="nav-item @Html.Encode(ViewBag.MenuItem == "rst" ? "active" : "")">
@@ -135,6 +138,9 @@
                                 <li class="d-flex justify-content-between align-items-center px-3 mt-3 mb-1 text-muted sidebar-subheader"><span>Ваша организация</span></li>
                                 <li class="nav-item @Html.Encode(ViewBag.MenuItem == "recv" ? "active" : "")">
                                     @Html.ActionLink("Реквизиты", "Index", "Home", null, new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item @Html.Encode(ViewBag.MenuItem == "doc" ? "active" : "")">
+                                    @Html.ActionLink("Документы", "Doc", "Docs", null, new { @class = "nav-link" })
                                 </li>
                                 <li class="nav-item @Html.Encode(ViewBag.MenuItem == "trust" ? "active" : "")">
                                     @Html.ActionLink("Действующие доверенности", "Index", "Docs", null, new { @class = "nav-link" })
@@ -183,16 +189,16 @@
                     @RenderBody()
                 </main>
             </div>
-        }
-        else
-        {
-            <div class="row justify-content-center align-items-center">
-                <main role="main" class="col-8 col-lg-5 content-container">
-                    @RenderBody()
-                </main>
-            </div>
-        }
-    </div>
+            }
+            else
+            {
+                <div class="row justify-content-center align-items-center">
+                    <main role="main" class="col-8 col-lg-5 content-container">
+                        @RenderBody()
+                    </main>
+                </div>
+            }
+        </div>
     @if (Request.IsAuthenticated)
     {
         <footer class="d-print-none bg-dark m-0 pt-1">

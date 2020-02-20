@@ -10,6 +10,7 @@ namespace WebUI.Controllers
 {
     public class SupportController : BaseController
     {
+        [Authorize]
         public ActionResult Index()
         {
             ViewBag.MenuItem = "support";

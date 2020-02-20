@@ -7,12 +7,28 @@ namespace WebUI.Controllers
 {
     public class DocsController : BaseController
     {
+        [Authorize]
         public ActionResult Index()
         {
             ViewBag.MenuItem = "trust";
             List<Trust> trusts = db.Trusts.Where(t => t.CustId == Cust.CustId).ToList();
             return View(trusts);
         }
+
+        public ActionResult Doc()
+        {
+            ViewBag.MenuItem = "doc";
+            List<Doc> docs = db.Docs.Where(d => d.CustID == Cust.CustId).ToList();
+            return View(docs);
+        }
+
+        [HttpGet]
+        public FileResult DownLoadFile(int id)
+        {
+            Doc doc = db.Docs.Find(id);
+            return File(doc.DocBin, "application//vnd.ms-excel", doc.FileName);
+        }
+
         public ActionResult Contract()
         {
             ViewBag.MenuItem = "contract";

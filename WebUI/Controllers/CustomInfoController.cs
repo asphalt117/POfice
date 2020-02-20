@@ -10,6 +10,7 @@ namespace WebUI.Controllers
 {
     public class CustomInfoController : BaseController
     {
+        [Authorize]
         public ActionResult Index()
         {
             if (String.IsNullOrWhiteSpace(Cust.Cod1s))

@@ -59,8 +59,16 @@ namespace Domain.Repository
             order.ContractId = abzHash.ContractID;
             order.email = MyCrypto.DeShifrovka(abzHash.Email);
             order.insDate = DateTime.Now;
-            order.DateExec = DateTime.Now.AddDays(1);
-            order.Dat = DateTime.Now.AddDays(1);
+            if (invoice == 0)
+            {
+                order.DateExec = DateTime.Now.AddDays(1);
+                order.Dat = DateTime.Now.AddDays(1);
+            }
+            else
+            {
+                order.DateExec = DateTime.Now;
+                order.Dat = DateTime.Now;
+            }
             order.AdresId = 1;
             order.Invoice = invoice;
             db.Orders.Add(order);

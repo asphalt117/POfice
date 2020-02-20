@@ -14,6 +14,7 @@ namespace WebUI.Controllers
     public class TransportController : BaseController
     {
         // GET: Transport
+        [Authorize]
         public ActionResult Index(int ord)
         {
             Order order = db.Orders.Find(ord);
@@ -24,6 +25,11 @@ namespace WebUI.Controllers
             }
             else
             {
+                order.Centr = false;
+                order.Step = 4;
+                db.Orders.Add(order);
+                db.Entry(order).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Booking", "Ord", new { ord = order.OrderId });
             }
         }
@@ -69,7 +75,7 @@ namespace WebUI.Controllers
                 else
                 {
                     ViewBag.tr = "Самовывоз";
-                    return PartialView();
+                    return PartialView("pickup");
                 }
             }
         }

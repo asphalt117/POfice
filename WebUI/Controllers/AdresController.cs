@@ -22,6 +22,7 @@ namespace WebUI.Controllers
 
         public ActionResult SelectAdres(int id,int ord)
         {
+
             Order order = db.Orders.Find(ord);
             order.AdresId = id;
             order.Centr = true;
@@ -31,7 +32,7 @@ namespace WebUI.Controllers
             db.SaveChanges();
             return RedirectToAction("Booking", "Ord", new { ord = ord });
         }
-        
+        [Authorize]
         public async Task<ActionResult> Index()
         {
             ViewBag.MenuItem = "adres";
@@ -66,7 +67,17 @@ namespace WebUI.Controllers
                 adres.CustId = Cust.CustId;
                 db.Adreses.Add(adres);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+
+                string cord = GetCookie("Order");
+                if (String.IsNullOrWhiteSpace(cord))
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    int ord = int.Parse(cord);
+                    return RedirectToAction("AdresOrder",  new { ord = ord });
+                }
             }
 
             return View(adres);

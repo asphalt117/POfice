@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Domain.Entities.Doc>
+
+@{
+    ViewBag.Title = "Докуметы";
+}
+
+    <h2>Докуметы</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DocName)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Dat)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DocName)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.Dat)
+        </td>
+        <td>
+            @Html.ActionLink("Скачать", "DownLoadFile", new { id=item.DocsId }) 
+        </td>
+    </tr>
+}
+
+</table>
