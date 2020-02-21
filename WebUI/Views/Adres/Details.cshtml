@@ -1,5 +1,5 @@
 ﻿@model Domain.Entities.Adres
-
+@using WebUI.Helpers;
 @{
     ViewBag.Title = ViewBag.ContentTitle = "Просмотр адреса";
 }
@@ -25,5 +25,13 @@
 </div>
 <p>
     <hr />
-    @Html.ActionLink(@HttpUtility.HtmlDecode("&laquo;") + " вернуться к списку адресов", "Index", null, new { @class = "btn btn-light", @role = "button", @title = "Вернуться к списку адресов" })
+
+
+    @Html.ButtonReturn("Вернуться", "Index", "Adres", null, "вернуться к списку адресов")
+
+
+
+    <a class="btn btn-light" role="button" title="Вернуться к списку адресов" href="@Url.Action("Index","Adres")"><i class="fa fa-angle-double-left"></i>&nbsp;&nbsp;вернуться к списку адресов</a>
+
+    @*@Html.ActionLink(@HttpUtility.HtmlDecode("&laquo;") + " вернуться к списку адресов", "Index", null, new { @class = "btn btn-light", @role = "button", @title = "Вернуться к списку адресов" })*@
 </p>

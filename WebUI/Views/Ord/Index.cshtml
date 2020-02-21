@@ -1,9 +1,10 @@
 ﻿@model IEnumerable<Domain.Entities.OrderV>
+@using WebUI.Helpers;
 @{
     if (ViewBag.typeord == 0)
     {
-        ViewBag.Title = "Список заказов";
-        ViewBag.ContentTitle = "Заказы";
+        ViewBag.Title = "Список заказов продукции";
+        ViewBag.ContentTitle = "Заказы продукции";
     }
     else
     {
@@ -11,80 +12,53 @@
         ViewBag.ContentTitle = "Счета";
     }
 }
-<p>
-    <a class="btn btn-light" role="button" title="Создать новый заказ" href="@Url.Action("Create", "Ord", new { act = ViewBag.ContentTitle })">
-        <i class="fa fa-plus-square"></i>&nbsp;&nbsp;Создать
-    </a>
-</p>
-<table class="table table-bordered table-hover mt-3">
-    <thead>
-        <tr class="table-active">
-            @if (ViewBag.ContentTitle == "Заказы")
-            {
-                <th scope="col">
-                    № Заказа
-                </th>
-            }
-            <th scope="col">
-                @Html.DisplayNameFor(model => model.DateExec)
-            </th>
-            <th scope="col">
-                @Html.DisplayNameFor(model => model.Good)
-            </th>
-            <th scope="col">
-                @Html.DisplayNameFor(model => model.Adres)
-            </th>
-            <th scope="col">
-                @Html.DisplayNameFor(model => model.Contract)
-            </th>
-            <th scope="col">
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th scope="col">
-                @Html.DisplayNameFor(model => model.Note)
-            </th>
-            <th scope="col">
-                Управление
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
+@Html.ButtonAdd("Создать новый заказ","Create", "Ord", "new { act = ViewBag.ContentTitle }")
+@{ 
+    List<string> lsHeaders = new List<string>();
+
+    if (ViewBag.ContentTitle == "Заказы")
+    {
+        lsHeaders.Add("№ Заказа");
+    }
+
+    lsHeaders.Add(Html.DisplayNameFor(model => model.DateExec).ToString());
+    lsHeaders.Add(Html.DisplayNameFor(model => model.Good).ToString());
+    lsHeaders.Add(Html.DisplayNameFor(model => model.Adres).ToString());
+    lsHeaders.Add(Html.DisplayNameFor(model => model.Contract).ToString());
+    lsHeaders.Add(Html.DisplayNameFor(model => model.Status).ToString());
+    lsHeaders.Add(Html.DisplayNameFor(model => model.Note).ToString());
+    lsHeaders.Add("Управление");
+}
+@Html.TableHeader(lsHeaders)
+@foreach (var item in Model)
+{
+    <tr>
+        @if (ViewBag.ContentTitle == "Заказы")
         {
-        <tr>
-            @if (ViewBag.ContentTitle == "Заказы")
-            {
-                <td>
-                    @Html.DisplayFor(modelItem => item.OrderId)
-                </td>
-            }
             <td>
-                @Html.DisplayFor(modelItem => item.DateExec)
+                @Html.DisplayFor(modelItem => item.OrderId)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Good)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Adres)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Contract)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Note)
-            </td>
-            <td>
-                @if (item.StatusId < 2)
-                {
-                    <a class="btn btn-light" role="button" title="Редактировать заказ" href="@Url.Action("Booking", "Ord", new { ord = item.OrderId })"><i class="fa fa-edit"></i></a>
-                    <a class="btn btn-light" role="button" title="Удалить заказ" href="@Url.Action("Delete", "Ord", new { id = item.OrderId })"><i class="fa fa-trash-alt"></i></a>
-                }
-                <a class="btn btn-light" role="button" title="Копировать заказ" href="@Url.Action("Copy", "Ord", new { id = item.OrderId })"><i class="fa fa-copy"></i></a>
-            </td>
-        </tr>
         }
-    </tbody>
-</table>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateExec)
+        </td><td>
+            @Html.DisplayFor(modelItem => item.Good)
+        </td><td>
+            @Html.DisplayFor(modelItem => item.Adres)
+        </td><td>
+            @Html.DisplayFor(modelItem => item.Contract)
+        </td><td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td><td>
+            @Html.DisplayFor(modelItem => item.Note)
+        </td><td>
+            @if (item.StatusId < 2)
+            {
+                <a class="btn btn-light" role="button" title="Редактировать заказ" href="@Url.Action("Booking", "Ord", new { ord = item.OrderId })"><i class="fa fa-edit"></i></a>
+                <a class="btn btn-light" role="button" title="Удалить заказ" href="@Url.Action("Delete", "Ord", new { id = item.OrderId })"><i class="fa fa-trash-alt"></i></a>
+            }
+            <a class="btn btn-light" role="button" title="Копировать заказ" href="@Url.Action("Copy", "Ord", new { id = item.OrderId })"><i class="fa fa-copy"></i></a>
+        </td>
+    </tr>
+}
+@Html.TableEnd()
