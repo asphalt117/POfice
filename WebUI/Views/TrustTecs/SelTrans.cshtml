@@ -1,40 +1,31 @@
 ﻿@model IEnumerable<Domain.Entities.Transport>
-
+@using WebUI.Helpers
 @{
-    ViewBag.Title = "Транспорт";
+    ViewBag.Title = ViewBag.ContentTitle = "Транспорт";
+
+    List<string> lsHeaders = new List<string>();
+    lsHeaders.Add("Тип");
+    lsHeaders.Add(Html.DisplayNameFor(model => model.Gn).ToString());
+    lsHeaders.Add(Html.DisplayNameFor(model => model.TecModel).ToString());
+    lsHeaders.Add("");
 }
-
-<table class="table">
-    <tr>
-        <th>
-            Тип
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Gn)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TecModel)
-        </th>
-        <th></th>
-    </tr>
-
+@Html.TableHeader(lsHeaders)
 @foreach (var item in Model)
 {
     <tr class="@Html.Encode((item.istrust) ? "tr-grey" : "")">
         <td>
             @if (item.istrust)
-            { @Html.Encode("Доверенный");
-            }
+            {@Html.Encode("Доверенный");
+        }
         </td>
         <td>
             @Html.ActionLink(item.Gn, "CreateTec", new { id = item.Gn })
-            
+
         </td>
         <td>
-            @Html.ActionLink(item.TecModel, "CreateTec", new { id = item.Gn }) 
-            
+            @Html.ActionLink(item.TecModel, "CreateTec", new { id = item.Gn })
+
         </td>
     </tr>
 }
-
-</table>
+@Html.TableEnd()

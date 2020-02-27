@@ -1,6 +1,7 @@
 ﻿@model Domain.Entities.TrustTecV
+@using WebUI.Helpers
 @{
-    ViewBag.Title = "Добавление доверенного транспорта";
+    ViewBag.Title = ViewBag.ContentTitle = "Добавление доверенного транспорта";
 }
 @section metatags
 {
@@ -23,48 +24,37 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    <div class="form-horizontal client-form"> 
+    <div class="form-horizontal client-form">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <p class="help-block">
-            <input name="tr" type="submit" value="Добавить транспорт"
-                   class="actionButtons btn btn-xs-sm-md btn-default btn-success"
-                   role="button" title="Добавить транспорт" />
+            @Html.ActionLink("Добавить транспорт", "SelTrans", "TrustTecs", new { @class = "btn btn-light", @role = "button", @title = "Добавить транспорт" })
         </p>
         <div class="table-responsive">
-            <table class="table table-hover table-bordered table-grey-header null-margin">
-                <thead>
+            @{
+                List<string> lsHeaders = new List<string>();
+                lsHeaders.Add("Гос. №");
+                lsHeaders.Add("Модель");
+                lsHeaders.Add("Водитель");
+            }
+            @Html.TableHeader(lsHeaders)
+            @if (Model.Detail != null && Model.Detail.Any())
+            {
+                foreach (var item in Model.Detail)
+                {
                     <tr>
-                        <th>
-                            Гос. №
-                        </th>
-                        <th>
-                            Модель
-                        </th>
-                        <th>
-                            Водитель
-                        </th>
+                        <td>
+                            @Html.DisplayFor(model => item.Gn)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => item.TecModel)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => item.Driv)
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    @if (Model.Detail != null && Model.Detail.Any())
-                    {
-                        foreach (var item in Model.Detail)
-                        {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(model => item.Gn)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(model => item.TecModel)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(model => item.Driv)
-                                </td>
-                            </tr>
-                        }
-                    }
-                </tbody>
-            </table>
+                }
+            }
+            @Html.TableEnd()
         </div>
         <div class="form-group">
             @Html.LabelFor(model => model.BeginDat, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -89,9 +79,9 @@
         </div>
         <div>
             <hr />
-            @Html.ActionLink(@HttpUtility.HtmlDecode("&laquo;") + " вернуться к списку транспорта", "Index", "Transports", new { @class = "btn btn-xs-sm-md btn-default", @role = "button", @title = "Вернуться к списку транспорта" })
+            @Html.SmplBtn("return", "Вернуться к списку транспорта", "вернуться к списку транспорта", Url.Action("Index", "TrustTecs").ToString())
             &nbsp;&nbsp;&nbsp;
-            <input type="submit" value="Сохранить" class="actionButtons btn btn-xs-sm-md btn-success" />
+            @Html.SaveBtn()
         </div>
     </div>
 }

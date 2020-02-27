@@ -1,15 +1,10 @@
 ﻿@model IEnumerable<Domain.Entities.Comment>
+@using WebUI.Helpers
 @{
-    ViewBag.Title = "Обращения";
+    ViewBag.Title = ViewBag.ContentTitle = "Обращения";
 }
 <p>
-    @Html.ActionLink("Создать новое сообщение", "Create", null,
-                new
-                {
-                    @class = "actionButtons btn btn-default btn-success",
-                    @role = "button",
-                    @title = "Создать новое сообщение"
-                })
+    @Html.SmplBtn("add", "Создать новое сообщение", "Создать новое сообщение", Url.Action("Create", "Support").ToString())
 </p>
 <div class="row">
     <div class="col-md-12">

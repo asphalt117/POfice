@@ -1,46 +1,39 @@
 ﻿@model Domain.Entities.TrustTecDet
-
+@using WebUI.Helpers
 @{
-    ViewBag.Title = "Удаление транспорта";
+    ViewBag.Title = ViewBag.ContentTitle = "Удаление транспорта";
 }
-
 <h3>Вы уверены, что хотите удалить транспорт?</h3>
 <div>
     <hr />
     <dl class="dl-horizontal">
-
         <dt>
             @Html.DisplayNameFor(model => model.TecModel)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.TecModel)
         </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.Gn)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Gn)
         </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.Driv)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Driv)
         </dd>
-
     </dl>
-
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm()) 
+    {
         @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Удалить" class="btn btn-default" /> |
-            @Html.ActionLink("К списку...", "Index")
+         <div>
+            <hr />
+            @Html.SmplBtn("return", "Вернуться к списку...", "вернуться к списку...", Url.Action("Index", "TrustTecs").ToString())
+            &nbsp;&nbsp;&nbsp;
+            @Html.SubmitBtn("Удалить")
         </div>
     }
 </div>

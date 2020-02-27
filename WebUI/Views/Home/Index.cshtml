@@ -6,22 +6,20 @@
 @using (Html.BeginForm("Index", "Home"))
 {
     @Html.AntiForgeryToken()
-
     <div>
-        @Html.DropDownList("SelectedCustId", (SelectList)ViewData["Cust"], new { onchange = "$(this.form).submit();" })
+        @Html.DropDownList("SelectedCustId", (SelectList)ViewData["Cust"], new { onchange = "$(this.form).submit();", style="max-width:100%;" })
     </div>
 
     if (ViewData["Contract"] != null)
     {
         <div class="mt-2">
             <span><b>Договор</b></span><br />
-            @Html.DropDownList("SelectedContractId", (SelectList)ViewData["Contract"], new { onchange = "$(this.form).submit();" })
+            @Html.DropDownList("SelectedContractId", (SelectList)ViewData["Contract"], new { onchange = "$(this.form).submit();", style="max-width:100%;" })
         </div>
     }
 }
 <h3>Персональные данные</h3>
 <div id="custlist">
-
     <table id="mytable">
         <tr>
             <td>
@@ -128,7 +126,6 @@
             </td>
         </tr>
     </table>
-
 </div>
 
 

@@ -1,10 +1,12 @@
 ﻿@model WebUI.ModelView.AdresView
-@using WebUI.Helpers;
+@using WebUI.Helpers
 @{
     ViewBag.Title = "Выбор адреса";
     ViewBag.ContentTitle = "Выберите адрес доставки";
 }
-@Html.ButtonAdd("Создать новый адрес", "Create", "Adres", "null")
+<p>
+    @Html.SmplBtn("add", "Создать новый адрес", "Создать", Url.Action("Create", "Adres").ToString())
+</p>
 @{
     List<string> lsHeaders = new List<string>();
     lsHeaders.Add("Адрес");

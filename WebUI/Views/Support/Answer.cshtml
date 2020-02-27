@@ -1,9 +1,8 @@
 ﻿@model Domain.Entities.Comment
-
+@using WebUI.Helpers
 @{
-    ViewBag.Title = "ответ";
+    ViewBag.Title = ViewBag.ContentTitle = "Ответ";
 }
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -16,10 +15,9 @@
         <div class="editor-field">
             @Html.TextAreaFor(model => model.Response, new { @class = "form-control multi-line", @rows = "3" })
         </div>
-        <hr />
         <div>
             <hr />
-            <input type="submit" value="Отправить" class="actionButtons btn btn-xs-sm-md btn-success" />
+            @Html.SubmitBtn("Отправить")
         </div>
     </fieldset>
 }

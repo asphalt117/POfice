@@ -1,40 +1,18 @@
 ﻿@model IEnumerable<Domain.Entities.GraphSale>
-
+@using WebUI.Helpers
 @{
-    ViewBag.Title = "Текущее выполнение";
+    ViewBag.Title = ViewBag.ContentTitle = "Текущее выполнение";
+    List<string> lsHeaders = new List<string>();
+    lsHeaders.Add(Html.DisplayNameFor(model => model.Dat).ToString());
+    lsHeaders.Add(Html.DisplayNameFor(model => model.Adres).ToString());
+    lsHeaders.Add(Html.DisplayNameFor(model => model.Good).ToString());
+    lsHeaders.Add(Html.DisplayNameFor(model => model.Num).ToString());
+    lsHeaders.Add(Html.DisplayNameFor(model => model.Plan).ToString());
+    lsHeaders.Add(Html.DisplayNameFor(model => model.Ld).ToString());
+    lsHeaders.Add(Html.DisplayNameFor(model => model.Fact).ToString());
+    lsHeaders.Add("");
 }
-
-<table class="table table-hover table-bordered table-grey-header">
-    <thead>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Dat)
-        </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.Centr)
-        </th>*@
-        <th>
-            @Html.DisplayNameFor(model => model.Adres)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Good)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Num)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Plan)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Ld)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Fact)
-        </th>
-        <th></th>
-    </tr>
-        </thead>
-
+@Html.TableHeader(lsHeaders)
 @foreach (var item in Model)
 {
     <tr>
@@ -42,8 +20,8 @@
             @Html.DisplayFor(modelItem => item.Dat)
         </td>
         @*<td>
-            @Html.DisplayFor(modelItem => item.Centr)
-        </td>*@
+                @Html.DisplayFor(modelItem => item.Centr)
+            </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.Adres)
         </td>
@@ -64,9 +42,8 @@
         </td>
         <td>
             @if ((item.Fact > 0) | (item.Ld > 0))
-                {@Html.ActionLink("Подробно", "Details", new { id = item.GraphSaleId })}
+            {@Html.ActionLink("Подробно", "Details", new { id = item.GraphSaleId })}
         </td>
     </tr>
 }
-
-</table>
+@Html.TableEnd()

@@ -1,49 +1,40 @@
 ﻿@model Domain.Entities.Person
-
+@using WebUI.Helpers
 @{
     ViewBag.Title = "Удаление контакта";
 }
-
-
 <h3>Вы уверены что надо удалить контакт?</h3>
 <div>
     <hr />
     <dl class="dl-horizontal">
-
         <dt>
             @Html.DisplayNameFor(model => model.Name)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Name)
         </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.Tel)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Tel)
         </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.Email)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Email)
         </dd>
-
     </dl>
-
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
-
         <div class="form-actions no-color">
-            <input type="submit" value="Удалить" class="btn btn-default" />             
+            @Html.SubmitBtn("Удалить")
         </div>
     }
 </div>
 <div>
-    @Html.ActionLink("К списку контактов", "Index")
+    <hr />
+    @Html.SmplBtn("return", "Вернуться к списку контактов", "к списку контактов", Url.Action("Index", "People").ToString())
 </div>

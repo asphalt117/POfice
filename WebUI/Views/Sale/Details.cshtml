@@ -1,38 +1,20 @@
 ﻿@model IEnumerable<Domain.Entities.Sale>
-
+@using WebUI.Helpers
 @{
-    ViewBag.Title = "Выполнение";
+    ViewBag.Title = ViewBag.ContentTitle = "Выполнение";
+    List<string> lsHeaders = new List<string>();
+    lsHeaders.Add(Html.DisplayNameFor(model => model.num).ToString());
+    lsHeaders.Add(Html.DisplayNameFor(model => model.Dat).ToString());
+    lsHeaders.Add(Html.DisplayNameFor(model => model.HM).ToString());
+    lsHeaders.Add(Html.DisplayNameFor(model => model.Good).ToString());
+    lsHeaders.Add(Html.DisplayNameFor(model => model.Kol).ToString());
+    lsHeaders.Add(Html.DisplayNameFor(model => model.Driv).ToString());
+    lsHeaders.Add(Html.DisplayNameFor(model => model.Model).ToString());
+    lsHeaders.Add(Html.DisplayNameFor(model => model.Gn).ToString());
 }
-
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.num)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Dat)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.HM)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Good)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Kol)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Driv)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Model)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Gn)
-        </th>
-    </tr>
-
-@foreach (var item in Model) {
+@Html.TableHeader(lsHeaders)
+@foreach (var item in Model)
+{
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.num)
@@ -60,5 +42,4 @@
         </td>
     </tr>
 }
-
-</table>
+@Html.TableEnd()

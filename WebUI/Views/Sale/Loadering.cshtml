@@ -1,65 +1,45 @@
 ﻿@model IEnumerable<Domain.Entities.Sale>
-
+@using WebUI.Helpers
 @{
-    ViewBag.Title = "Загружаются";
+    ViewBag.Title = ViewBag.ContentTitle = "Загружаются";
+    List<string> lsHeaders = new List<string>();
+    lsHeaders.Add(Html.DisplayNameFor(model => model.num).ToString());
+    lsHeaders.Add(Html.DisplayNameFor(model => model.Dat).ToString());
+    lsHeaders.Add(Html.DisplayNameFor(model => model.HM).ToString());
+    lsHeaders.Add(Html.DisplayNameFor(model => model.Good).ToString());
+    lsHeaders.Add(Html.DisplayNameFor(model => model.Kol).ToString());
+    lsHeaders.Add(Html.DisplayNameFor(model => model.Driv).ToString());
+    lsHeaders.Add(Html.DisplayNameFor(model => model.Model).ToString());
+    lsHeaders.Add(Html.DisplayNameFor(model => model.Gn).ToString());
 }
-
-<table class="table">
+@Html.TableHeader(lsHeaders)
+@foreach (var item in Model)
+{
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.num)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Dat)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.HM)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Good)
-        </th>
-        <th>
-            Заказано
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Driv)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Model)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Gn)
-        </th>
+        <td>
+            @Html.DisplayFor(modelItem => item.num)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Dat)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HM)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Good)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Kol)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Driv)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Model)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Gn)
+        </td>
     </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.num)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Dat)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HM)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Good)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Kol)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Driv)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Model)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Gn)
-            </td>
-        </tr>
-    }
-
-</table>
+}
+@Html.TableEnd()

@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<Domain.Entities.Trust>
-
+@using WebUI.Helpers;
 @{
     ViewBag.Title = ViewBag.ContentTitle = "Действующие доверенности";
 }
@@ -9,24 +9,13 @@
 }
 else
 {
-    <div class="table-responsiver">
-        <table class="table table-bordered table-hover mt-3">
-            <tr class="table-active">
-                <th>
-                    @Html.DisplayNameFor(model => model.Categ)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Good)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Txt)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Dend)
-                </th>
-            </tr>
-
-            @foreach (var item in Model)
+    List<string> lsHeaders = new List<string>();
+    lsHeaders.Add(Html.DisplayNameFor(model => model.Categ).ToString());
+    lsHeaders.Add(Html.DisplayNameFor(model => model.Good).ToString());
+    lsHeaders.Add(Html.DisplayNameFor(model => model.Txt).ToString());
+    lsHeaders.Add(Html.DisplayNameFor(model => model.Dend).ToString());
+    @Html.TableHeader(lsHeaders)
+    foreach (var item in Model)
     {
         <tr>
             <td>
@@ -42,7 +31,6 @@ else
                 @Html.DisplayFor(modelItem => item.Dend)
             </td>
         </tr>
+    }
+    @Html.TableEnd()
 }
-        </table>
-        </div>
-        }

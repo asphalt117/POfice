@@ -4,7 +4,7 @@
     if (ViewBag.typeord == 0)
     {
         ViewBag.Title = "Список заказов продукции";
-        ViewBag.ContentTitle = "Заказы продукции";
+        ViewBag.ContentTitle = "Заказы";
     }
     else
     {
@@ -12,8 +12,10 @@
         ViewBag.ContentTitle = "Счета";
     }
 }
-@Html.ButtonAdd("Создать новый заказ","Create", "Ord", "new { act = ViewBag.ContentTitle }")
-@{ 
+<p>
+    @Html.SmplBtn("add", "Создать новый заказ", "Создать", Url.Action("Create", "Ord", new { act = ViewBag.ContentTitle }).ToString())
+</p>
+@{
     List<string> lsHeaders = new List<string>();
 
     if (ViewBag.ContentTitle == "Заказы")
@@ -41,23 +43,29 @@
         }
         <td>
             @Html.DisplayFor(modelItem => item.DateExec)
-        </td><td>
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Good)
-        </td><td>
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Adres)
-        </td><td>
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Contract)
-        </td><td>
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Status)
-        </td><td>
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Note)
-        </td><td>
+        </td>
+        <td>
             @if (item.StatusId < 2)
             {
-                <a class="btn btn-light" role="button" title="Редактировать заказ" href="@Url.Action("Booking", "Ord", new { ord = item.OrderId })"><i class="fa fa-edit"></i></a>
-                <a class="btn btn-light" role="button" title="Удалить заказ" href="@Url.Action("Delete", "Ord", new { id = item.OrderId })"><i class="fa fa-trash-alt"></i></a>
+                @Html.SmplBtn("edit", "Редактировать заказ", null, Url.Action("Booking", "Ord", new { ord = item.OrderId }).ToString())
+                @Html.SmplBtn("delete", "Удалить заказ", null, Url.Action("Delete", "Ord", new { id = item.OrderId }).ToString())
             }
-            <a class="btn btn-light" role="button" title="Копировать заказ" href="@Url.Action("Copy", "Ord", new { id = item.OrderId })"><i class="fa fa-copy"></i></a>
+            @Html.SmplBtn("copy", "Копировать заказ", null, Url.Action("Copy", "Ord", new { id = item.OrderId }).ToString())
         </td>
     </tr>
 }

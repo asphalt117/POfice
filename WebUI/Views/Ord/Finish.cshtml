@@ -1,5 +1,5 @@
-﻿
-@model Domain.Entities.OrderV
+﻿@model Domain.Entities.OrderV
+@using WebUI.Helpers
 @{
     ViewBag.Title = ViewBag.Order;
 }
@@ -13,12 +13,8 @@
     @Scripts.Render("~/bundles/jqueryval")*@
 }
 @ViewBag.Order
-
-
-
 @{Html.RenderAction("GoodOrder", "Good", new { ord = Model.OrderId });}
 @Html.ActionLink("Изменить", "Categ", "Good", null, new { @class = "nav-link" })
-
 @if (Model.Invoice == 0)
 {
     <div class="orderform-datetime disabled">
@@ -31,7 +27,6 @@
         <hr />
     </div>
 }
-
 <div class="orderform-contract active order-item">
     <div class="form-group row">
         <label for="ContractId" class="col-sm-2 col-form-label">Договор:</label>
@@ -41,7 +36,6 @@
     </div>
     <hr />
 </div>
-
 <div class="orderform-delivery order-item">
     @if (Model.Centr)
     {
@@ -81,7 +75,7 @@ else
         <div class="col-sm-10">
             @Html.CheckBoxFor(model => model.isOnlinePay, new { @class = "form-control checkbox" })
         </div>
-    </div>   
+    </div>
 }
 @using (Html.BeginForm("Booking", "Ord", FormMethod.Post, new { @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
 {
@@ -103,7 +97,7 @@ else
         <hr />
         <div class="form-group row">
             <div class="col-sm-10">
-                <button type="submit" class="btn btn-primary btn-success">Сохранить</button>
+                @Html.SaveBtn()
             </div>
         </div>
     </div>

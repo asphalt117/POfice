@@ -1,5 +1,5 @@
 ﻿@model Domain.Entities.Adres
-
+@using WebUI.Helpers;
 @{
     ViewBag.Title = ViewBag.ContentTitle = "Новый адрес";
 }
@@ -17,9 +17,9 @@
         </div>
         <div>
             <hr />
-            @Html.ActionLink(@HttpUtility.HtmlDecode("&laquo;") + " вернуться к списку адресов", "Index", null, new { @class = "btn btn-xs-sm-md btn-default", @role = "button", @title = "Вернуться к списку адресов" })
+            @Html.SmplBtn("return", "Вернуться к списку адресов", "вернуться к списку адресов", Url.Action("Index", "Adres").ToString())
             &nbsp;&nbsp;&nbsp;
-            <input type="submit" value="Сохранить" class="btn btn-success" />
+            @Html.SaveBtn()
         </div>
     </div>
 }

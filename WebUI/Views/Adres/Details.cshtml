@@ -8,30 +8,18 @@
         <dt>
             @Html.DisplayNameFor(model => model.txt)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.txt)
         </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.Rast)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Rast)
         </dd>
-
     </dl>
 </div>
+<hr />
 <p>
-    <hr />
-
-
-    @Html.ButtonReturn("Вернуться", "Index", "Adres", null, "вернуться к списку адресов")
-
-
-
-    <a class="btn btn-light" role="button" title="Вернуться к списку адресов" href="@Url.Action("Index","Adres")"><i class="fa fa-angle-double-left"></i>&nbsp;&nbsp;вернуться к списку адресов</a>
-
-    @*@Html.ActionLink(@HttpUtility.HtmlDecode("&laquo;") + " вернуться к списку адресов", "Index", null, new { @class = "btn btn-light", @role = "button", @title = "Вернуться к списку адресов" })*@
+    @Html.SmplBtn("return", "Вернуться к списку адресов", "вернуться к списку адресов", Url.Action("Index", "Adres").ToString())
 </p>

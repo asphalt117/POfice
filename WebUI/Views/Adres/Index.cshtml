@@ -4,7 +4,9 @@
     ViewBag.Title = "Список адресов";
     ViewBag.ContentTitle = "Адреса";
 }
-@Html.ButtonAdd("Создать новый адрес", "Create", "Adres", "null")
+<p>
+    @Html.SmplBtn("add", "Создать новый адрес", "Создать", Url.Action("Create", "Adres").ToString())
+</p>
 @{
     List<string> lsHeaders = new List<string>();
 
@@ -24,7 +26,7 @@
             @Html.DisplayFor(modelItem => item.Rast)
         </td>
         <td>
-            <a class="btn btn-light" role="button" title="Подробнее" href="@Url.Action("Details", "Adres", new { id = item.AdresID })"><i class="fa fa-hand-point-up"></i></a>
+            @Html.SmplBtn("detail", "Подробнее", null, Url.Action("Details", "Adres", new { id = item.AdresID }).ToString())
         </td>
     </tr>
 }
