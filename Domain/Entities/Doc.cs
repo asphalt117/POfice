@@ -25,7 +25,7 @@ namespace Domain.Entities
         public string FileName { get; set; }
 
         [Display(Name = "Дата")]
-        public DateTime Dat { get; set; }
+        public string Dat { get; set; }
 
         [Display(Name = "файл Бин")]
         public byte[] DocBin { get; set; }
