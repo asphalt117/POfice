@@ -1,75 +1,46 @@
 ﻿@model IEnumerable<Domain.Entities.TrustTecV>
-
+@using WebUI.Helpers
 @{
     ViewBag.Title = ViewBag.ContentTitle = "Доверенный транспорт";
 }
 <p>
-    @Html.ActionLink("Новая доверенность на транспорт", "Create", null,
-                new
-                {
-                    @class = "btn btn-light",
-                    @role = "button",
-                    @title = "Создать  новую доверенность на транспорт"
-                })
-    @*@Html.ActionLink("Новый транспорт", "CreateTransport", null,
-                new
-                {
-                    @class = "actionButtons btn btn-default btn-success",
-                    @role = "button",
-                    @title = "Создать  новый транспорт"
-                })*@
+    @Html.SmplBtn("add", "Новая доверенность на транспорт", "Новая доверенность на транспорт", Url.Action("Create", "TrustTecs").ToString())
 </p>
-<table align="center" class="table table-hover table-bordered table-grey-header">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Gn)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TecModel)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Driv)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BeginDat)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EndDat)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Note)
-            </th>
-            <th></th>
-
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Gn)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TecModel)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Driv)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.BeginDat)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EndDat)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Note)
-                </td>
-                <td>
-                    @Html.ActionLink(HttpUtility.HtmlDecode("&#xe020;"), "Delete", new { id = item.TrustTecDetID }, new { @class = "actionButtons btn btn-xs-sm-md btn-default glyphicon glyph-btn", @role = "button", @title = "Удалить заказ" })
-                </td>
-            </tr>
-        }
-        </tbody>
-</table>
+@{
+    List<string> lsHeaders = new List<string>();
+    lsHeaders.Add(Html.DisplayNameFor(model => model.Gn).ToString());
+    lsHeaders.Add(Html.DisplayNameFor(model => model.TecModel).ToString());
+    lsHeaders.Add(Html.DisplayNameFor(model => model.Driv).ToString());
+    lsHeaders.Add(Html.DisplayNameFor(model => model.BeginDat).ToString());
+    lsHeaders.Add(Html.DisplayNameFor(model => model.EndDat).ToString());
+    lsHeaders.Add(Html.DisplayNameFor(model => model.Note).ToString());
+    lsHeaders.Add("");
+}
+@Html.TableHeader(lsHeaders)
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Gn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TecModel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Driv)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BeginDat)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EndDat)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Note)
+        </td>
+        <td>
+            @Html.SmplBtn("delete", "Удалить", null, Url.Action("Delete", "TrustTecs", new { id = item.TrustTecDetID }).ToString())
+        </td>
+    </tr>
+}
+@Html.TableEnd()

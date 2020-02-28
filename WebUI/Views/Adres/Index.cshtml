@@ -1,40 +1,33 @@
 ﻿@model IEnumerable<Domain.Entities.Adres>
-
+@using WebUI.Helpers;
 @{
     ViewBag.Title = "Список адресов";
     ViewBag.ContentTitle = "Адреса";
 }
 <p>
-    <a class="btn btn-light" role="button" title="Создать новый адрес" href="@Url.Action("Create", "Adres")">
-        <i class="fa fa-plus-square"></i>&nbsp;&nbsp;Новый адрес
-    </a>
+    @Html.SmplBtn("add", "Создать новый адрес", "Создать", Url.Action("Create", "Adres").ToString())
 </p>
-<table class="table table-bordered table-hover mt-3">
-    <thead>
-        <tr class="table-active">
-            <th>
-                @Html.DisplayNameFor(model => model.txt)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Rast)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    @foreach (var item in Model)
-    {
-        <tr>
+@{
+    List<string> lsHeaders = new List<string>();
 
-            <td>
-                @Html.DisplayFor(modelItem => item.txt)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Rast)
-            </td>
-            <td>
-                @Html.ActionLink(HttpUtility.HtmlDecode("&#xe015;"), "Details", new { id = item.AdresID }, new { @class = "actionButtons btn btn-xs-sm-md btn-default glyphicon glyph-btn", @role = "button", @title = "Просмотр контакта" })
-            </td>
-        </tr>
-    }
+    lsHeaders.Add(Html.DisplayNameFor(model => model.txt).ToString());
+    lsHeaders.Add(Html.DisplayNameFor(model => model.Rast).ToString());
+    lsHeaders.Add("");
+}
+@Html.TableHeader(lsHeaders)
+@foreach (var item in Model)
+{
+    <tr>
 
-</table>
+        <td>
+            @Html.DisplayFor(modelItem => item.txt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Rast)
+        </td>
+        <td>
+            @Html.SmplBtn("detail", "Подробнее", null, Url.Action("Details", "Adres", new { id = item.AdresID }).ToString())
+        </td>
+    </tr>
+}
+@Html.TableEnd()

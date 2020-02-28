@@ -3,9 +3,7 @@
     ViewBag.Title = ViewBag.Order;
     //"Заявка №" + Model.OrderId + " отправлена";
 }
-
 @{Html.RenderAction("GoodOrder", "Good", new { ord = Model.OrderId });}
-
 <div class="orderform-datetime disabled">
     <label for="Dat" class="col-sm-2 col-form-label">Дата и смена выполнения заказа:</label>
     <div class="form-group row disabled">
@@ -15,7 +13,6 @@
     </div>
     <hr />
 </div>
-
 <div class="orderform-contract active order-item">
     <div class="form-group row">
         <label for="ContractId" class="col-sm-2 col-form-label">Договор:</label>
@@ -25,7 +22,6 @@
     </div>
     <hr />
 </div>
-
 <div class="orderform-delivery order-item">
     @if (Model.Centr)
     {
@@ -41,7 +37,6 @@
         Html.RenderAction("TransOrder", "Transport", new { ord = Model.OrderId });
     }
 </div>
-
 <div class="orderform-contact order-item">
     <div class="form-group row">
         <label for="ContactId" class="col-sm-2 col-form-label">Укажите контактное лицо:</label>
@@ -49,9 +44,8 @@
             @Html.DisplayFor(model => Model.Person)
         </div>
     </div>
-
 </div>
-
+<p>
 @if (Model.Invoice == 0 && Model.RelatedOrderId == null)
 {
     @Html.ActionLink("Счет на оплату заявки", "CreateFrom", "Order", new { id = Model.OrderId }, null)
@@ -61,8 +55,6 @@
 {
     @Html.ActionLink("Создать заказ на основании счета", "CreateFromInvoice", "Order", new { id = Model.OrderId }, null)
 }
-
 @Html.ActionLink("К списку", "Index")
 </p>
-
-В ближайшее время, с вами  свяжутся.
+<b>В ближайшее время, с вами  свяжутся.</b>

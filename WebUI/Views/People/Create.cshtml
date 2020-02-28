@@ -1,16 +1,13 @@
 ﻿@model Domain.Entities.Person
-
+@using WebUI.Helpers
 @{
     ViewBag.Title = "Новый контакт";
 }
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
     <div class="form-horizontal">
-
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -18,7 +15,6 @@
                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.Tel, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -26,7 +22,6 @@
                 @Html.ValidationMessageFor(model => model.Tel, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -36,9 +31,9 @@
         </div>
         <div>
             <hr />
-            @Html.ActionLink(@HttpUtility.HtmlDecode("&laquo;") + " вернуться к списку контактов", "Index", null, new { @class = "btn btn-xs-sm-md btn-default", @role = "button", @title = "Вернуться к списку контактов" })
+            @Html.SmplBtn("return", "Вернуться к списку контактов", "вернуться к списку контактов", Url.Action("Index", "People").ToString())
             &nbsp;&nbsp;&nbsp;
-            <input type="submit" value="Сохранить" class="actionButtons btn btn-xs-sm-md btn-success" />
+            @Html.SaveBtn()
         </div>
     </div>
 }

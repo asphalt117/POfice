@@ -1,8 +1,9 @@
 ﻿@model Domain.Entities.OrderDriv
+@using WebUI.Helpers
 @{
     ViewBag.Title = ViewBag.ContentTitle = "Транспорт к заказу";
 }
-@using (Html.BeginForm("Trans","Transport", FormMethod.Post, new { @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Trans", "Transport", FormMethod.Post, new { @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -31,11 +32,12 @@
             @Html.ValidationMessageFor(model => model.Gn, "", new { @class = "text-danger" })
         </div>
     </div>
-    <hr />
     <div class="form-group row">
         <div class="col-md-offset-2 col-md-10">
-            @Html.ActionLink(@HttpUtility.HtmlDecode("&laquo;") + " вернуться к списку транспорта", "Index", null, new { @class = "btn btn-light", @role = "button", @title = "Вернуться к списку транспорта" })
-            <input type="submit" value="Продолжить >>" class="btn btn-success" title="Сохранить и продложить оформление заказа" />
+            <hr />
+            @Html.SmplBtn("return", "Вернуться к списку транспорта", "вернуться к списку транспорта", Url.Action("Index", "Transport").ToString())
+            &nbsp;&nbsp;&nbsp;
+            @Html.SubmitBtn("Продолжить >>","Сохранить и продложить оформление заказа")
         </div>
     </div>
 }

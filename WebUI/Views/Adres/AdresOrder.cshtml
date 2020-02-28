@@ -1,27 +1,23 @@
 ﻿@model WebUI.ModelView.AdresView
+@using WebUI.Helpers
 @{
     ViewBag.Title = "Выбор адреса";
     ViewBag.ContentTitle = "Выберите адрес доставки";
 }
 <p>
-    <a class="btn btn-light" role="button" title="Добавить новый адрес" href="@Url.Action("Create", "Adres", null)">
-        <i class="fa fa-plus-square"></i>&nbsp;&nbsp;Добавить
-    </a>
+    @Html.SmplBtn("add", "Создать новый адрес", "Создать", Url.Action("Create", "Adres").ToString())
 </p>
-<table class="table table-bordered table-hover mt-3">
-    <thead>
-        <tr class="table-active">
-            <th scope="col">Адрес</th>
-         </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Adres)
-        {
-            <tr>
-                <td>
-                    @Html.ActionLink(@item.txt, "SelectAdres", new { id = item.AdresID, ord = Model.OrderId }, new { @class="dark-link" })
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+@{
+    List<string> lsHeaders = new List<string>();
+    lsHeaders.Add("Адрес");
+}
+@Html.TableHeader(lsHeaders)
+@foreach (var item in Model.Adres)
+{
+    <tr>
+        <td>
+            @Html.ActionLink(@item.txt, "SelectAdres", new { id = item.AdresID, ord = Model.OrderId }, new { @class = "dark-link" })
+        </td>
+    </tr>
+}
+@Html.TableEnd()

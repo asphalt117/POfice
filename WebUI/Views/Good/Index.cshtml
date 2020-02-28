@@ -4,46 +4,46 @@
     ViewBag.Title = Model.CategName + " | Заказать";
     ViewBag.ContentTitle = Model.CategName;
 }
+
+NOT WORK!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!
+
+
 @if (Model.PageInfo.itemsCount > Model.PageInfo.pageSize)
 {
     @Html.PageNavigatorInfo(Model.PageInfo)
 }
-    <div class="table-responsive product-table-wrapper">
+<div class="table-responsive product-table-wrapper">
+    @{ Html.RenderAction("CategoryMenu", "Good", new { menuName = ViewBag.MenuItem, menuId = ViewBag.MenuId }); }
+    @{ 
+        List<string> lsHeaders = new List<string>();
+        lsHeaders.Add("Наименование продукции");
+        lsHeaders.Add("Ед. изм.");
 
-        @{ Html.RenderAction("CategoryMenu", "Good", new { menuName = ViewBag.MenuItem, menuId = ViewBag.MenuId }); }
-
-        <table class="table table-bordered table-hover product-table">
-            <thead>
-                <tr>
-                    <th>Наименование продукции</th>
-                    <th>Ед. изм.</th>
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <th>Управление</th>
-                    }
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.Products)
-                {
-                    <tr>
-                        <td>
-                            @Html.ActionLink(item.txt, Model.Action, Model.Controller, new { id = item.GoodID }, null)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Unit)
-                        </td>
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <td>
-                                @Html.ActionLink("Убрать", "DelVisible", "Good", new { categoryId = item.GoodID }, new { @class = "btn btn-xs-sm-md btn-success", @role = "button", @title = "Убрать" })
-                            </td>
-                        }
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+        if (User.IsInRole("Admin"))
+        {
+            lsHeaders.Add("Управление");
+        }
+    }
+    @Html.TableHeader(lsHeaders)
+    @foreach (var item in Model.Products)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(item.txt, Model.Action, Model.Controller, new { id = item.GoodID }, null)
+            </td><td>
+                @Html.DisplayFor(modelItem => item.Unit)
+            </td>
+            @if (User.IsInRole("Admin"))
+            {
+                <td>
+                    @Html.ActionLink("Убрать", "DelVisible", "Good", new { categoryId = item.GoodID }, new { @class = "btn btn-xs-sm-md btn-success", @role = "button", @title = "Убрать" })
+                </td>
+            }
+        </tr>
+    }
+    @Html.TableEnd()
+</div>
 @if (Model.PageInfo.itemsCount > Model.PageInfo.pageSize)
 {
     @Html.PageNavigatorBootStrap(Model.PageInfo, "Index", x => new { categId = Model.CategId, pageNum = x })

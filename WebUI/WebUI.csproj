@@ -315,7 +315,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\ButtonHelpers.cs" />
     <Compile Include="Helper\PagingHelpers.cs" />
+    <Compile Include="Helper\TabHelpers.cs" />
     <Compile Include="Infrastructure\ExcelResult.cs" />
     <Compile Include="Infrastructure\Export\ExportBuilder.cs" />
     <Compile Include="Infrastructure\Export\PropertiesBuilder.cs" />

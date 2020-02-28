@@ -1,14 +1,12 @@
 ﻿@model Domain.Entities.Comment
-
+@using WebUI.Helpers
 @{
-    ViewBag.Title = "Сообщение";
+    ViewBag.Title = ViewBag.ContentTitle = "Сообщение";
 }
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
-
     <fieldset>
         <h2>Отзыв, предложение, жалоба</h2>
         <div class="editor-field">
@@ -16,9 +14,9 @@
         </div>
         <div>
             <hr />
-            @Html.ActionLink(@HttpUtility.HtmlDecode("&laquo;") + " вернуться к списку сообщений", "Create", null, new { @class = "btn btn-xs-sm-md btn-default", @role = "button", @title = "Вернуться к списку сообщений" })
+            @Html.SmplBtn("return", "Вернуться к списку сообщений", "вернуться к списку сообщений", Url.Action("Create", "Support").ToString())
             &nbsp;&nbsp;&nbsp;
-            <input type="submit" value="Отправить" class="actionButtons btn btn-xs-sm-md btn-success" />
+            @Html.SubmitBtn("Отправить")
         </div>
     </fieldset>
 }

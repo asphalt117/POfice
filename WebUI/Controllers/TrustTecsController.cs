@@ -133,7 +133,7 @@ namespace WebUI.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             repo.delete(id);
-            return RedirectToAction("Index","Transports",null);
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

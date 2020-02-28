@@ -1,46 +1,36 @@
 ﻿@model IEnumerable<Domain.Entities.Person>
-
+@using WebUI.Helpers;
 @{
     ViewBag.Title = ViewBag.ContentTitle = "Контакты";
 }
 <p>
-    <a class="btn btn-light" role="button" title="Создать новый контакт" href="@Url.Action("Create", "People", null)">
-        <i class="fa fa-plus-square"></i>&nbsp;&nbsp;Новый контакт
-    </a>
+    @Html.SmplBtn("add", "Создать новый контакт", "Создать", Url.Action("Create", "People").ToString())
 </p>
-<table class="table table-bordered table-hover mt-3">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Tel)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Tel)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.ActionLink(HttpUtility.HtmlDecode("&#xe065;"), "Edit", new { id = item.PersonId }, new { @class = "actionButtons btn btn-xs-sm-md btn-default glyphicon glyph-btn", @role = "button", @title = "Редактировать контакт" })
-                @Html.ActionLink(HttpUtility.HtmlDecode("&#xe015;"), "Details", new { id = item.PersonId }, new { @class = "actionButtons btn btn-xs-sm-md btn-default glyphicon glyph-btn", @role = "button", @title = "Просмотр контакта" })
-                @Html.ActionLink(HttpUtility.HtmlDecode("&#xe020;"), "Delete", new { id = item.PersonId }, new { @class = "actionButtons btn btn-xs-sm-md btn-default glyphicon glyph-btn", @role = "button", @title = "Удалить контакт" })
-            </td>
-        </tr>
-    }
-
-</table>
+@{
+    List<string> lsHeaders = new List<string>();
+    lsHeaders.Add(Html.DisplayNameFor(model => model.Name).ToString());
+    lsHeaders.Add(Html.DisplayNameFor(model => model.Tel).ToString());
+    lsHeaders.Add(Html.DisplayNameFor(model => model.Email).ToString());
+    lsHeaders.Add("Управление");
+}
+@Html.TableHeader(lsHeaders)
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.SmplBtn("edit", "Редактировать контакт", null, Url.Action("Edit", "People", new { id = item.PersonId }).ToString())
+            @Html.SmplBtn("detail", "Просмотр контакта", null, Url.Action("Details", "People", new { id = item.PersonId }).ToString())
+            @Html.SmplBtn("delete", "Удалить контакт", null, Url.Action("Delete", "People", new { id = item.PersonId }).ToString())
+        </td>
+    </tr>
+}
+@Html.TableEnd()
