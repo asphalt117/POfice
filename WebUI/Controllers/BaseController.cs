@@ -24,18 +24,6 @@ namespace WebUI.Controllers
                 base.Initialize(requestContext);
 
                 string auth = GetCookie("Auth");
-               
-                
-                //HttpCookie aspnet = Request.Cookies[".AspNet.ApplicationCookie"];
-                //HttpCookie token = Request.Cookies["__RequestVerificationToken"];
-
-                //if (abzHash == null | aspnet == null | token == null)
-                //{
-                //    Request.GetOwinContext().Authentication.SignOut();
-                //    Request.GetOwinContext().Authentication.SignOut(Microsoft.AspNet.Identity.DefaultAuthenticationTypes.ApplicationCookie);
-                //    HttpContext.CurrentHandler.GetOwinContext().Authentication.SignOut(Microsoft.AspNet.Identity.DefaultAuthenticationTypes.ApplicationCookie);
-                //}
-
 
                 if (!String.IsNullOrWhiteSpace(auth))
                 {

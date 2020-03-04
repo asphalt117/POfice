@@ -21,14 +21,21 @@ namespace WebUI.Controllers
         private IEnumerable<Contract> contracts;
         private Contract contract;
 
+
         [Authorize]
        public async Task<ActionResult> Index(int SelectedCustId = -1, int SelectedContractId = -1)
         {
+
             HttpCookie aspnet = Request.Cookies[".AspNet.ApplicationCookie"];
-          //  HttpCookie session = Request.Cookies["ASP.NET_SessionId"];
             HttpCookie token = Request.Cookies["__RequestVerificationToken"];
 
-            if (abzHash == null | aspnet == null | token == null)
+            if (aspnet == null | token == null)
+            {
+                Response.Cookies.Clear();
+                return RedirectToAction("Login", "Account");
+            }
+
+            if (abzHash == null)
                 return RedirectToAction("Logout", "Account");
 
             string usr = User.Identity.Name;
