@@ -1,48 +1,26 @@
 ﻿@model IEnumerable<Domain.Entities.Doc>
-
+@using WebUI.Helpers;
 @{
-    ViewBag.Title = "Документы";
+    ViewBag.Title = ViewBag.ContentTitle = "Документы";
+    List<string>
+    lsHeaders = new List<string();
+    lsHeaders.Add(Html.DisplayNameFor(model => model.DocName).ToString());
+    lsHeaders.Add(Html.DisplayNameFor(model => model.Dat).ToString());
+    lsHeaders.Add(""); 
 }
-
-
-
-
-НУЖНО РАЗБИРАТЬСЯ ОТДЕЛЬНО
-
-
-
-
-
-
-
-
-    <h2>Докуметы</h2>
-
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.DocName)
-        </th>
-
-        <th>
-            @Html.DisplayNameFor(model => model.Dat)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.DocName)
-        </td>
-
-        <td>
-            @Html.DisplayFor(modelItem => item.Dat)
-        </td>
-        <td>
-            @Html.ActionLink("Скачать", "DownLoadFile", new { id=item.DocsId }) 
-        </td>
-    </tr>
+@Html.TableHeader(lsHeaders)
+@foreach (var item in Model)
+{
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.DocName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Dat)
+    </td>
+    <td>
+        @Html.ActionLink("Скачать", "DownLoadFile", new { id = item.DocsId })
+    </td>
+</tr>
 }
-
-</table>
+@Html.TableEnd()
