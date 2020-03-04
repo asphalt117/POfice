@@ -18,29 +18,51 @@ namespace WebUI.Controllers
 
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
         {
-            base.Initialize(requestContext);
-            string auth = GetCookie("Auth");
-            if (!String.IsNullOrWhiteSpace(auth))
+            try
             {
-                dba = new AdminContext();
-                abzHash = dba.AbzHashs.Find(auth);
-                if (abzHash != null)
+
+                base.Initialize(requestContext);
+
+                string auth = GetCookie("Auth");
+               
+                
+                //HttpCookie aspnet = Request.Cookies[".AspNet.ApplicationCookie"];
+                //HttpCookie token = Request.Cookies["__RequestVerificationToken"];
+
+                //if (abzHash == null | aspnet == null | token == null)
+                //{
+                //    Request.GetOwinContext().Authentication.SignOut();
+                //    Request.GetOwinContext().Authentication.SignOut(Microsoft.AspNet.Identity.DefaultAuthenticationTypes.ApplicationCookie);
+                //    HttpContext.CurrentHandler.GetOwinContext().Authentication.SignOut(Microsoft.AspNet.Identity.DefaultAuthenticationTypes.ApplicationCookie);
+                //}
+
+
+                if (!String.IsNullOrWhiteSpace(auth))
                 {
-
-                    if (abzHash.CustID != null)
+                    dba = new AdminContext();
+                    abzHash = dba.AbzHashs.Find(auth);
+                    if (abzHash != null)
                     {
-                        CustID = (int)abzHash.CustID;
-                    }
-                    else
-                    {
-                        string usr = User.Identity.Name;
-                        CustID = db.UserAdmins.FirstOrDefault(u => u.Email == usr).CustID;
-                        abzHash.CustID = CustID;
 
-                        UpdateHash(abzHash);
+                        if (abzHash.CustID != null)
+                        {
+                            CustID = (int)abzHash.CustID;
+                        }
+                        else
+                        {
+                            string usr = User.Identity.Name;
+                            CustID = db.UserAdmins.FirstOrDefault(u => u.Email == usr).CustID;
+                            abzHash.CustID = CustID;
+
+                            UpdateHash(abzHash);
+                        }
+                        Cust = db.Custs.FirstOrDefault(c => c.CustId == CustID);
                     }
-                    Cust = db.Custs.FirstOrDefault(c => c.CustId == CustID);
                 }
+            }
+            catch
+            {
+                RedirectToAction("Logout", "Account");
             }
         }
         

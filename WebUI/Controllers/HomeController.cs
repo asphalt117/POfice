@@ -12,7 +12,6 @@ using Microsoft.AspNet.Identity.Owin;
 using WebUI.Models;
 using System;
 
-
 namespace WebUI.Controllers
 {
     public class HomeController : BaseController
@@ -25,7 +24,11 @@ namespace WebUI.Controllers
         [Authorize]
        public async Task<ActionResult> Index(int SelectedCustId = -1, int SelectedContractId = -1)
         {
-            if (abzHash == null)
+            HttpCookie aspnet = Request.Cookies[".AspNet.ApplicationCookie"];
+          //  HttpCookie session = Request.Cookies["ASP.NET_SessionId"];
+            HttpCookie token = Request.Cookies["__RequestVerificationToken"];
+
+            if (abzHash == null | aspnet == null | token == null)
                 return RedirectToAction("Logout", "Account");
 
             string usr = User.Identity.Name;
