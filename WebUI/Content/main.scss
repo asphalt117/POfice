@@ -29,7 +29,10 @@ textarea {
 /*  MAIN STYLES  */
 $logo-width: 56px;
 $logo-height: 38px;
+$dark-color: #222;
+/*$dark-color-2: #373737;*/
 
+/*#fc3*/
 
 .img-center, .carmap-img {
     display: block;
@@ -45,12 +48,21 @@ $logo-height: 38px;
 
 
 .header-wrapper {
+    background: $dark-color !important;
 }
 
 .logo-brand {
     .logotype {
         width: ($logo-width*6)/10;
         height: ($logo-height*6)/10;
+    }
+}
+
+.log-user, .log-out {
+    color: #aaa !important;
+
+    &:hover, &:focus {
+        color: #fff !important;
     }
 }
 
@@ -61,7 +73,6 @@ $logo-height: 38px;
     border-left: none !important;
     border-bottom: 2px solid #666 !important;
 }
-
 
 .sidebar {
     border-top: 1px solid rgba(255, 255, 255, 0.5);
@@ -75,9 +86,11 @@ $logo-height: 38px;
 
     .sidebar-subheader {
         font-size: large;
+        font-weight: 500;
         border-bottom: 1px solid #6c757d;
     }
 }
+
 
 .mainmenu-wrapper {
     padding: 0.5rem 0.5rem !important;
@@ -87,30 +100,37 @@ $logo-height: 38px;
             padding: 0.1rem 0.5rem !important;
 
             &:hover, &:focus {
-                color: #ffb000;
+                background-color: #4a4b4c !important;
             }
         }
 
         .nav-item.active > .nav-link {
-            color: #ffb000;
+            color: #333 !important;
+            font-weight: 500;
+            background-color: #fa0 !important;
         }
     }
 }
 
+
 footer {
+    &.bg-dark {
+        background-color: $dark-color !important;
+    }
+
     .footer-info {
         padding: 10px 10px 15px;
     }
- 
+
     .footer-info, .footer-info .url, .footer-info .email {
         color: #aaa;
         font-size: 13px;
         text-decoration: none;
     }
- 
+
     .footer-info .url:hover, .footer-info .email:hover {
-        color: #ddd!important;
-        background-color: transparent!important;
+        color: #ddd !important;
+        background-color: transparent !important;
     }
 
     .footer-copyright-info {
