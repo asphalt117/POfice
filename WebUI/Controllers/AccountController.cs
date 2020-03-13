@@ -195,12 +195,14 @@ namespace WebUI.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-
-            DeleteCookie("MyAuth");
-            DeleteCookie("MyPWD");
-            DeleteCookie("Dog");
-            DeleteCookie("Cust");
+            
             DeleteCookie("Auth");
+            DeleteCookie("balance");
+            DeleteCookie("contract");
+            DeleteCookie("contractid");
+            DeleteCookie("custid");
+            DeleteCookie("customer");
+            DeleteCookie("menuitem");
 
             return RedirectToAction("Index", "Home");
         }
@@ -210,11 +212,13 @@ namespace WebUI.Controllers
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
 
-            DeleteCookie("MyAuth");
-            DeleteCookie("MyPWD");
-            DeleteCookie("Dog");
-            DeleteCookie("Cust");
             DeleteCookie("Auth");
+            DeleteCookie("balance");
+            DeleteCookie("contract");
+            DeleteCookie("contractid");
+            DeleteCookie("custid");
+            DeleteCookie("customer");
+            DeleteCookie("menuitem");
 
             return RedirectToAction("Index", "Home");
         }

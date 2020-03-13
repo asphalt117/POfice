@@ -28,6 +28,12 @@ namespace WebUI.Controllers
           //  HttpCookie session = Request.Cookies["ASP.NET_SessionId"];
             HttpCookie token = Request.Cookies["__RequestVerificationToken"];
 
+            if (aspnet == null)
+            {                
+                Response.Cookies["__RequestVerificationToken"].Expires = DateTime.Now.AddDays(-2);
+                return RedirectToAction("Login", "Account");
+            }
+
             if (abzHash == null | aspnet == null | token == null)
                 return RedirectToAction("Logout", "Account");
 
