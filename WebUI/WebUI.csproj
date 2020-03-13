@@ -322,6 +322,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\ButtonHelpers.cs" />
+    <Compile Include="Helper\MenuHelpers.cs" />
     <Compile Include="Helper\PagingHelpers.cs" />
     <Compile Include="Helper\TabHelpers.cs" />
     <Compile Include="Infrastructure\ExcelResult.cs" />
