@@ -1,25 +1,113 @@
-﻿@model IEnumerable<Domain.Entities.Doc>
+﻿@model WebUI.Models.DocsModel
 @using WebUI.Helpers;
+@using Domain.Entities;
 @{
     ViewBag.Title = ViewBag.ContentTitle = "Документы";
-    List<string> lsHeaders = new List<string>();
-    lsHeaders.Add(Html.DisplayNameFor(model => model.DocName).ToString());
-    lsHeaders.Add(Html.DisplayNameFor(model => model.Dat).ToString());
-    lsHeaders.Add(""); 
+    CustomInfo custominfo = Model.CustomInfo;
 }
-@Html.TableHeader(lsHeaders)
-@foreach (var item in Model)
+<h2 class="h2-grey">Отправка документов</h2>
+@if (!Model.IsCustom)
 {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.DocName)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Dat)
-    </td>
-    <td>
-        @Html.ActionLink("Скачать", "DownLoadFile", new { id = item.DocsId })
-    </td>
-</tr>
+    <p class="text-danger">
+        Рассылка документов делается только для юридических лиц.
+        Вас нет в нашей БД, как ЮЛ.
+        Обращайтесь в бухгалтерию АО "АБЗ КАПОТНЯ"
+    </p>
 }
-@Html.TableEnd()
+else
+{
+    if (custominfo == null)
+    {
+        <h4>Укажите ваши данные для получения документов:</h4>
+        <br />
+        custominfo = new CustomInfo();
+        using (Html.BeginForm("Doc", "Docs", FormMethod.Post, new { @class = "form-horizontal", @role = "form", @enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-horizontal">
+                <div class="form-group">
+                    @Html.LabelFor(m => custominfo.Mail, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(m => custominfo.Mail, new { htmlAttributes = new { @class = "form-control", @name = "Mail", @id = "Mailid" } })
+                        @Html.ValidationMessageFor(m => custominfo.Mail, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => custominfo.isEmpty, htmlAttributes: new { @class = "col-md-3 control-label" })
+                    <div class="col-md-9">
+                        @Html.CheckBoxFor(m => custominfo.isEmpty, new { @class = "form-control checkbox", @name = "isEmpty", @id = "isEmptyid" })
+                        @Html.ValidationMessageFor(m => custominfo.isEmpty, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div>
+                    @Html.SaveBtn()
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <h4>Ваши данные для получения документов:</h4>
+        <br />
+        <div>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(m => custominfo.Mail)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(m => custominfo.Mail)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(m => custominfo.isEmpty)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(m => custominfo.isEmpty)
+                </dd>
+            </dl>
+        </div>
+        <p>
+            @Html.SmplBtn("edit", "Изменить данные для отправки документов", "Изменить данные", Url.Action("Edit", "CustomInfo", new { id = custominfo.CustomInfoId }).ToString())
+        </p>
+    }
+}
+<hr />
+<br />
+<h2 class="h2-grey">Счет-фактура</h2>
+<p>
+    @Html.ActionLink("Заказ счета-фактуры", "SchFact", "Docs", null, new { @class = "nav-link" })
+</p>
+<hr />
+<br />
+<h2 class="h2-grey">Взаиморасчеты</h2>
+<p>
+    @Html.ActionLink("Взаиморасчеты", "Balance", "Balances", null, new { @class = "nav-link" })
+</p>
+<hr />
+<br />
+<h2 class="h2-grey">Документы</h2>
+<div class="table-responsive">
+    <table class="table table-hover">
+        <caption>Список доступных документов</caption>
+        <tbody>
+            @foreach (var item in Model.Docs)
+            {
+                <tr>
+                    <td>
+                        <a href="@Url.Action("DownLoadFile", "Docs", new { id = item.DocsId })" title="Скачать документ"><span class="text-muted">@Html.DisplayFor(modelItem => item.DocName)</span></a>
+                        @*<span class="text-muted">@Html.DisplayFor(modelItem => item.DocName)</span><br />от @Html.DisplayFor(modelItem => item.Dat)*@
+                    </td>
+                    <td>
+                        от <a href="@Url.Action("DownLoadFile", "Docs", new { id = item.DocsId })" title="Скачать документ" class="cl-black">@Html.DisplayFor(modelItem => item.Dat)</a>
+                    </td>
+
+                    <td>
+                        @*<a role="button" title="Скачать документ" href="@Url.Action("DownLoadFile", new { id = item.DocsId })" class="btn btn-light">
+                                <i class="fa fa-download"></i> Скачать
+                            </a>*@
+                        @Html.SmplBtn("download", "Скачать документ", "Скачать", Url.Action("DownLoadFile", "Docs", new { id = item.DocsId }).ToString())
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

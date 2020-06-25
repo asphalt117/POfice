@@ -2,6 +2,11 @@
 using System.Web.Mvc;
 using System.Collections.Generic;
 using System.Linq;
+using System;
+using WebUI.Models;
+using System.Threading.Tasks;
+using System.Data.Entity;
+using System.Net;
 
 namespace WebUI.Controllers
 {
@@ -18,8 +23,35 @@ namespace WebUI.Controllers
         public ActionResult Doc()
         {
             ViewBag.MenuItem = "doc";
-            List<Doc> docs = db.Docs.Where(d => d.CustID == Cust.CustId).ToList();
-            return View(docs);
+
+            DocsModel docsModel = new DocsModel();
+            docsModel.Docs = db.Docs.Where(d => d.CustID == Cust.CustId).ToList();
+            docsModel.IsCustom = false;
+
+            if (!String.IsNullOrWhiteSpace(Cust.Cod1s))
+            {
+                docsModel.IsCustom = true;
+                docsModel.CustomInfo = db.CustomInfos.FirstOrDefault(d => d.Cod1s == Cust.Cod1s);
+            }
+                
+            return View(docsModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Doc(CustomInfo custominfo)
+        {
+            custominfo.Cod1s = Cust.Cod1s;
+            custominfo.txt = Cust.SmalName;
+
+            if (ModelState.IsValid)
+            {
+                //CustomInfo customInfo = docsModel.CustomInfo;
+                db.CustomInfos.Add(custominfo);
+                await db.SaveChangesAsync();
+            }
+
+            return RedirectToAction("Doc");
         }
 
         [HttpGet]

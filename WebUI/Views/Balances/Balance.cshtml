@@ -3,6 +3,12 @@
 @{
     ViewBag.Title = "Взаиморасчеты";
 }
+<h5 class="h2-grey">Ваши документы</h5>
+<p>
+    @Html.ActionLink("Документы, счета-фактуры, отправка", "Doc", "Docs", null, new { @class = "nav-link" })
+</p>
+<hr />
+<br />
 <h2>
     Выверенный остаток  по договору № <strong>@Html.DisplayFor(model => model.Contract) </strong>
     на  <font color="red">@Html.DisplayFor(model => model.Fin.Dat)</font> равен

@@ -330,6 +330,7 @@
     <Compile Include="Infrastructure\Export\StylesBuilder.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminContext.cs" />
+    <Compile Include="Models\DocsModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\PageInfoModel.cs" />
     <Compile Include="Models\TransportList.cs" />

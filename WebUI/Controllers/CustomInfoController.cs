@@ -34,7 +34,7 @@ namespace WebUI.Controllers
             {
                 return HttpNotFound();
             }
-            return View(customInfo);
+            return PartialView(customInfo);
         }
         public ActionResult Create()
         {
@@ -79,7 +79,8 @@ namespace WebUI.Controllers
             {
                 db.Entry(customInfo).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                // return RedirectToAction("Index");
+                return RedirectToAction("Doc", "Docs");
             }
             return View(customInfo);
         }

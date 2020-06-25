@@ -3,17 +3,6 @@
 @{
     ViewBag.Title = ViewBag.ContentTitle = "Добавление доверенного транспорта";
 }
-@section metatags
-{
-    <meta name="description" content="@ViewBag.Title" />
-    <meta name="keywords" content="@ViewBag.Title, АБЗ-4" />
-    <meta name="robots" content="noindex, nofollow">
-}
-@*@section Scripts {
-        @Scripts.Render("~/bundles/jqueryval")
-        @Styles.Render("~/Content/datetimepickercss")
-        @Scripts.Render("~/bundles/datetimepickerjs")
-    }*@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/datepicker")
@@ -21,79 +10,152 @@
 @section Styles {
     @Styles.Render("~/content/datepicker")
 }
-@using (Html.BeginForm())
+@section metatags
+{
+    <meta name="description" content="@ViewBag.Title" />
+    <meta name="keywords" content="@ViewBag.Title, АБЗ-4" />
+    <meta name="robots" content="noindex, nofollow">
+}
+@using (Html.BeginForm("Create", "TrustTecs", FormMethod.Post, new { @id = "frmdataddtr", @class = "form-horizontal order-nodata", @role = "form", @enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    <div class="form-horizontal client-form">
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <p class="help-block">
-            @Html.ActionLink("Добавить транспорт", "SelTrans", "TrustTecs", new { @class = "btn btn-light", @role = "button", @title = "Добавить транспорт" })
-        </p>
-        <div class="table-responsive">
-            @{
-                List<string> lsHeaders = new List<string>();
-                lsHeaders.Add("Гос. №");
-                lsHeaders.Add("Модель");
-                lsHeaders.Add("Водитель");
-            }
-            @Html.TableHeader(lsHeaders)
-            @if (Model.Detail != null && Model.Detail.Any())
+<div class="form-horizontal client-form">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <p>
+        @Html.SmplBtn("add", "Добавить транспорт", "Добавить транспорт", Url.Action("SelTrans", "TrustTecs").ToString())
+    </p>
+    <div class="table-responsive">
+        @{
+            List<string> lsHeaders = new List<string>();
+            lsHeaders.Add("Гос. №");
+            lsHeaders.Add("Модель");
+            lsHeaders.Add("Водитель");
+        }
+        @Html.TableHeader(lsHeaders)
+        @if (Model.Detail != null && Model.Detail.Any())
+        {
+            foreach (var item in Model.Detail)
             {
-                foreach (var item in Model.Detail)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(model => item.Gn)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => item.TecModel)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => item.Driv)
-                        </td>
-                    </tr>
-                }
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => item.Gn)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.TecModel)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.Driv)
+                    </td>
+                </tr>
             }
-            @Html.TableEnd()
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.BeginDat, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <input autocomplete="off" aria-describedby="dateHelpBlock" class="datepicker-here form-control input-validation-error" data-val="true" data-val-required="Требуется поле Дата начала." id="BeginDat" name="BeginDat" type="text" aria-invalid="true" />
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.EndDat, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <input autocomplete="off" aria-describedby="dateHelpBlock" class="datepicker-here form-control input-validation-error" data-val="true" data-val-required="Требуется поле Дата окончания." id="EndDat" name="EndDat" type="text" aria-invalid="true" />
-            </div>
-        </div>
-        <h2>Дополнительная информация к доверенности</h2>
-        <div class="form-group">
-            @Html.LabelFor(model => model.Note, htmlAttributes: new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.TextAreaFor(model => model.Note, new { @class = "form-control multi-line", @rows = "3" })
-                @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
-                <p class="help-block">* тут вы можете указать особые условия</p>
-            </div>
-        </div>
-        <div>
-            <hr />
-            @Html.SmplBtn("return", "Вернуться к списку транспорта", "вернуться к списку транспорта", Url.Action("Index", "TrustTecs").ToString())
-            &nbsp;&nbsp;&nbsp;
-            @Html.SaveBtn()
+        }
+        @Html.TableEnd()
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.BeginDat, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input autocomplete="off" aria-describedby="dateHelpBlock" class="datepicker-here form-control input-validation-error" data-val="true" data-val-required="Требуется поле Дата начала." id="BeginDat" name="BeginDat" type="text" aria-invalid="true" />
         </div>
     </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.EndDat, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input autocomplete="off" aria-describedby="dateHelpBlock" class="datepicker-here form-control input-validation-error" data-val="true" data-val-required="Требуется поле Дата окончания." id="EndDat" name="EndDat" type="text" aria-invalid="true" />
+        </div>
+    </div>
+    <script type="text/javascript">
+        $('#BeginDat').datepicker({
+            todayButton: new Date(),
+            autoClose: true,
+            minDate: new Date(),
+            onSelect: function (fd, d, picker) {
+                var cdat = document.getElementById('EndDat'),
+                    btn = document.getElementById('btnadd'),
+                    btnwrap = document.getElementById('btnadd-wrap'),
+                    frm = document.getElementById('frmdataddtr');
+
+                btn.setAttribute('disabled', null);
+                btnwrap.classList.add('d-none');
+                frm.classList.add('order-nodata');
+
+                if (!d || !cdat.value) {
+                    return;
+                }
+                else {
+                    btn.removeAttribute('disabled');
+                    btnwrap.classList.remove('d-none');
+                    frm.classList.remove('order-nodata');
+                }
+            }
+        });
+
+        $('#EndDat').datepicker({
+            todayButton: new Date(),
+            autoClose: true,
+            minDate: new Date(),
+            onSelect: function (fd, d, picker) {
+                var cdat = document.getElementById('BeginDat'),
+                    btn = document.getElementById('btnadd'),
+                    btnwrap = document.getElementById('btnadd-wrap'),
+                    frm = document.getElementById('frmdataddtr');
+
+                btn.setAttribute('disabled', null);
+                btnwrap.classList.add('d-none');
+                frm.classList.add('order-nodata');
+
+                if (!d || !cdat.value) {
+                    return;
+                }
+                else {
+                    btn.removeAttribute('disabled');
+                    btnwrap.classList.remove('d-none');
+                    frm.classList.remove('order-nodata');
+                }
+            }
+        });
+
+        function checkdates() {
+            var bdat = document.getElementById('BeginDat'),
+                edat = document.getElementById('EndDat'),
+                btn = document.getElementById('btnadd'),
+                btnwrap = document.getElementById('btnadd-wrap'),
+                frm = document.getElementById('frmdataddtr');
+
+            btn.setAttribute('disabled', null);
+            btnwrap.classList.add('d-none');
+            frm.classList.add('order-nodata');
+
+            if (!bdat.value || !edat.value) {
+                return;
+            }
+            else {
+                btn.removeAttribute('disabled');
+                btnwrap.classList.remove('d-none');
+                frm.classList.remove('order-nodata');
+            }
+        };
+    </script>
+    <small id="dateHelpBlock" class="form-text text-muted">
+        * Обязательно укажите период. Без этой информации доверенный транспорт не будет создан.
+    </small>
+    <br />
+    <h2>Дополнительная информация к доверенности</h2>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Note, htmlAttributes: new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(model => model.Note, new { @class = "form-control multi-line", @rows = "3", @oninput = "checkdates();" })
+            @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
+            <p class="help-block">* тут вы можете указать особые условия</p>
+        </div>
+    </div>
+    <div>
+        <hr />
+        @Html.SmplBtn("return", "Вернуться к списку транспорта", "вернуться к списку транспорта", Url.Action("Index", "TrustTecs").ToString())
+        <div class="form-group row d-none" id="btnadd-wrap">
+            <div class="col-sm-10">
+                <button type="submit" id="btnadd" class="btn btn-primary btn-success" disabled title="Сохранить">Сохранить</button>
+            </div>
+        </div>
+    </div>
+</div>
 }
-<script type="text/javascript">
-    $('#BeginDat').datepicker({
-        todayButton: new Date(),
-        autoClose: true,
-        minDate: new Date()
-    });
-    $('#EndDat').datepicker({
-        todayButton: new Date(),
-        autoClose: true,
-        minDate: new Date()
-    });
-</script>

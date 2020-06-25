@@ -1,28 +1,24 @@
-﻿@{
-    ViewBag.Title = "Добавление роли";
+﻿@using WebUI.Helpers;
+@{
+    ViewBag.Title = ViewBag.ContentTitle = "Добавление роли";
 }
-
 <h2>Добавление роли пользователю @ViewBag.User</h2>
-
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
     <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-           Выбор роли
+            Выбор роли
             <div class="col-md-10">
                 @Html.DropDownList("SelectedId", (SelectList)ViewData["Role"])
             </div>
         </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Добавить" class="btn btn-default" />
-            </div>
+        <div>
+            <hr />
+            @Html.SmplBtn("return", "Вернуться к списку пользователей", "вернуться к списку пользователей", Url.Action("Index", "Admin").ToString())
+            &nbsp;&nbsp;&nbsp;
+            @Html.SaveBtn()
         </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>

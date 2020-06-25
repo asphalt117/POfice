@@ -1,16 +1,14 @@
 ﻿@model Domain.Entities.Cust
-
+@using WebUI.Helpers;
 @{
-    ViewBag.Title = "CustSearch";
+    ViewBag.Title = ViewBag.ContentTitle = "Поиск контрагента";
 }
-
 <h2>
-    Пользователю 
+    Пользователю
     @ViewBag.UserName
     добавлен контрагент
 </h2>
 <div>
-    <h4>Cust</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -128,6 +126,6 @@
     </dl>
 </div>
 <p>
-    @*@Html.ActionLink("Edit", "Edit", new { id = Model.CustID }) |*@
-    @Html.ActionLink("Back to List", "Index")
+    <hr/>
+    @Html.SmplBtn("return", "Вернуться к списку пользователей", "вернуться к списку пользователей", Url.Action("Index", "Admin").ToString())
 </p>

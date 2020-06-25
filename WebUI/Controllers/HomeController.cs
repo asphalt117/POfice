@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using WebUI.Models;
 using System;
+using System.Drawing;
 
 namespace WebUI.Controllers
 {
@@ -21,17 +22,39 @@ namespace WebUI.Controllers
         private IEnumerable<Contract> contracts;
         private Contract contract;
 
-
         [Authorize]
-       public async Task<ActionResult> Index(int SelectedCustId = -1, int SelectedContractId = -1)
+        public async Task<ActionResult> Index(int SelectedCustId = -1, int SelectedContractId = -1)
         {
 
             HttpCookie aspnet = Request.Cookies[".AspNet.ApplicationCookie"];
             HttpCookie token = Request.Cookies["__RequestVerificationToken"];
 
-            if (aspnet == null | token == null)
+            if (aspnet == null || token == null)
             {
-                Response.Cookies.Clear();
+                //Response.Cookies.Clear();
+#region Чистка всех печенек
+                if (HttpContext.CurrentHandler != null)
+                {
+                    int cookieCount = HttpContext.Request.Cookies.Count;
+
+                    for (var i = 0; i < cookieCount; i++)
+                    {
+                        var cookie = HttpContext.Request.Cookies[i];
+                        if (cookie != null)
+                        {
+                            var expiredCookie = new HttpCookie(cookie.Name)
+                            {
+                                Expires = DateTime.Now.AddDays(-1),
+                                Domain = cookie.Domain
+                            };
+
+                            HttpContext.Response.Cookies.Add(expiredCookie);
+                        }
+                    }
+
+                    HttpContext.Request.Cookies.Clear();
+                }
+#endregion
                 return RedirectToAction("Login", "Account");
             }
 
@@ -47,6 +70,7 @@ namespace WebUI.Controllers
                 case 3:
                     ContractID = SelectedContractId;
                     break;
+
                 case 4:
                     CustID = SelectedCustId;
                     contract = repo.GetContract(CustID);
@@ -55,6 +79,7 @@ namespace WebUI.Controllers
                     else
                         ContractID = contract.ContractID;
                     break;
+
                 case 5:
                     //1й вход после логина
                     CustID = repo.GetCustEmail(usr);
@@ -100,7 +125,6 @@ namespace WebUI.Controllers
             //не верно для админа, однако работает?
             IEnumerable<OrgView> orgView = repo.GetCust(usr);
             ViewData["Cust"] = new SelectList(orgView, "ID", "Txt", CustID);
-
             ViewBag.MenuItem = "recv";
 
             BalanceRepository bl = new BalanceRepository();
@@ -121,6 +145,9 @@ namespace WebUI.Controllers
 
             return View("Index", cust);
         }
+
+
+
         //public ActionResult MainMenu(string menuItem)
         //{
         //    ViewBag.MenuItem = menuItem;

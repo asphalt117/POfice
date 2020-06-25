@@ -46,7 +46,7 @@ namespace WebUI.Controllers
             }
         }
         //Получить всех юзеров
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Index(string sortOrder = "SmalName")
         {
             AdminRepository repo = new AdminRepository();
@@ -214,9 +214,9 @@ namespace WebUI.Controllers
         {  
             ApplicationUser user= (ApplicationUser)Session["usr"];
             List<SelectListItem> items = new List<SelectListItem>();
-            items.Add(new SelectListItem { Text = "Заказы", Value = "0", Selected = true });
-            items.Add(new SelectListItem { Text = "Бухгалтер", Value = "1" });
-            items.Add(new SelectListItem { Text = "Мэнеджер", Value = "2" });
+            items.Add(new SelectListItem { Text = "Заказы", Value = "6", Selected = true });
+            items.Add(new SelectListItem { Text = "Бухгалтер", Value = "5" });
+            items.Add(new SelectListItem { Text = "Мэнеджер", Value = "4" });
             items.Add(new SelectListItem { Text = "Администратор", Value = "3" });
 
             ViewData["Role"] = new SelectList(items, "Value", "Text", "0");
@@ -230,13 +230,13 @@ namespace WebUI.Controllers
             ApplicationUser user = (ApplicationUser)Session["usr"];
             switch (SelectedId)
             {
-                case 0:
+                case 6:
                     UserManager.AddToRole(user.Id, "CustOrder");             
                     break;
-                case 1:
+                case 5:
                     UserManager.AddToRole(user.Id, "CustBuh");
                     break;
-                case 2:
+                case 4:
                     UserManager.AddToRole(user.Id, "CustManager");
                     break;
                 case 3:

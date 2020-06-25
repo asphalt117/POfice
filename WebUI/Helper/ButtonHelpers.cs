@@ -49,6 +49,10 @@ namespace WebUI.Helpers
                 case "toxls":
                     faIcon = "fa fa-file-download";
                     break;
+
+                case "download":
+                    faIcon = "fa fa-download";
+                    break;
             }
 
             StringBuilder viewString = new StringBuilder();          // HTML - строка

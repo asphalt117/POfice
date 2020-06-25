@@ -55,7 +55,7 @@ namespace WebUI.Controllers
         public ActionResult Login(string returnUrl)
         {
             string auth = GetCookie("Auth");
-            if (!String.IsNullOrWhiteSpace(auth) )
+            if (!String.IsNullOrWhiteSpace(auth))
             {
                 AdminContext dba = new AdminContext();
                 AbzHash abzHash = dba.AbzHashs.Find(auth);
@@ -105,7 +105,6 @@ namespace WebUI.Controllers
                     //SetCookie("MyAuth", cookieValue);
                     //cookieValue = MyCrypto.Shifrovka(model.Password);
                     //SetCookie("MyPWD", cookieValue);
-
                     //Создание AbzHash. Хранение по новому  03.07.2019
 
                     AdminContext dba =new AdminContext();
@@ -121,10 +120,13 @@ namespace WebUI.Controllers
                     dba.SaveChanges();
                     SetCookie("Auth", abzHash.AbzHashID);
                     return RedirectToLocal(returnUrl);
+
                 case SignInStatus.LockedOut:
                     return View("Lockout");
+
                 case SignInStatus.RequiresVerification:
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Неудачная попытка входа.");
@@ -181,7 +183,6 @@ namespace WebUI.Controllers
             return new string(chars);
         }
 
-
         // GET: /Account/ForgotPasswordConfirmation
         [AllowAnonymous]
         public ActionResult ForgotPasswordConfirmation()
@@ -194,15 +195,19 @@ namespace WebUI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            try
+            {
+                AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
 
-            DeleteCookie("Auth");
-            DeleteCookie("balance");
-            DeleteCookie("contract");
-            DeleteCookie("contractid");
-            DeleteCookie("custid");
-            DeleteCookie("customer");
-            DeleteCookie("menuitem");
+                DeleteCookie("Auth");
+                DeleteCookie("balance");
+                DeleteCookie("contract");
+                DeleteCookie("contractid");
+                DeleteCookie("custid");
+                DeleteCookie("customer");
+                DeleteCookie("menuitem");
+            }
+            catch { }
 
             return RedirectToAction("Index", "Home");
         }
@@ -210,15 +215,19 @@ namespace WebUI.Controllers
         //[ValidateAntiForgeryToken]
         public ActionResult LogOut()
         {
-            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            try
+            {
+                AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
 
-            DeleteCookie("Auth");
-            DeleteCookie("balance");
-            DeleteCookie("contract");
-            DeleteCookie("contractid");
-            DeleteCookie("custid");
-            DeleteCookie("customer");
-            DeleteCookie("menuitem");
+                DeleteCookie("Auth");
+                DeleteCookie("balance");
+                DeleteCookie("contract");
+                DeleteCookie("contractid");
+                DeleteCookie("custid");
+                DeleteCookie("customer");
+                DeleteCookie("menuitem");
+            }
+            catch { }
 
             return RedirectToAction("Index", "Home");
         }
@@ -284,10 +293,12 @@ namespace WebUI.Controllers
         {
             string cookieValue = "";
             HttpCookie cookie = Request.Cookies[cookieName];
+
             if (cookie != null)
             {
                 cookieValue = cookie.Value;
             }
+
             return cookieValue;
         }
 
@@ -330,6 +341,31 @@ namespace WebUI.Controllers
                 return Redirect(returnUrl);
             }
             return RedirectToAction("Index", "Home");
+        }
+
+        private void ClearAllCookies()
+        {
+            if (HttpContext.CurrentHandler != null)
+            {
+                int cookieCount = HttpContext.Request.Cookies.Count;
+
+                for (var i = 0; i < cookieCount; i++)
+                {
+                    var cookie = HttpContext.Request.Cookies[i];
+                    if (cookie != null)
+                    {
+                        var expiredCookie = new HttpCookie(cookie.Name)
+                        {
+                            Expires = DateTime.Now.AddDays(-1),
+                            Domain = cookie.Domain
+                        };
+
+                        HttpContext.Response.Cookies.Add(expiredCookie);
+                    }
+                }
+
+                HttpContext.Request.Cookies.Clear();
+            }
         }
 
         //    internal class ChallengeResult : HttpUnauthorizedResult

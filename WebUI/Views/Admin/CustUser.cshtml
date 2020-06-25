@@ -1,36 +1,24 @@
 ﻿@model IEnumerable<Domain.Entities.UserAdmin>
-
+@using WebUI.Helpers;
 @{
-    ViewBag.Title = "Заказчики";
+    ViewBag.Title = ViewBag.ContentTitle = "Заказчики";
 }
-
 <h2>Заказчики привязанные к пользователю @ViewBag.User </h2>
-
 <p>
-    @Html.ActionLink("Добавить", "FindUser")
+    @Html.SmplBtn("add", "Добавить", "Добавить", Url.Action("FindUser", "Admin").ToString())
 </p>
-
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.FullName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SmalName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Inn)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastDat)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CustID)
-        </th>
-        <th></th>
-</tr>
-
-@foreach (var item in Model) {
+@{
+    List<string> lsHeaders = new List<string>();
+    lsHeaders.Add(Html.DisplayNameFor(model => model.FullName).ToString());
+    lsHeaders.Add(Html.DisplayNameFor(model => model.SmalName).ToString());
+    lsHeaders.Add(Html.DisplayNameFor(model => model.Inn).ToString());
+    lsHeaders.Add(Html.DisplayNameFor(model => model.LastDat).ToString());
+    lsHeaders.Add(Html.DisplayNameFor(model => model.CustID).ToString());
+    lsHeaders.Add("");
+}
+@Html.TableHeader(lsHeaders)
+@foreach (var item in Model)
+{
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.FullName)
@@ -48,9 +36,11 @@
             @Html.DisplayFor(modelItem => item.CustID)
         </td>
         <td>
-            @Html.ActionLink(HttpUtility.HtmlDecode("&#xe020;"), "DelCust", new { id = item.VUserInCustId }, new { @class = "actionButtons btn btn-xs-sm-md btn-default glyphicon glyph-btn", @role = "button", @title = "Удалить заказчика" })
+            @Html.SmplBtn("delete", "Удалить заказчика", null, Url.Action("DelCust", "Admin", new { id = item.VUserInCustId }).ToString())
         </td>
-</tr>
+    </tr>
 }
-
-</table>
+@Html.TableEnd()
+<div>
+    @Html.SmplBtn("return", "Вернуться к списку пользователей", "вернуться к списку пользователей", Url.Action("Index", "Admin").ToString())
+</div>
