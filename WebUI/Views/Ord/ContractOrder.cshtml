@@ -10,8 +10,8 @@
         </fieldset>
         <div class="form-group row">
             <label for="ContractId"  id="label-contract" class="col-sm-2 col-form-label">Выберите договор:</label>
-            <div class="col-sm-10">
-                @Html.DropDownList("SelectedContractId", (SelectList)ViewData["Contract"], new { onchange = "submitcontract();", @title="Выберите договор из списка" })
+            <div class="col-sm-10 col-form-input">
+                @Html.DropDownList("SelectedContractId", (SelectList)ViewData["Contract"], new { onchange = "submitcontract();", @title="Выберите договор из списка", autofocus = true })
                 <script type="text/javascript">
                     function submitcontract() {
                         $('#label-contract').innerHTML = 'Договор:';
@@ -27,11 +27,14 @@
 }
 else
 {
-    <div class="form-group row">
-        <label for="ordercontractinfo" class="col-sm-2 col-form-label">Договор:</label>
-        <div class="col-sm-10" id="ordercontractinfo">
-            <b>@Model.Contract</b>
+    <div class="frm-container">
+        <h4 class="h4-grey">&nbsp;&nbsp;&nbsp;&nbsp;Договор</h4>
+        <br />
+        <div class="form-group row">
+            <label for="ordercontractinfo" class="col-sm-2 col-form-label">Договор:</label>
+            <div class="col-sm-10 col-form-input" id="ordercontractinfo">
+                <b>@Model.Contract</b>
+            </div>
         </div>
     </div>
 }
-<hr />

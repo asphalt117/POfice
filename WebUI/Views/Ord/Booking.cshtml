@@ -12,7 +12,7 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
-<h5>Ваш заказ:</h5>
+<h2>Ваш заказ:</h2>
 <hr />
 @{Html.RenderAction("GoodOrder", "Good", new { ord = Model.OrderId });}
 @if (Model.Invoice == 0) { Html.RenderAction("DateOrder", "DatSelect", new { ord = Model.OrderId }); }
@@ -31,16 +31,16 @@
         if (Model.Invoice == 1)
         {
             <div class="form-group">
-                <label for="isOnlinePay" class="col-sm-2 col-form-label">Он лайн оплата:</label>
-                <div class="col-sm-10">
+                <label for="isOnlinePay" class="col-sm-2 col-form-label">Онлайн оплата:</label>
+                <div class="col-sm-10 col-form-input">
                     @Html.CheckBoxFor(model => model.isOnlinePay, new { @class = "form-control checkbox" })
                 </div>
             </div>
         }
         <div class="form-group row">
             <label for="Note" class="col-sm-2 col-form-label">Примечание к заказу:</label>
-            <div class="col-sm-10">
-                @Html.TextAreaFor(m => m.Note, new { @class = "form-control multi-line", @rows = "4", @aria_describedby = "noteHelpBlock" })
+            <div class="col-sm-10 col-form-input">
+                @Html.TextAreaFor(m => m.Note, new { @class = "form-control multi-line", @rows = "4", @aria_describedby = "noteHelpBlock", autofocus = true })
                 <small id="noteHelpBlock" class="form-text text-muted">
                     * тут вы можете указать удобное для вас время доставки продукции и другие ваши пожелания
                 </small>
@@ -82,4 +82,19 @@
             note.removeClass('d-none');
         };
     };
+
+    $(document).ready(function () {
+   // $(document).load(function () {
+        // $('.order-nodata')[0].focus();
+
+        document.getElementsByClassName("order-nodata")[0].scrollIntoView();
+
+       // window.scrollTo(0, el);
+
+        //window.scrollTo(0, $(document).height());
+
+      //  document.getElementsByClassName("order-nodata")[0].focus();
+    });
+
+    
 </script>

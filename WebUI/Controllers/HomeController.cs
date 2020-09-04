@@ -12,6 +12,8 @@ using Microsoft.AspNet.Identity.Owin;
 using WebUI.Models;
 using System;
 using System.Drawing;
+using System.Collections;
+using System.Linq;
 
 namespace WebUI.Controllers
 {
@@ -28,6 +30,7 @@ namespace WebUI.Controllers
 
             HttpCookie aspnet = Request.Cookies[".AspNet.ApplicationCookie"];
             HttpCookie token = Request.Cookies["__RequestVerificationToken"];
+
 
             if (aspnet == null || token == null)
             {

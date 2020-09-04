@@ -1,8 +1,10 @@
 ﻿@model IEnumerable<Domain.Entities.OrderDriv>
 @using WebUI.Helpers
-<div id="frmtrans">
+<div id="frmtrans" class="frm-container">
+    <h4 class="h4-grey">&nbsp;&nbsp;&nbsp;&nbsp;Транспортный раздел</h4>
+    <br/>
     <p>
-        @Html.SmplBtn("add", "Добавить новый транспорт", "Добавить", Url.Action("Index", "Transport", new { ord  = ViewBag.OrderId}).ToString())
+        @Html.SmplBtn("add", "Добавить новый транспорт в список", "Добавить транспорт в список", Url.Action("Index", "Transport", new { ord  = ViewBag.OrderId}).ToString())
     </p>
     @{
         List<string> lsHeaders = new List<string>();

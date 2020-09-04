@@ -81,15 +81,24 @@ namespace WebUI.Controllers
                 db.Persons.Add(person);
                 await db.SaveChangesAsync();
 
-                string cord = GetCookie("Order");
+                string cord = null;
+
+                try
+                {
+                    cord = GetCookie("Order");
+                }
+                catch { 
+                
+                }
+
                 if (String.IsNullOrWhiteSpace(cord))
                 {
                     return RedirectToAction("Index");
                 }
                 else
                 {
-                    int ord = int.Parse(cord);
-                    return RedirectToAction("PersonOrder", ord);
+                    int nord = int.Parse(cord);
+                    return RedirectToAction("PersonOrder", new { ord = nord });
                 }
             }
 

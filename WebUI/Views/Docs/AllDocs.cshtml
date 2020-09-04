@@ -1,0 +1,27 @@
+﻿@model IEnumerable<Domain.Entities.Doc>
+@using WebUI.Helpers;
+@{
+    ViewBag.Title = ViewBag.ContentTitle = "Документы";
+}
+<div class="table-responsive">
+    <table class="table table-hover">
+        <caption>Список доступных документов</caption>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <a href="@Url.Action("DownLoadFile", "Docs", new { id = item.DocsId })" title="Скачать документ"><span class="text-muted">@Html.DisplayFor(modelItem => item.DocName)</span></a>
+                    </td>
+                    <td>
+                        от <a href="@Url.Action("DownLoadFile", "Docs", new { id = item.DocsId })" title="Скачать документ" class="cl-black">@Html.DisplayFor(modelItem => item.Ddat)</a>
+                    </td>
+
+                    <td>
+                        @Html.SmplBtn("download", "Скачать документ", "Скачать", Url.Action("DownLoadFile", "Docs", new { id = item.DocsId }).ToString())
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

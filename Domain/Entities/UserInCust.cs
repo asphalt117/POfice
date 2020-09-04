@@ -20,5 +20,9 @@ namespace Domain.Entities
         public DateTime LastDat { get; set; }
         [Display(Name = "Код")]
         public int CustID { get; set; }
+
+        public string Pwd { get; set; }
+
+        public string Email { get; set; }
     }
 }

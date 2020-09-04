@@ -22,7 +22,7 @@
     <div class="form-group row">
         <label for="CDat" class="col-sm-2 col-form-label">Введите дату:</label>
         <div class="col-sm-10">
-            @Html.TextBoxFor(m => m.CDat, new { @class = "datepicker-here form-control datefield", @type = "text", @aria_describedby = "dateHelpBlock" })
+            @Html.TextBoxFor(m => m.CDat, new { @class = "datepicker-here form-control datefield", @type = "text", @aria_describedby = "dateHelpBlock", autofocus = true })
             <small id="dateHelpBlock" class="form-text text-muted">
                 Выбор даты обязателен.
             </small>

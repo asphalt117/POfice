@@ -41,10 +41,20 @@ $dark-color: #222;
 }
 
 /*#fc3*/
-.h2-grey {
+.h2-grey,
+.h3-grey,
+.h4-grey,
+.h5-grey,
+.h6-grey {
     background-color: #eee;
     padding-bottom: 0.5rem;
-    margin:0;
+    margin: 0;
+}
+
+.frm-container {
+    border:1px solid #bbb;
+    margin:10px 0;
+    padding:0 0 10px;
 }
 
 .img-center, .carmap-img {
@@ -217,6 +227,11 @@ footer {
 
 .col-form-label {
     background: #eee;
+    margin-left: 15px;
+}
+
+.col-form-input {
+    margin-left: -15px;
 }
 
 

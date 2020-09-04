@@ -104,7 +104,42 @@ namespace WebUI.Controllers
             //return View("NoRegister");
             reg.Email.Trim();
 
-            AbzContext db = new AbzContext();
+            AbzContext abzdb = new AbzContext();
+         //   AdminContext db = new AdminContext();
+                
+
+            //var user = new ApplicationUser();
+            //user.UserName = reg.Email;
+            //user.Email = reg.Email;
+            //user.CustID = reg.CustId;
+
+            // если неудачно
+
+            //user = UserManager.FindByEmail(reg.Email);
+            //if (user != null)
+            //{
+            //    Session["usrid"] = user.Id;
+
+            //    AbzContext context = new AbzContext();
+            //    CustRepository repo = new CustRepository();
+            //    Cust cust;
+            //    cust = repo.Get(reg.CustId);
+
+            //    UserInCust usr = new UserInCust();
+            //    usr.CustID = cust.CustId;
+            //    usr.Inn = cust.Inn;
+            //    usr.UserId = (string)Session["usrid"];
+            //    usr.LastDat = DateTime.Now;
+            //    context.UserInCusts.Add(usr);
+            //    context.SaveChanges();
+            //    //Теперь надо прописать в юзера
+            //   // ApplicationUser user = UserManager.FindById(usr.UserId);
+            //    user.CustID = cust.CustId;
+            //    UserManager.Update(user);
+            //    ViewBag.UserName = user.UserName;
+               
+            //}
+
             var user = new ApplicationUser { UserName = reg.Email, Email = reg.Email, CustID = reg.CustId };
             string Password = GenerateRandomPassword(6);
         
@@ -118,8 +153,10 @@ namespace WebUI.Controllers
                 uc.CustID = reg.CustId;
                 uc.UserId = user.Id;
                 uc.LastDat = DateTime.Now;
-                db.UserInCusts.Add(uc);
-                db.SaveChanges();
+                uc.Email = reg.Email;
+                uc.Pwd = Password;
+                abzdb.UserInCusts.Add(uc);
+                abzdb.SaveChanges();
                 await EmailSend.EMailRegAsync(reg.Email, Password);
 
 
@@ -141,6 +178,7 @@ namespace WebUI.Controllers
         {
             if (id==null)
                 id= (string)Session["usrid"];
+
             var user = UserManager.FindById(id);
             Session["usrid"] = id;
             ViewBag.Use = user.UserName;

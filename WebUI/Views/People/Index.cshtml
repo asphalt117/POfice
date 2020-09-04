@@ -16,21 +16,24 @@
 @Html.TableHeader(lsHeaders)
 @foreach (var item in Model)
 {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tel)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.SmplBtn("edit", "Редактировать контакт", null, Url.Action("Edit", "People", new { id = item.PersonId }).ToString())
-            @Html.SmplBtn("detail", "Просмотр контакта", null, Url.Action("Details", "People", new { id = item.PersonId }).ToString())
-            @Html.SmplBtn("delete", "Удалить контакт", null, Url.Action("Delete", "People", new { id = item.PersonId }).ToString())
-        </td>
-    </tr>
+    if (item.PersonId > 0)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.SmplBtn("edit", "Редактировать контакт", null, Url.Action("Edit", "People", new { id = item.PersonId }).ToString())
+                @Html.SmplBtn("detail", "Просмотр контакта", null, Url.Action("Details", "People", new { id = item.PersonId }).ToString())
+                @Html.SmplBtn("delete", "Удалить контакт", null, Url.Action("Delete", "People", new { id = item.PersonId }).ToString())
+            </td>
+        </tr>
+    }
 }
 @Html.TableEnd()

@@ -25,7 +25,10 @@ namespace Domain.Entities
         public string FileName { get; set; }
 
         [Display(Name = "Дата")]
-        public string Dat { get; set; }
+        [DataType(DataType.Date)]
+        [UIHint("Date")]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime Ddat { get; set; }
 
         [Display(Name = "файл Бин")]
         public byte[] DocBin { get; set; }

@@ -1,10 +1,11 @@
 ﻿@model Domain.Entities.OrderV
-<div>
+<div class="frm-container">
+     <h4 class="h4-grey">&nbsp;&nbsp;&nbsp;&nbsp;Контакт</h4>
+    <br />
     <div class="form-group row">
-        <label for="ordercontractinfo" class="col-sm-2 col-form-label">Договор:</label>
-        <div class="col-sm-10" id="ordercontractinfo">
+        <label for="ordercontractinfo" class="col-sm-2 col-form-label">Контактное лицо:</label>
+        <div class="col-sm-10 col-form-input" id="ordercontractinfo">
             <b>@Model.Person</b>
         </div>
     </div>
-    <hr />
 </div>

@@ -1,18 +1,20 @@
 ﻿@model  Domain.Entities.OrderProductView
 @using WebUI.Helpers
-<div class="form-group row">
-    <label for="ordergoodinfo" class="col-sm-2 col-form-label">Продукция:</label>
-    <div class="col-sm-10" id="ordergoodinfo">
-        <b>@Model.Good</b>
+<div class="frm-container">
+    <h4 class="h4-grey">&nbsp;&nbsp;&nbsp;&nbsp;Товарный раздел</h4>
+    <br/>
+    <div class="form-group row">
+        <label for="ordergoodinfo" class="col-sm-2 col-form-label">Продукция:</label>
+        <div class="col-sm-10 col-form-input" id="ordergoodinfo">
+            <b>@Model.Good</b>
+        </div>
     </div>
-</div>
-<div class="form-group row">
-    <label for="orderquantityinfo" class="col-sm-2 col-form-label">Кол-во:</label>
-    <div class="col-sm-10" id="orderquantityinfo">
-        <b>@Model.Quant</b>, ед.изм - <b>@Model.Unit</b>
+    <div class="form-group row">
+        <label for="orderquantityinfo" class="col-sm-2 col-form-label">Кол-во:</label>
+        <div class="col-sm-10 col-form-input" id="orderquantityinfo">
+            <b>@Model.Quant</b>, ед.изм - <b>@Model.Unit</b>
+        </div>
     </div>
+    @Html.SmplBtn("edit", "Отредактировать заказываемую продукцию и количество", "Изменить продукцию и кол-во", Url.Action("Categ", "Good", new { ord = Model.OrderId }).ToString())
 </div>
-<hr />
-@Html.SmplBtn("edit","Отредактировать заказываемую продукцию и количество","Изменить",Url.Action("Categ", "Good", new { ord = Model.OrderId }).ToString())
-
 

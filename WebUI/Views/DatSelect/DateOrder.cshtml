@@ -1,18 +1,21 @@
 ﻿@model WebUI.ModelView.DatView
 @using WebUI.Helpers;
-<div class="form-group row">
-    <label for="orderdateinfo" class="col-sm-2 col-form-label">Дата выполнения:</label>
-    <div class="col-sm-10" id="orderdateinfo">
-        <b>@Model.CDat</b>
+<div class="frm-container">
+    <h4 class="h4-grey">&nbsp;&nbsp;&nbsp;&nbsp;Дата и время</h4>
+    <br/>
+    <div class="form-group row">
+        <label for="orderdateinfo" class="col-sm-2 col-form-label">Дата выполнения:</label>
+        <div class="col-sm-10 col-form-input" id="orderdateinfo">
+            <b>@Model.CDat</b>
+        </div>
     </div>
-</div>
-<div class="form-group row">
-    <label for="ordersmenainfo" class="col-sm-2 col-form-label">Смена:</label>
-    <div class="col-sm-10" id="ordersmenainfo">
-        <b>@Model.Smena</b>
+    <div class="form-group row">
+        <label for="ordersmenainfo" class="col-sm-2 col-form-label">Смена:</label>
+        <div class="col-sm-10 col-form-input" id="ordersmenainfo">
+            <b>@Model.Smena</b>
+        </div>
     </div>
+    @Html.SmplBtn("edit", "Отредактировать дату выполнения и смену", "Изменить дату и время", Url.Action("Index", "DatSelect", new { id = Model.OrderId }).ToString())
 </div>
-@Html.SmplBtn("edit", "Отредактировать дату выполнения и смену", "Изменить", Url.Action("Index", "DatSelect", new { id = Model.OrderId }).ToString())
-<hr />
 
 

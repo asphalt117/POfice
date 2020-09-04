@@ -4,20 +4,24 @@
     ViewBag.Title = "Выбор адреса";
     ViewBag.ContentTitle = "Выберите адрес доставки";
 }
-<p>
-    @Html.SmplBtn("add", "Создать новый адрес", "Создать", Url.Action("Create", "Adres").ToString())
-</p>
-@{
-    List<string> lsHeaders = new List<string>();
-    lsHeaders.Add("Адрес");
-}
-@Html.TableHeader(lsHeaders)
-@foreach (var item in Model.Adres)
-{
-    <tr>
-        <td>
-            @Html.ActionLink(@item.txt, "SelectAdres", new { id = item.AdresID, ord = Model.OrderId }, new { @class = "dark-link" })
-        </td>
-    </tr>
-}
-@Html.TableEnd()
+<div class="frm-container">
+    <h4 class="h4-grey">&nbsp;&nbsp;&nbsp;&nbsp;Доставка</h4>
+    <br/>
+    <p>
+        @Html.SmplBtn("add", "Создать новый адрес", "Создать", Url.Action("Create", "Adres").ToString())
+    </p>
+    @{
+        List<string> lsHeaders = new List<string>();
+        lsHeaders.Add("Адрес");
+    }
+    @Html.TableHeader(lsHeaders)
+    @foreach (var item in Model.Adres)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(@item.txt, "SelectAdres", new { id = item.AdresID, ord = Model.OrderId }, new { @class = "dark-link" })
+            </td>
+        </tr>
+    }
+    @Html.TableEnd()
+</div>

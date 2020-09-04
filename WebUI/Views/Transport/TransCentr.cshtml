@@ -1,8 +1,11 @@
 ﻿@model Domain.Entities.OrderV
-<div class="form-group row" id="frmtranscentr">
-    <label for="orderadresinfo" class="col-sm-2 col-form-label">Адрес доставки:</label>
-    <div class="col-sm-10" id="orderadresinfo">
-        <b>@Model.Adres</b>
+<div class="frm-container">
+    <h4 class="h4-grey">&nbsp;&nbsp;&nbsp;&nbsp;Доставка</h4>
+    <br/>
+    <div class="form-group row" id="frmtranscentr">
+        <label for="orderadresinfo" class="col-sm-2 col-form-label">Адрес доставки:</label>
+        <div class="col-sm-10 col-form-input" id="orderadresinfo">
+            <b>@Model.Adres</b>
+        </div>
     </div>
 </div>
-<hr />

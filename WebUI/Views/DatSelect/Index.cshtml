@@ -27,7 +27,7 @@
     </fieldset>
     <div class="form-group row">
         <label for="DateExec" class="col-sm-2 col-form-label">Введите дату:</label>
-        <div class="col-sm-10">
+        <div class="col-sm-10 col-form-input">
             @*@Html.TextBoxFor(m => m.DateExec, new { @class = "datepicker-here form-control", @type = "text", @aria_describedby = "dateHelpBlock" })*@
             @*<input autocomplete="off" aria-describedby="dateHelpBlock" class="datepicker-here form-control input-validation-error" data-val="true" data-val-required="Требуется поле Дата выпонения." id="DateExec" name="DateExec" type="text" aria-invalid="true" />*@
             <input autocomplete="off" aria-describedby="dateHelpBlock" class="datepicker-here form-control input-validation-error" data-val="true" data-val-required="Требуется поле Дата выпонения." id="cDat" name="cDat" type="text" aria-invalid="true" />
@@ -92,7 +92,7 @@
     <fieldset class="form-group">
         <div class="row">
             <legend class="col-form-label col-sm-2 pt-0">выберите время суток выполнения заказа:</legend>
-            <div class="col-sm-10">
+            <div class="col-sm-10 col-form-input">
                 <div class="form-check">
                     @Html.RadioButtonFor(m => m.SmenaID, 1, new { @class = "form-check-input", @type = "radio", @name = "gridRadios", @id = "gridRadios1", @value = "1", @oninput = "checkdate();" })
                     <label class="form-check-label" for="gridRadios1">

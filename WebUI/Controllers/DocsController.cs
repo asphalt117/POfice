@@ -20,12 +20,20 @@ namespace WebUI.Controllers
             return View(trusts);
         }
 
+        public ActionResult AllDocs()
+        {
+            ViewBag.MenuItem = "doc";
+            List<Doc> Docs = new List<Doc>();
+            Docs =  db.Docs.Where(d => d.CustID == Cust.CustId).OrderByDescending(a => a.Ddat).ToList();
+            return View(Docs);
+        }
+
         public ActionResult Doc()
         {
             ViewBag.MenuItem = "doc";
 
             DocsModel docsModel = new DocsModel();
-            docsModel.Docs = db.Docs.Where(d => d.CustID == Cust.CustId).ToList();
+            docsModel.Docs = db.Docs.Where(d => d.CustID == Cust.CustId).OrderByDescending(a => a.Ddat).Take(10).ToList();
             docsModel.IsCustom = false;
 
             if (!String.IsNullOrWhiteSpace(Cust.Cod1s))

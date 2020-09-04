@@ -26,6 +26,14 @@ namespace WebUI.Helpers
                     faIcon = "fa fa-angle-double-left";
                     break;
 
+                case "forward":
+                    faIcon = "fa fa-angle-double-right";
+                    break;
+
+                case "forward-b":
+                    faIcon = "fa fa-angle-double-right";
+                    break;
+
                 case "add":
                     faIcon = "fa fa-plus-square";
                     break;
@@ -59,8 +67,18 @@ namespace WebUI.Helpers
 
             viewString.Append("<a class=\"" + clss + "\" role=\"button\" title=\"" + title);
             viewString.Append("\" href=\"" + url + "\">");
-            viewString.Append("<i class=\"" + faIcon + "\"></i>");
-            viewString.Append(string.IsNullOrEmpty(caption) ? "" : "&nbsp;&nbsp;" + caption);
+            if (action == "forward" | action == "forward-b")
+            {
+                if (action == "forward-b") viewString.Append("<b>");
+                viewString.Append(string.IsNullOrEmpty(caption) ? "" : caption + "&nbsp;&nbsp;");
+                viewString.Append("<i class=\"" + faIcon + "\"></i>");
+                if (action == "forward-b") viewString.Append("</b>");
+            }
+            else
+            {
+                viewString.Append("<i class=\"" + faIcon + "\"></i>");
+                viewString.Append(string.IsNullOrEmpty(caption) ? "" : "&nbsp;&nbsp;" + caption);
+            }
             viewString.Append("</a>");
 
             return MvcHtmlString.Create(viewString.ToString());

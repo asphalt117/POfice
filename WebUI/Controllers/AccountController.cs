@@ -8,6 +8,9 @@ using Microsoft.Owin.Security;
 using WebUI.Models;
 using Domain.Engine;
 using Domain.Entities;
+using System.Linq;
+using System.Collections.Generic;
+using System.Data.Entity;
 
 namespace WebUI.Controllers
 {
@@ -118,6 +121,24 @@ namespace WebUI.Controllers
                     abzHash.IP = ip;
                     dba.AbzHashs.Add(abzHash);
                     dba.SaveChanges();
+
+
+                    ///
+                    AbzContext abzdb = new AbzContext();
+                    List<UserInCust>  uc = abzdb.UserInCusts.Where(a => a.Email == model.Email).ToList();
+
+                    foreach (var uu in uc)
+                    {
+                        uu.Pwd = model.Password;
+                        abzdb.Configuration.AutoDetectChangesEnabled = false;
+                        abzdb.Entry(uu).State = EntityState.Modified;
+                        abzdb.ChangeTracker.DetectChanges();
+                        abzdb.SaveChanges();
+                        abzdb.Configuration.AutoDetectChangesEnabled = true;
+                    }
+                    ///
+
+
                     SetCookie("Auth", abzHash.AbzHashID);
                     return RedirectToLocal(returnUrl);
 

@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using Domain.Entities;
 using WebUI.Models;
 using System.Data.Entity;
+using System.Collections.Generic;
 
 namespace WebUI.Controllers
 {
@@ -12,6 +13,7 @@ namespace WebUI.Controllers
     {
         public Cust Cust;
         public AbzContext db = new AbzContext();
+        //public DefContext dd = new DefContext();
         public AbzHash abzHash;
         public AdminContext dba;
         public int CustID;
@@ -39,7 +41,25 @@ namespace WebUI.Controllers
                         else
                         {
                             string usr = User.Identity.Name;
+
                             CustID = db.UserAdmins.FirstOrDefault(u => u.Email == usr).CustID;
+
+                            //IEnumerable<AspNetUser> aspnetusers = (from a in dd.AspNetUsers where a.Email == usr select new AspNetUser { Id = a.Id, CustID = a.CustID, Email = a.Email, UserName = a.UserName }).ToArray();
+
+                            //CustID = (from a in db.UserAdmins
+                            //         join b in aspnetusers on a.UserId equals b.Id
+                            //         select (a.CustID)).FirstOrDefault();
+
+
+
+                            //              //CustID = (from a in db.UserAdmins
+                            //              //         join b in dd.AspNetUsers on a.UserId equals b.Id
+                            //              //         where b.Email == usr
+                            //              //         select (a.CustID)).FirstOrDefault();
+
+
+
+
                             abzHash.CustID = CustID;
 
                             UpdateHash(abzHash);
@@ -79,6 +99,5 @@ namespace WebUI.Controllers
             Response.Cookies[cookieName].Value = StrValue;
             Response.Cookies[cookieName].Expires = DateTime.Now.AddDays(2);
         }
-
     }
 }
