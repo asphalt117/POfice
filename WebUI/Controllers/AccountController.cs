@@ -11,6 +11,7 @@ using Domain.Entities;
 using System.Linq;
 using System.Collections.Generic;
 using System.Data.Entity;
+using Domain.ModelView;
 
 namespace WebUI.Controllers
 {
@@ -130,6 +131,7 @@ namespace WebUI.Controllers
                     foreach (var uu in uc)
                     {
                         uu.Pwd = model.Password;
+                        uu.LastDat = DateTime.Now;
                         abzdb.Configuration.AutoDetectChangesEnabled = false;
                         abzdb.Entry(uu).State = EntityState.Modified;
                         abzdb.ChangeTracker.DetectChanges();
