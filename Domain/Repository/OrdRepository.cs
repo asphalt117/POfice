@@ -1,5 +1,6 @@
 ﻿using Domain.Engine;
 using Domain.Entities;
+using Domain.Entities.Account;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -57,7 +58,7 @@ namespace Domain.Repository
             Order order = new Order();
             order.CustId = (int)abzHash.CustID;
             order.ContractId = abzHash.ContractID;
-            order.email = MyCrypto.DeShifrovka(abzHash.Email);
+            order.email = abzHash.Email;
             order.insDate = DateTime.Now;
             if (invoice == 0)
             {

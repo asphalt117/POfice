@@ -1,9 +1,15 @@
-﻿﻿@using Microsoft.AspNet.Identity
+﻿@*﻿@using Microsoft.AspNet.Identity*@
 @{
     string customer = "";
     string contract = "";
     string balance = "";
+    string authuser = "";
     HttpCookie cookie;
+
+    cookie = Request.Cookies["AuthUser"];
+    if (cookie != null) 
+    { authuser = cookie.Value; }
+
 
     if (ViewBag.customer != null)
     {
@@ -96,7 +102,8 @@
         </nav>
     </header>
     <div class="container-fluid">
-        @if (ViewBag.Login == null)
+        @*@if (ViewBag.Login == null)*@
+        @if (ViewBag.AuthSuccess!= null && ViewBag.AuthSuccess)
         {
             <div class="row">
                 <div class="col-md-3 col-lg-2 navbar-container bg-dark sidebar">
@@ -108,7 +115,8 @@
                             <ul class="mb-2 navbar-nav mainmenu-nav">
                                 <li class="d-none d-md-flex justify-content-between align-items-center px-3 mt-2 mb-1 text-muted font-weight-bold sidebar-header"><span>ЛИЧНЫЙ КАБИНЕТ</span></li>
                                 <li class="d-flex justify-content-between align-items-center px-3 mt-3 mb-1 text-muted sidebar-subheader"><span>Отгрузка и оплата</span></li>
-                                @if (Context.User.IsInRole("Administrator"))
+                                @*@if (Context.User.IsInRole("Administrator"))*@
+                                @if (authuser == "admin")
                                 {
                                     <li class="nav-item @Html.Encode(ViewBag.MenuItem == "admin" ? "active" : "")">
                                         @Html.ActionLink("Администрирование", "Index", "Admin", null, new { @class = "nav-link" })
@@ -160,7 +168,7 @@
                                 </li>
                                 <li class="d-flex justify-content-between align-items-center px-3 mt-3 mb-1 text-muted sidebar-subheader"><span>Настройки</span></li>
                                 <li class="nav-item @Html.Encode(ViewBag.MenuItem == "pass" ? "active" : "")">
-                                    @Html.ActionLink("Изменить пароль", "ChangePassword", "Manage", null, new { @class = "nav-link" })
+                                    @Html.ActionLink("Изменить пароль", "ChangePassword", "Admin", null, new { @class = "nav-link" })
                                 </li>
                                 <li class="nav-item @Html.Encode(ViewBag.MenuItem == "support" ? "active" : "")">
                                     @Html.ActionLink("Обращения, жалобы, предложения", "Index", "Support", null, new { @class = "nav-link" })
@@ -168,7 +176,7 @@
                                 @*<li class="nav-item @Html.Encode(ViewBag.MenuItem == "info" ? "active" : "")">
                                     @Html.ActionLink("Рассылка документов", "Index", "CustomInfo", null, new { @class = "nav-link" })
                                 </li>*@
-                                @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                                @*@if (Request.IsAuthenticated && User.IsInRole("Admin"))
                                 { 
                                     <li class="d-flex justify-content-between align-items-center px-3 mt-3 mb-1 cl-orange sidebar-subheader"><span>АДМИНИСТРИРОВАНИЕ</span></li>
                                     <li class="nav-item @Html.Encode(ViewBag.MenuItem == "admin" ? "active" : "")">
@@ -177,13 +185,14 @@
                                     <li class="nav-item">
                                         @Html.ActionLink("Регистрация пользователя", "Register", "Admin", null, new { @class = "nav-link" })
                                     </li>
-                                }
+                                }*@
                             </ul>
                         </div>
                     </nav>
                 </div>
                 <main role="main" class="col-md-9 col-lg-10 pt-4 pb-4 content-container">
-                    @if (Request.IsAuthenticated)
+                    @*@if (Request.IsAuthenticated)*@
+                    @if (ViewBag.AuthSuccess!= null && ViewBag.AuthSuccess)
                     {
                         <div class="form-control mw-100 w-100 h-auto mb-3 customer-info">
                             <span class="client-name">@customer</span>
@@ -207,7 +216,8 @@
                 </div>
             }
         </div>
-    @if (Request.IsAuthenticated)
+    @*@if (Request.IsAuthenticated)*@
+    @if (ViewBag.AuthSuccess != null && ViewBag.AuthSuccess)
     {
         <footer class="d-print-none bg-dark m-0 pt-1">
             <div class="container text-center">

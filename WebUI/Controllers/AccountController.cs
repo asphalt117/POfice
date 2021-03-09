@@ -1,202 +1,252 @@
-﻿using System;
+﻿using Domain.Engine;
+using Domain.Entities;
+using Domain.Entities.Account;
+using Domain.Repository;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using WebUI.Models;
-using Domain.Engine;
-using Domain.Entities;
-using System.Linq;
-using System.Collections.Generic;
 using System.Data.Entity;
-using Domain.ModelView;
+using System.Runtime.CompilerServices;
+using WebUI.Models;
+using WebUI.Filter;
 
 namespace WebUI.Controllers
 {
-    [Authorize]
     public class AccountController : Controller
     {
-        private ApplicationSignInManager _signInManager;
-        private ApplicationUserManager _userManager;
-
-        public AccountController()
-        {
-        }
-
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
-        {
-            UserManager = userManager;
-            SignInManager = signInManager;
-        }
-
-        public ApplicationSignInManager SignInManager
-        {
-            get
-            {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-            }
-            private set 
-            { 
-                _signInManager = value; 
-            }
-        }
-
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
-        }
-
-        [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-            string auth = GetCookie("Auth");
-            if (!String.IsNullOrWhiteSpace(auth))
-            {
-                AdminContext dba = new AdminContext();
-                AbzHash abzHash = dba.AbzHashs.Find(auth);
-                if ((abzHash != null) & (abzHash.IP == HttpContext.Request.UserHostAddress))
-                {
-                    string Email = MyCrypto.DeShifrovka(abzHash.Email);
-                    string Password = MyCrypto.DeShifrovka(abzHash.Password);
-
-                    var result = SignInManager.PasswordSignIn(Email, Password, true, shouldLockout: false);
-
-                    return RedirectToLocal(returnUrl);
-                }
-            }
-
-            //string Email = MyCrypto.DeShifrovka(GetCookie("MyAuth"));
-            //string Password = MyCrypto.DeShifrovka(GetCookie("MyPWD"));
-
-            //if (!String.IsNullOrWhiteSpace(Email) && !String.IsNullOrWhiteSpace(Password))
-            //{
-            //    //FormsAuthentication.SetAuthCookie(cuc, true);
-            //    var result = SignInManager.PasswordSignIn(Email, Password, true, shouldLockout: false);
-            //    return RedirectToLocal(returnUrl);
+            //AbzContext db = new AbzContext();
+            //string auth = GetCookie("Auth");
+            //if (!String.IsNullOrWhiteSpace(auth))
+            //{                
+            //    AbzHash abzHash = db.AbzHashes.Find(auth);
+            //    if ((abzHash != null) & (abzHash.IP == HttpContext.Request.UserHostAddress))
+            //    {
+            //        return RedirectToLocal(returnUrl);
+            //    }
             //}
-
-            ViewBag.ReturnUrl = returnUrl;
-            ViewBag.Login = true;
-            return View();
+            //ViewBag.ReturnUrl = returnUrl;
+            //ViewBag.Login = true;
+            Usr principal = new Usr();
+            return View(principal);
         }
 
+
         [HttpPost]
-        [AllowAnonymous]
-        //[ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        //public async Task<ActionResult> Login(Usr model, string returnUrl)
+        public async Task<ActionResult> Login(Usr model, string rememberme)
         {
+            AbzContext db = new AbzContext();
+            AbzHashRepo hashRepo = new AbzHashRepo();
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
+            Usr usr = db.Users.FirstOrDefault(u => u.Email == model.Email && u.Password == model.Password);
+            if (usr==null)
+                return View(model);
 
-            // Сбои при входе не приводят к блокированию учетной записи
-            // Чтобы ошибки при вводе пароля инициировали блокирование учетной записи, замените на shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            switch (result)
+            if (rememberme == "true")
             {
-                case SignInStatus.Success:
-                    //string cookieValue = MyCrypto.Shifrovka(model.Email);
-                    //SetCookie("MyAuth", cookieValue);
-                    //cookieValue = MyCrypto.Shifrovka(model.Password);
-                    //SetCookie("MyPWD", cookieValue);
-                    //Создание AbzHash. Хранение по новому  03.07.2019
-
-                    AdminContext dba =new AdminContext();
-                    AbzHash abzHash = new AbzHash();
-
-                    abzHash.AbzHashID = Guid.NewGuid().ToString();
-                    abzHash.Email = MyCrypto.Shifrovka(model.Email);
-                    abzHash.Password = MyCrypto.Shifrovka(model.Password);
-                    abzHash.TerminationDate= DateTime.Now.AddDays(2);
-                    string ip = HttpContext.Request.UserHostAddress;
-                    abzHash.IP = ip;
-                    dba.AbzHashs.Add(abzHash);
-                    dba.SaveChanges();
-
-
-                    ///
-                    AbzContext abzdb = new AbzContext();
-                    List<UserInCust>  uc = abzdb.UserInCusts.Where(a => a.Email == model.Email).ToList();
-
-                    foreach (var uu in uc)
-                    {
-                        uu.Pwd = model.Password;
-                        uu.LastDat = DateTime.Now;
-                        abzdb.Configuration.AutoDetectChangesEnabled = false;
-                        abzdb.Entry(uu).State = EntityState.Modified;
-                        abzdb.ChangeTracker.DetectChanges();
-                        abzdb.SaveChanges();
-                        abzdb.Configuration.AutoDetectChangesEnabled = true;
-                    }
-                    ///
-
-
-                    SetCookie("Auth", abzHash.AbzHashID);
-                    return RedirectToLocal(returnUrl);
-
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "Неудачная попытка входа.");
-                    return View(model);
+                SetCookie("RememberMe", "true", 365);
+                SetCookie("RememberUser", model.Email, 365);
+                SetCookie("RememberPw", model.Password, 365);
             }
+            else
+            {
+                SetCookie("RememberMe", "false", 365);
+                DeleteCookie("RememberUser");
+                DeleteCookie("RememberPw");
+            }
+
+            //Зарегить юзера, со значениями по умолчанию
+            AbzHash abzHash = new AbzHash();
+            abzHash.AbzHashID = Guid.NewGuid().ToString();
+            abzHash.Email = model.Email;
+            //abzHash.Password = MyCrypto.Shifrovka(model.Password);
+            abzHash.UserId = usr.UserId;
+            abzHash.TerminationDate = DateTime.Now.AddDays(2);
+            string ip = HttpContext.Request.UserHostAddress;
+            abzHash.IP = ip;
+            hashRepo.SetDafault(abzHash);
+
+            SetCookie("Auth", abzHash.AbzHashID);
+            SetCookie("AuthUser", abzHash.Email);
+            //return RedirectToLocal(returnUrl);
+            return RedirectToAction("Index", "Home");
         }
 
-         // GET: /Account/ForgotPassword
+        public ActionResult LogOut()
+        {
+            try
+            {
+                DeleteCookie("Auth");
+                DeleteCookie("AuthUser");
+                DeleteCookie("balance");
+                DeleteCookie("contract");
+                DeleteCookie("contractid");
+                DeleteCookie("custid");
+                DeleteCookie("customer");
+                DeleteCookie("menuitem");
+            }
+            catch { }
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        //public ActionResult ChangePassword()
+        //{
+        //    return View();
+        //}
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return View(model);
+        //    }
+
+        //    AbzHashRepo hashRepo = new AbzHashRepo();
+        //    string auth = GetCookie("Auth");
+        //    AbzHash abzHash = hashRepo.GetHash(auth);
+        //    AbzContext db = new AbzContext();
+        //    Usr usr = db.Users.FirstOrDefault(u => u.Email == abzHash.Email);
+        //    if ((usr != null) && (usr.Password == model.OldPassword))
+        //    {
+        //        usr.Password = model.NewPassword;
+        //        db.Entry(usr).State = EntityState.Modified;
+        //        db.SaveChanges();
+        //    }
+        //    return RedirectToAction("Index", "Home");
+        //}
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return View(model);
+        //    }
+        //    var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
+        //    if (result.Succeeded)
+        //    {
+        //        var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+        //        if (user != null)
+        //        {
+        //            await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+        //        }
+        //        return View("Error");
+        //        //RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
+        //    }
+        //    return View(model);
+        //}
+
+        // GET: /Account/ForgotPassword
         [AllowAnonymous]
         public ActionResult ForgotPassword()
         {
-            return View();
+            ForgotPasswordViewModel forgot = new ForgotPasswordViewModel();
+            return View(forgot);
         }
 
-        //
-        // POST: /Account/ForgotPassword
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        public ActionResult ForgotPassword(ForgotPasswordViewModel model)
         {
             if (ModelState.IsValid)
             {
-                string qq = model.Email;
-                var user = await UserManager.FindByNameAsync(model.Email);
-                if (user == null)                    
+                AbzContext db = new AbzContext();
+                Usr user = db.Users.FirstOrDefault(u => u.Email == model.Email);
+                if (user == null)
                 {
                     return View("Error");
                 }
-                string newpassword = GenerateRandomPassword(6);
-                string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-
-                var result = await UserManager.ResetPasswordAsync(user.Id, code, newpassword);
-                if (result.Succeeded)
-                {
-                    await EmailSend.EMailFPassw(model.Email, newpassword);
-                    return View("ForgotPasswordConfirmation");
-                }
+                string NewPassword = GenerateRandomPassword(6);
+                user.Password = NewPassword;
+                db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
+                EmailSend.EMailFPassw(model.Email, NewPassword);
+                return View("ForgotPasswordConfirmation");
             }
             return View(model);
         }
 
+        //[HttpPost]
+        //[AllowAnonymous]
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        string qq = model.Email;
+        //        var user = await UserManager.FindByNameAsync(model.Email);
+        //        if (user == null)
+        //        {
+        //            return View("Error");
+        //        }
+        //        string newpassword = GenerateRandomPassword(6);
+        //        string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+
+        //        var result = await UserManager.ResetPasswordAsync(user.Id, code, newpassword);
+        //        if (result.Succeeded)
+        //        {
+        //            await EmailSend.EMailFPassw(model.Email, newpassword);
+        //            return View("ForgotPasswordConfirmation");
+        //        }
+        //    }
+        //    return View(model);
+        //}
+
+        //[MyAuthAttribute]
+        //public ActionResult Register()
+        //{
+        //    RegisterAdmin reg = new RegisterAdmin();
+        //    return View(reg);
+        //}
+
+        //[HttpPost]
+        //public async Task<ActionResult> Register(RegisterAdmin reg)
+        //{
+        //    reg.Email.Trim();
+
+        //    AbzContext db = new AbzContext();
+        //    Usr user = new Usr();
+        //    user.Email = reg.Email;
+        //    string Password = GenerateRandomPassword(6);
+        //    user.Password = Password;
+        //    user.UserId = Guid.NewGuid().ToString();
+        //    db.Users.Add(user);
+        //    db.SaveChanges();
+
+        //    UserInCust uc = new UserInCust();
+        //    uc.CustID = reg.CustId;
+        //    uc.UserId = user.UserId;
+        //    uc.LastDat = DateTime.Now;
+        //    uc.Email = reg.Email;
+        //    //uc.Pwd = Password;
+        //    db.UserInCusts.Add(uc);
+        //    db.SaveChanges();
+        //    await EmailSend.EMailRegAsync(reg.Email, Password);
+
+        //    return RedirectToAction("Index", "Home");
+        //}
+
         private string GenerateRandomPassword(int length)
         {
+            //string allowedChars = "abcdefghijkmnopqrstuvwxyz" +
+            //                             "ABCDEFGHJKLMNOPQRSTUVWXYZ" +
+            //                             "0123456789!@$?_-*&#+";
             string allowedChars = "abcdefghijkmnopqrstuvwxyz" +
                                          "ABCDEFGHJKLMNOPQRSTUVWXYZ" +
-                                         "0123456789!@$?_-*&#+";
+                                         "0123456789";
             char[] chars = new char[length];
             Random rd = new Random();
             for (int i = 0; i < length; i++)
@@ -206,122 +256,16 @@ namespace WebUI.Controllers
             return new string(chars);
         }
 
-        // GET: /Account/ForgotPasswordConfirmation
-        [AllowAnonymous]
-        public ActionResult ForgotPasswordConfirmation()
-        {
-            return View();
-        }
-
-        // POST: /Account/LogOff
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult LogOff()
-        {
-            try
-            {
-                AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-
-                DeleteCookie("Auth");
-                DeleteCookie("balance");
-                DeleteCookie("contract");
-                DeleteCookie("contractid");
-                DeleteCookie("custid");
-                DeleteCookie("customer");
-                DeleteCookie("menuitem");
-            }
-            catch { }
-
-            return RedirectToAction("Index", "Home");
-        }
-
-        //[ValidateAntiForgeryToken]
-        public ActionResult LogOut()
-        {
-            try
-            {
-                AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-
-                DeleteCookie("Auth");
-                DeleteCookie("balance");
-                DeleteCookie("contract");
-                DeleteCookie("contractid");
-                DeleteCookie("custid");
-                DeleteCookie("customer");
-                DeleteCookie("menuitem");
-            }
-            catch { }
-
-            return RedirectToAction("Index", "Home");
-        }
-
-        // GET: /Manage/ChangePassword
-        public ActionResult ChangePassword()
-        {
-            //MyMenu menu = (MyMenu)Session["Menu"];
-            //menu.ChangeSelected(1, 2);
-            //Session["Menu"] = menu;
-            return View();
-        }
-
-        //
-        // POST: /Manage/ChangePassword
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-            var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
-            if (result.Succeeded)
-            {
-                var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-                if (user != null)
-                {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                }
-                return View("Error");
-                    //RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
-            }
-            AddErrors(result);
-            return View(model);
-        }
-
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                if (_userManager != null)
-                {
-                    _userManager.Dispose();
-                    _userManager = null;
-                }
-
-                if (_signInManager != null)
-                {
-                    _signInManager.Dispose();
-                    _signInManager = null;
-                }
-            }
-
-            base.Dispose(disposing);
-        }
-
         #region Вспомогательные приложения
 
         public string GetCookie(string cookieName)
         {
             string cookieValue = "";
             HttpCookie cookie = Request.Cookies[cookieName];
-
             if (cookie != null)
             {
                 cookieValue = cookie.Value;
             }
-
             return cookieValue;
         }
 
@@ -332,6 +276,13 @@ namespace WebUI.Controllers
             Response.Cookies[cookieName].Expires = DateTime.Now.AddDays(2);
         }
 
+        public void SetCookie(string cookieName, string cookieValue, int days)
+        {
+            string StrValue = cookieValue;
+            Response.Cookies[cookieName].Value = StrValue;
+            Response.Cookies[cookieName].Expires = DateTime.Now.AddDays(days);
+        }
+
         public void DeleteCookie(string cookieName)
         {
             Response.Cookies[cookieName].Value = string.Empty;
@@ -339,23 +290,7 @@ namespace WebUI.Controllers
         }
 
         // Используется для защиты от XSRF-атак при добавлении внешних имен входа
-        private const string XsrfKey = "XsrfId";
-
-        private IAuthenticationManager AuthenticationManager
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().Authentication;
-            }
-        }
-
-        private void AddErrors(IdentityResult result)
-        {
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError("", error);
-            }
-        }
+        //private const string XsrfKey = "XsrfId";
 
         private ActionResult RedirectToLocal(string returnUrl)
         {
@@ -391,34 +326,7 @@ namespace WebUI.Controllers
             }
         }
 
-        //    internal class ChallengeResult : HttpUnauthorizedResult
-        //    {
-        //        public ChallengeResult(string provider, string redirectUri)
-        //            : this(provider, redirectUri, null)
-        //        {
-        //        }
-
-        //        public ChallengeResult(string provider, string redirectUri, string userId)
-        //        {
-        //            LoginProvider = provider;
-        //            RedirectUri = redirectUri;
-        //            UserId = userId;
-        //        }
-
-        //        public string LoginProvider { get; set; }
-        //        public string RedirectUri { get; set; }
-        //        public string UserId { get; set; }
-
-        //        public override void ExecuteResult(ControllerContext context)
-        //        {
-        //            var properties = new AuthenticationProperties { RedirectUri = RedirectUri };
-        //            if (UserId != null)
-        //            {
-        //                properties.Dictionary[XsrfKey] = UserId;
-        //            }
-        //            context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
-        //        }
-        //    }
         #endregion
+
     }
 }

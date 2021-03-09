@@ -7,11 +7,13 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using WebUI.Filter;
 using WebUI.Models;
 using WebUI.ModelView;
 
 namespace WebUI.Controllers
 {
+    [MyAuthAttribute]
     public class GoodController : BaseController
     {
         public ActionResult GoodOrder(int ord)

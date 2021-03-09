@@ -5,12 +5,14 @@ using System.Web;
 using System.Web.Mvc;
 using Domain.Entities;
 using System.Data.Entity;
+using WebUI.Filter;
 
 namespace WebUI.Controllers
 {
+    [MyAuthAttribute]
     public class SupportController : BaseController
     {
-        [Authorize]
+        //[Authorize]
         public ActionResult Index()
         {
             ViewBag.MenuItem = "support";

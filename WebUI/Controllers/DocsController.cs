@@ -7,12 +7,26 @@ using WebUI.Models;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using System.Net;
+using WebUI.Filter;
+using Domain.Repository;
+using Domain.Entities.Account;
 
 namespace WebUI.Controllers
 {
+    [MyAuthAttribute]
     public class DocsController : BaseController
     {
-        [Authorize]
+        //DocsController()
+        //{
+        //    db = _db;
+        //    hashRepo = _hashRepo;
+        //    abzHash=_abzHash;
+        //    Cust=_Cust;
+        //    CustID=_CustID;
+        //    Init();
+        //}
+
+        //[Authorize]
         public ActionResult Index()
         {
             ViewBag.MenuItem = "trust";
@@ -30,6 +44,7 @@ namespace WebUI.Controllers
 
         public ActionResult Doc()
         {
+            //this.Init();
             ViewBag.MenuItem = "doc";
 
             DocsModel docsModel = new DocsModel();

@@ -12,9 +12,11 @@ using WebUI.Infrastructure;
 using System.Threading.Tasks;
 using System.IO;
 using System.Web;
+using WebUI.Filter;
 
 namespace WebUI.Controllers
 {
+    [MyAuthAttribute]
     public class BalancesController : BaseController
     {
         public int year = DateTime.Today.Year;
@@ -67,7 +69,8 @@ namespace WebUI.Controllers
             Session["Month"] = dm;
             Session["Year"] = year;
         }
-        [Authorize]
+
+        //[Authorize]
         public ActionResult Index(int? selectedId, int? Id, int pageNum = 1)
         {
             ViewBag.MenuItem = "rst";
@@ -141,7 +144,7 @@ namespace WebUI.Controllers
             return new ExcelResult(fileName, html);
         }
 
-        [Authorize]
+       // [Authorize]
         public ActionResult Balance()
         {
             BalanceRepository repo = new BalanceRepository();

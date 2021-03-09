@@ -80,7 +80,7 @@ namespace Domain.Engine
                 .AppendLine("Ваш логин: " + mail)
                 .AppendLine("Ваш пароль: " + psw)
                 .AppendLine("")
-                .AppendLine("https://personal.abz4.ru")
+                .AppendLine("https://lk.abz4.ru")
                 .AppendLine("")
                 .AppendLine("Письмо создано автоматически. Не надо на него отвечать");
             await SendEmailAsync(mail, subject, body.ToString());
@@ -113,7 +113,7 @@ namespace Domain.Engine
                 .AppendLine("Ваш логин: " + mail)
                 .AppendLine("Ваш пароль: " + psw)
                 .AppendLine("")
-                .AppendLine("https://personal.abz4.ru")
+                .AppendLine("https://lk.abz4.ru")
                 .AppendLine("")
                 .AppendLine("Письмо создано автоматически. Не надо на него отвечать");
 

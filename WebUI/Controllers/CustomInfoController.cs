@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web.Mvc;
 using Domain.Entities;
+using WebUI.Filter;
 
 namespace WebUI.Controllers
 {
+    [MyAuthAttribute]
     public class CustomInfoController : BaseController
     {
-        [Authorize]
+        //[Authorize]
         public ActionResult Index()
         {
             if (String.IsNullOrWhiteSpace(Cust.Cod1s))

@@ -1,13 +1,68 @@
-﻿@using WebUI.Models
-@model LoginViewModel
+﻿@using Domain.Entities.Account
+@model Usr
 @{
-    ViewBag.Title = "Добро пожаловать в Личный кабинет!" ;
+    ViewBag.Title = "Добро пожаловать в Личный кабинет!";
+
+    string rememberme = "false";
+    string pwd = "";
+    string usr = "";
+    HttpCookie cookie;
+
+    cookie = Request.Cookies["RememberMe"];
+    if (cookie != null)
+    {
+        try
+        {
+            rememberme = cookie.Value;
+        }
+        catch {
+            rememberme = "false";
+        }
+    }
+
+    cookie = Request.Cookies["RememberUser"];
+    if (cookie != null)
+    {
+        try
+        {
+            usr = cookie.Value;
+        }
+        catch
+        {
+            usr = "";
+        }
+    }
+
+    cookie = Request.Cookies["RememberPw"];
+    if (cookie != null)
+    {
+        try
+        {
+            pwd = cookie.Value;
+        }
+        catch
+        {
+            pwd = "";
+        }
+    }
+
+    if (rememberme == "true")
+    {
+        Model.Email = usr;
+        Model.Password = pwd;
+    }
+    else
+    {
+        Model.Email = "";
+        Model.Password = "";
+    }
 }
 <h2 class="mt-5"><i class="fa fa-user"></i>&nbsp;&nbsp;Выполните вход</h2>
 <section id="loginForm">
-    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal container-fluid", role = "form" }))
+    @*@using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal container-fluid", role = "form" }))*@
+    @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "form-horizontal container-fluid", role = "form" }))
     {
-        @Html.AntiForgeryToken()
+        @*@Html.AntiForgeryToken()*@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class=" row form-group">
@@ -24,14 +79,27 @@
                 @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
             </div>
         </div>
+        @*<div class="row form-group">
+                <div class="col-md-offset-2 col-sm-offset-1 col-sm-11 col-md-10 col-xs-offset-1">
+                    <div class="checkbox">
+                        @Html.CheckBoxFor(m => m.RememberMe)
+                        @Html.LabelFor(m => m.RememberMe)
+                    </div>
+                </div>
+            </div>*@
+
         <div class="row form-group">
             <div class="col-md-offset-2 col-sm-offset-1 col-sm-11 col-md-10 col-xs-offset-1">
                 <div class="checkbox">
-                    @Html.CheckBoxFor(m => m.RememberMe)
-                    @Html.LabelFor(m => m.RememberMe)
+                    @if (rememberme == "true")
+                    { <input type="checkbox" checked value ="true" name="rememberme" id ="rememberMe" /> }
+                    else 
+                    { <input type="checkbox" value ="true" name="rememberme" id="rememberMe" /> }
+                    <label for="rememberMe">&nbsp;Запомнить меня</label>
                 </div>
             </div>
         </div>
+
         <div class="row form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Выполнить вход" class="btn btn-secondary" />

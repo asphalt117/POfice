@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using WebUI.Models;
 using Domain.Entities;
-using Microsoft.AspNet.Identity;
 using WebUI.ModelView;
 using System.Linq;
 using System.Data.Entity;
+using WebUI.Filter;
 
 namespace WebUI.Controllers
 {
@@ -33,6 +33,7 @@ namespace WebUI.Controllers
     // 3. Контракт
     // 4. Доставка
 
+    [MyAuthAttribute]
     public class OrdController : BaseController
     {
         private OrdRepository repo = new OrdRepository();

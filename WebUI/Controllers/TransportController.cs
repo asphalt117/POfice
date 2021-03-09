@@ -7,14 +7,16 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
+using WebUI.Filter;
 using WebUI.ModelView;
 
 namespace WebUI.Controllers
 {
+    [MyAuthAttribute]
     public class TransportController : BaseController
     {
         // GET: Transport
-        [Authorize]
+       // [Authorize]
         public ActionResult Index(int ord)
         {
             Order order = db.Orders.Find(ord);

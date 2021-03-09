@@ -11,9 +11,11 @@ using Domain.Entities;
 using Domain.Repository;
 using WebUI.Models;
 using Domain.ModelView;
+using WebUI.Filter;
 
 namespace WebUI.Controllers
 {
+    [MyAuthAttribute]
     public class TrustTecsController : BaseController
     {
         private TrustTecsRepository repo;
@@ -22,7 +24,7 @@ namespace WebUI.Controllers
             base.Initialize(requestContext);
             repo = new TrustTecsRepository(Cust.CustId);
         }
-        [Authorize]
+
         public async Task<ActionResult> Index()
         {
             ViewBag.MenuItem = "tec";

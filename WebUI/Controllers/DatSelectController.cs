@@ -3,10 +3,12 @@ using Domain.Entities;
 using System.Data.Entity;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using WebUI.Filter;
 using WebUI.ModelView;
 
 namespace WebUI.Controllers
 {
+    [MyAuthAttribute]
     public class DatSelectController : BaseController
     {
         public ActionResult DateOrder(int ord)

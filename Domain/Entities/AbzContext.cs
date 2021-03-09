@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using Domain.Entities.Account;
+using System.Data.Entity;
 
 namespace Domain.Entities
 {
@@ -24,7 +25,7 @@ namespace Domain.Entities
         public DbSet<Trust> Trusts { get; set; }
         public DbSet<OrgTrustTec> OrgTrustTecs { get; set; }
         public DbSet<TrustTec> TrustTecs { get; set; }
-        public DbSet<TrustTecDet> TrustTecDets { get; set; } 
+        public DbSet<TrustTecDet> TrustTecDets { get; set; }
         public DbSet<OrdInvoice> OrdInvoices { get; set; }
         public DbSet<OrderProduct> OrderProducts { get; set; }
         public DbSet<Status> Statuses { get; set; }
@@ -40,6 +41,8 @@ namespace Domain.Entities
         public DbSet<Statistic> Statistics { get; set; }
         public DbSet<Smena> Smenas { get; set; }
         public DbSet<Doc> Docs { get; set; }
+        public DbSet<AbzHash> AbzHashes { get; set; }
+        public DbSet<Usr> Users { get; set; }
 
     }
 

@@ -8,11 +8,14 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Domain.Entities;
+using WebUI.Filter;
+
 namespace WebUI.Controllers
 {
+    [MyAuthAttribute]
     public class SaleController : BaseController
     {
-        [Authorize]
+        //[Authorize]
         public async Task<ActionResult> Index()
         {
             ViewBag.MenuItem = "sale";

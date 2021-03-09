@@ -16,8 +16,6 @@ namespace WebUI
             AreaRegistration.RegisterAllAreas();
 
             Database.SetInitializer<Domain.Entities.AbzContext>(null);
-            Database.SetInitializer<WebUI.Models.AdminContext>(null);
-
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);

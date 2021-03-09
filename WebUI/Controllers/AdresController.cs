@@ -9,9 +9,12 @@ using System.Web;
 using System.Web.Mvc;
 using Domain.Entities;
 using WebUI.ModelView;
+using Domain.Entities.Account;
+using WebUI.Filter;
 
 namespace WebUI.Controllers
 {
+    [MyAuthAttribute]
     public class AdresController : BaseController
     {
         public ActionResult AdresOrder(int ord)
@@ -32,7 +35,7 @@ namespace WebUI.Controllers
             db.SaveChanges();
             return RedirectToAction("Booking", "Ord", new { ord = ord });
         }
-        [Authorize]
+       // [Authorize]
         public async Task<ActionResult> Index()
         {
             ViewBag.MenuItem = "adres";

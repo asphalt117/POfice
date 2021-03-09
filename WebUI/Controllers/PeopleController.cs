@@ -7,9 +7,11 @@ using Domain.Entities;
 using Domain.Repository;
 using System.Linq;
 using System;
+using WebUI.Filter;
 
 namespace WebUI.Controllers
 {
+    [MyAuthAttribute]
     public class PeopleController : BaseController
     {
         PersonRepository repo = new PersonRepository();
@@ -47,7 +49,7 @@ namespace WebUI.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("Booking", "Ord", new { ord = order.OrderId });
         }
-        [Authorize]
+       // [Authorize]
         public async Task<ActionResult> Index()
         {
             ViewBag.MenuItem = "people";

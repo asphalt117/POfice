@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Web;
 
 namespace WebUI.Models
 {
@@ -35,7 +36,6 @@ namespace WebUI.Models
     {
         [Required]
         [Display(Name = "Адрес электронной почты")]
-        //[EmailAddress]
         public string Email { get; set; }
 
         [Required]
@@ -50,7 +50,6 @@ namespace WebUI.Models
     public class RegisterViewModel
     {
         [Required]
-        //[EmailAddress]
         [Display(Name = "Адрес электронной почты")]
         public string Email { get; set; }
 
@@ -78,5 +77,15 @@ namespace WebUI.Models
         [EmailAddress]
         [Display(Name = "Почта")]
         public string Email { get; set; }
+    }
+
+    public class RegisterAdmin
+    {
+        [Required]
+        [Display(Name = "Адрес электронной почты")]
+        public string Email { get; set; }
+        [Required]
+        [Display(Name = "ID")]
+        public int CustId { get; set; }
     }
 }

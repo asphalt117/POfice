@@ -1,32 +1,19 @@
-﻿@using Microsoft.AspNet.Identity
-@*@if (Request.IsAuthenticated)
-{
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { @class = "clearfix p-0", @id = "logoutForm" }))
-    {
-        @Html.AntiForgeryToken()
-        <ul class="navbar-nav px-3 flex-row float-right">
-            <li class="nav-item text-nowrap d-inline">
-                <a href="@Url.Action("ChangePassword", "Account")" title="Изменить пароль" class="nav-link mr-3 log-user">
-                    <i class="fas fa-user-alt"></i>&nbsp;@User.Identity.GetUserName()
-                </a>
-            </li>
-            <li class="nav-item text-nowrap d-inline">
-                <a href="javascript:document.getElementById('logoutForm').submit()" title="Выйти из Личного Кабинета" class="nav-link log-out">
-                    <i class="fas fa-sign-out-alt"></i><span class="d-none d-md-inline">&nbsp;Выход</span>
-                </a>
-            </li>
-        </ul>
-    }
-}*@
+﻿@{
+    string authuser = "";
+    HttpCookie cookie;
 
-
-@using Microsoft.AspNet.Identity
-@if (Request.IsAuthenticated)
+    cookie = Request.Cookies["AuthUser"];
+    if (cookie != null) { authuser = cookie.Value; }
+}
+@*@using Microsoft.AspNet.Identity
+    @if (Request.IsAuthenticated)
+    {*@
+@if (ViewBag.AuthSuccess != null && ViewBag.AuthSuccess)
 {
     <ul class="navbar-nav px-3 flex-row float-right">
         <li class="nav-item text-nowrap d-inline">
             <a href="@Url.Action("ChangePassword", "Account")" title="Изменить пароль" class="nav-link mr-3 log-user">
-                <i class="fas fa-user-alt"></i>&nbsp;@User.Identity.GetUserName()
+                <i class="fas fa-user-alt"></i>&nbsp;@authuser
             </a>
         </li>
         <li class="nav-item text-nowrap d-inline">
