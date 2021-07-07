@@ -1,75 +1,4 @@
-﻿//using System.Collections.Generic;
-//using System.Data.Entity;
-//using System.Threading.Tasks;
-//using System.Net;
-//using System.Web;
-//using System.Web.Mvc;
-//using Domain.Entities;
-//using Domain.Repository;
-//using Domain.ModelView;
-//using WebUI.Models;
-//using System;
-//using System.Drawing;
-//using System.Collections;
-//using System.Linq;
-
-//namespace WebUI.Controllers
-//{
-//    public class HomeController : BaseController
-//    {
-//        private int ContractID;
-//        private CustRepository repo = new CustRepository();
-//        private IEnumerable<Contract> contracts;
-//        private Contract contract;
-
-//      //  [Authorize]
-//        public async Task<ActionResult> Index(int SelectedCustId = -1, int SelectedContractId = -1)
-//        {
-//           string usr = "Admin";
-
-//           ContractID = 138;
-//           CustID = repo.GetCustEmail(usr);
-//           Cust cust = db.Custs.Find(CustID);
-//            abzHash = new AbzHash();
-//           abzHash.CustID = CustID;
-//           contracts = repo.GetContracts(CustID);
-//           abzHash.ContractID = ContractID;
-
-//            ViewData["Contract"] = new SelectList(contracts, "ContractID", "Num", ContractID);
-
-//            //не верно для админа, однако работает?
-//            IEnumerable<OrgView> orgView = repo.GetCust(usr);
-//            ViewData["Cust"] = new SelectList(orgView, "ID", "Txt", CustID);
-//            ViewBag.MenuItem = "recv";
-
-//            BalanceRepository bl = new BalanceRepository();
-//            ViewBag.customer = cust.SmalName;
-//            ViewBag.balance = bl.GetBalance(CustID, ContractID).ToString();
-//            ViewBag.contractn = "";
-//            Contract contractcc = db.Contracts.Find(ContractID);
-//            if (contractcc != null)
-//            {
-//                ViewBag.contractn = "Договор № " + contractcc.Num;
-//            }
-
-//            SetCookie("custid", CustID.ToString());
-//            SetCookie("contractid", ContractID.ToString());
-//            SetCookie("customer", ViewBag.customer);
-//            SetCookie("balance", ViewBag.balance);
-//            SetCookie("contract", ViewBag.contractn);
-
-//            return View("Index", cust);
-//        }
-    
-   
-//    }
-//}
-
-
-
-
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -149,8 +78,6 @@ namespace WebUI.Controllers
             SetCookie("customer", ViewBag.customer);
             SetCookie("balance", ViewBag.balance);
             SetCookie("contract", ViewBag.contractn);
-
-
 
             return View("Index", cust);
         }

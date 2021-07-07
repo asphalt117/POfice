@@ -15,9 +15,9 @@
 <nav class="nav nav-pills shadow product-category">
     @foreach (var item in Model.Categs)
     {
-        <li class="nav-item">
+        <div class="nav-item">
             @Html.ActionLink(item.CategName + HttpUtility.HtmlDecode(item.CategID == 2 ? "&#9660;" : ""), "Categ", "Good", new { ord = Model.OrderID, categ = item.CategID }, new { @class = "nav-link" + @Html.Encode(Model.CategID == item.CategID ? " active" : "") })
-        </li>
+        </div>
     }
 </nav>
 @if (Model.SubCategs != null)

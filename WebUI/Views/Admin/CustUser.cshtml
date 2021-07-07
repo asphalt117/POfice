@@ -5,7 +5,7 @@
 }
 <h2>Заказчики привязанные к пользователю @ViewBag.User </h2>
 <p>
-    @Html.SmplBtn("add", "Добавить", "Добавить", Url.Action("FindUser", "Admin").ToString())
+    @Html.SmplBtn("add", "Добавить", "Добавить", Url.Action("FindUser", "Admin", new { id=Model.FirstOrDefault().UserId, email=Model.FirstOrDefault().Email }).ToString())
 </p>
 @{
     List<string> lsHeaders = new List<string>();
