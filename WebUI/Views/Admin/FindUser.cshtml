@@ -1,12 +1,31 @@
-﻿@model List<string>
+﻿@model string
+
 @{
-    ViewBag.Title = ViewBag.ContentTitle = "Поиск клиентов";
+    ViewBag.Title = "Поиск клиентов";
 }
+
 <h2>Код контрагента</h2>
 <div>
-    @using (Ajax.BeginForm("CustSearch", new { userid = Model.ElementAt(0), email = Model.ElementAt(1) }, new AjaxOptions { UpdateTargetId = "searchresults", Url = Url.Action("CustSearch", "Admin") }))
+    @using (Ajax.BeginForm("CustSearch", new AjaxOptions { UpdateTargetId = "searchresults", Url = Url.Action("CustSearch") }))
     {
         <input type="text" name="id" />
-        <input type="submit" value="Поиск и привязка" />
+        <input type="submit" value="Поиск" />
     }
 </div>
+
+
+@*@model List<string>
+    @{
+        ViewBag.Title = ViewBag.ContentTitle = "Поиск клиентов";
+    }
+    <h2>Код контрагента</h2>
+    <div>
+        @using (Ajax.BeginForm("CustSearch", new { userid = Model.ElementAt(0), email = Model.ElementAt(1) },
+            new AjaxOptions { UpdateTargetId = "searchresults", Url = Url.Action("CustSearch", "Admin") }))
+        {
+            <input type="text" name="id" />
+            <input type="submit" value="Поиск и привязка" />
+        }
+    </div>*@
+
+

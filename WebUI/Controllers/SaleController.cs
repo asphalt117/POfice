@@ -31,7 +31,7 @@ namespace WebUI.Controllers
         public async Task<ActionResult> Loadering()
         {
             ViewBag.MenuItem = "load";
-            List<Sale> sale = await db.Sales.Where(p => p.CustId == Cust.CustId && p.Status==2).ToListAsync();
+            List<Sale> sale = await db.Sales.Where(p => p.CustId == Cust.CustId && p.Status==1).ToListAsync();
             return View( sale);
         }
     }
