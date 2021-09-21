@@ -29,6 +29,7 @@ namespace WebUI.Controllers
             HttpCookie cookie = Request.Cookies[cookieName];
 
             int npsize = 10;
+            //int npsize = 1000;
 
             if (cookie == null)
             {

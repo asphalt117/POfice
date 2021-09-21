@@ -144,7 +144,7 @@ namespace WebUI.Controllers
             db.UserInCusts.Remove(userInCust);
             await db.SaveChangesAsync();
             
-            return RedirectToAction("CustUser");
+            return RedirectToAction("Index");
         }
 
 

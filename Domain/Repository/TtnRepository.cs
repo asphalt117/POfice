@@ -16,32 +16,40 @@ namespace Domain.Repository
                 return db.Ttns.Where(w => w.CustID == custId && w.Dat >= begDt
                                                && w.Dat < endDt
                                                && w.ismark == 0)
-                                               .OrderByDescending(b => b.Id).ToList();
+                                               .OrderByDescending(b => b.Num)
+                                               .ToList();
                         
             else
                 return db.Ttns.Where(w => w.CustID == custId && w.Dat >= begDt
                                                && w.Dat < endDt
                                                && w.ismark == 0
                                                && w.ContractID==contact)
-                        .OrderByDescending(b => b.Id).ToList();
+                        .OrderByDescending(b => b.Num).ToList();
         
         }
 
         public IQueryable<Ttn> GetSkipTake(int skip, int take, int custId,DateTime begDt,DateTime endDt, int contact)
         {
             if (contact == 0)
-                return db.Ttns.Where(w => w.CustID == custId 
+                return db.Ttns.Where(w => w.CustID == custId
                                            && w.Dat >= begDt
                                            && w.Dat < endDt
                                            && w.ismark == 0)
-                    .OrderByDescending(b => b.Id)
-                    .Skip(skip)
-                    .Take(take);
+                                .OrderByDescending(b => b.Num)
+            .Skip(skip)
+            .Take(take);
+            //return db.Ttns.Where(w => w.CustID == custId 
+            //                               && w.Dat >= begDt
+            //                               && w.Dat < endDt
+            //                               && w.ismark == 0)
+            //        .OrderByDescending(b => b.Id)
+            //        .Skip(skip)
+            //        .Take(take);
             else
                 return db.Ttns.Where(w => w.CustID == custId && w.Dat >= begDt
                                            && w.Dat < endDt && w.ContractID == contact
                                            && w.ismark == 0)
-                    .OrderByDescending(b => b.Id)
+                    .OrderByDescending(b => b.Num)
                     .Skip(skip)
                     .Take(take);
 

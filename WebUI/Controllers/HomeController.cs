@@ -29,6 +29,7 @@ namespace WebUI.Controllers
             string usr = abzHash.Email;
             if ((SelectedCustId > 0) && ((int)abzHash.CustID != SelectedCustId))
             {
+                CustID  = SelectedCustId;
                 abzHash.CustID = SelectedCustId;
                 contract = repo.GetContract((int)abzHash.CustID);
                 if (contract == null)

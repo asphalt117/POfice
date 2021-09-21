@@ -19,25 +19,13 @@ namespace WebUI.Controllers
     {
         public ActionResult Login(string returnUrl)
         {
-            //AbzContext db = new AbzContext();
-            //string auth = GetCookie("Auth");
-            //if (!String.IsNullOrWhiteSpace(auth))
-            //{                
-            //    AbzHash abzHash = db.AbzHashes.Find(auth);
-            //    if ((abzHash != null) & (abzHash.IP == HttpContext.Request.UserHostAddress))
-            //    {
-            //        return RedirectToLocal(returnUrl);
-            //    }
-            //}
-            //ViewBag.ReturnUrl = returnUrl;
-            //ViewBag.Login = true;
+
             Usr principal = new Usr();
             return View(principal);
         }
 
 
         [HttpPost]
-        //public async Task<ActionResult> Login(Usr model, string returnUrl)
         public async Task<ActionResult> Login(Usr model, string rememberme)
         {
             AbzContext db = new AbzContext();
@@ -98,55 +86,6 @@ namespace WebUI.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        //public ActionResult ChangePassword()
-        //{
-        //    return View();
-        //}
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View(model);
-        //    }
-
-        //    AbzHashRepo hashRepo = new AbzHashRepo();
-        //    string auth = GetCookie("Auth");
-        //    AbzHash abzHash = hashRepo.GetHash(auth);
-        //    AbzContext db = new AbzContext();
-        //    Usr usr = db.Users.FirstOrDefault(u => u.Email == abzHash.Email);
-        //    if ((usr != null) && (usr.Password == model.OldPassword))
-        //    {
-        //        usr.Password = model.NewPassword;
-        //        db.Entry(usr).State = EntityState.Modified;
-        //        db.SaveChanges();
-        //    }
-        //    return RedirectToAction("Index", "Home");
-        //}
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View(model);
-        //    }
-        //    var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
-        //    if (result.Succeeded)
-        //    {
-        //        var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-        //        if (user != null)
-        //        {
-        //            await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-        //        }
-        //        return View("Error");
-        //        //RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
-        //    }
-        //    return View(model);
-        //}
 
         // GET: /Account/ForgotPassword
         [AllowAnonymous]
@@ -159,7 +98,7 @@ namespace WebUI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult ForgotPassword(ForgotPasswordViewModel model)
+        public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -173,71 +112,12 @@ namespace WebUI.Controllers
                 user.Password = NewPassword;
                 db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
-                EmailSend.EMailFPassw(model.Email, NewPassword);
+                await EmailSend.EMailFPassw(model.Email, NewPassword);
                 return View("ForgotPasswordConfirmation");
             }
             return View(model);
         }
 
-        //[HttpPost]
-        //[AllowAnonymous]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        string qq = model.Email;
-        //        var user = await UserManager.FindByNameAsync(model.Email);
-        //        if (user == null)
-        //        {
-        //            return View("Error");
-        //        }
-        //        string newpassword = GenerateRandomPassword(6);
-        //        string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-
-        //        var result = await UserManager.ResetPasswordAsync(user.Id, code, newpassword);
-        //        if (result.Succeeded)
-        //        {
-        //            await EmailSend.EMailFPassw(model.Email, newpassword);
-        //            return View("ForgotPasswordConfirmation");
-        //        }
-        //    }
-        //    return View(model);
-        //}
-
-        //[MyAuthAttribute]
-        //public ActionResult Register()
-        //{
-        //    RegisterAdmin reg = new RegisterAdmin();
-        //    return View(reg);
-        //}
-
-        //[HttpPost]
-        //public async Task<ActionResult> Register(RegisterAdmin reg)
-        //{
-        //    reg.Email.Trim();
-
-        //    AbzContext db = new AbzContext();
-        //    Usr user = new Usr();
-        //    user.Email = reg.Email;
-        //    string Password = GenerateRandomPassword(6);
-        //    user.Password = Password;
-        //    user.UserId = Guid.NewGuid().ToString();
-        //    db.Users.Add(user);
-        //    db.SaveChanges();
-
-        //    UserInCust uc = new UserInCust();
-        //    uc.CustID = reg.CustId;
-        //    uc.UserId = user.UserId;
-        //    uc.LastDat = DateTime.Now;
-        //    uc.Email = reg.Email;
-        //    //uc.Pwd = Password;
-        //    db.UserInCusts.Add(uc);
-        //    db.SaveChanges();
-        //    await EmailSend.EMailRegAsync(reg.Email, Password);
-
-        //    return RedirectToAction("Index", "Home");
-        //}
 
         private string GenerateRandomPassword(int length)
         {

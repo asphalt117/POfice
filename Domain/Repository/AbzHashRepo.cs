@@ -49,7 +49,7 @@ namespace Domain.Repository
             CustRepository repo = new CustRepository();
             string usr = hash.Email;
             hash.CustID = db.UserAdmins.FirstOrDefault(u => u.Email == usr).CustID;
-            hash.ContractID = repo.GetContract((int)hash.CustID).ContractID;
+            hash.ContractID =  repo.GetContract((int)hash.CustID).ContractID;
             db.AbzHashes.Add(hash);
             db.SaveChanges();
         }

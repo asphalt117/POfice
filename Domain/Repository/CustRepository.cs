@@ -88,7 +88,16 @@ namespace Domain.Repository
         }
         public Contract GetContract(int custid)
         {
-            return db.Contracts.FirstOrDefault(a => a.CustID == custid);
+            Contract Cntr = db.Contracts.FirstOrDefault(a => a.CustID == custid);
+            if (Cntr == null)
+            {
+                Cntr = new Contract();
+                Cntr.CustID = custid;
+                Cntr.ContractID = 0;
+            }
+               
+            return Cntr;
+                    //db.Contracts.FirstOrDefault(a => a.CustID == custid);
         }
 
         //public Contract GetContract(int custid,int contrictid)
