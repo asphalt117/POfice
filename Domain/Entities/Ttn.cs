@@ -33,10 +33,10 @@ namespace Domain.Entities
         public string Tm { get; set; }
         [DisplayName("Кол")]
         public decimal Kol { get; set; }
-        [DisplayName("Цена")]
-        public decimal Price { get; set; }
-        [DisplayName("Сумма")]
-        public decimal Sm { get; set; }
+        //[DisplayName("Цена")]
+        //public decimal Price { get; set; }
+        //[DisplayName("Сумма")]
+        //public decimal Sm { get; set; }
         [DisplayName("Продукция")]
         public string Good { get; set; }
         [DisplayName("Адрес")]

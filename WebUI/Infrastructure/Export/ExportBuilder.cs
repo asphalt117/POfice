@@ -32,13 +32,13 @@ namespace WebUI.Infrastructure
             worksheet.AddCellWithStyle(1, 3, "Продукция", StylesBuilder.Headerstyle);
             worksheet.AddCellWithStyle(1, 4, "Кол", StylesBuilder.Headerstyle);
 
-            worksheet.AddCellWithStyle(1, 5, "Цена", StylesBuilder.Headerstyle);
-            worksheet.AddCellWithStyle(1, 6, "Сумма", StylesBuilder.Headerstyle);
+            //worksheet.AddCellWithStyle(1, 5, "Цена", StylesBuilder.Headerstyle);
+            //worksheet.AddCellWithStyle(1, 6, "Сумма", StylesBuilder.Headerstyle);
             worksheet.AddCellWithStyle(1, 7, "Модель", StylesBuilder.Headerstyle);
             worksheet.AddCellWithStyle(1, 8, "Автобаза", StylesBuilder.Headerstyle);
             worksheet.AddCellWithStyle(1, 9, "Гос. №", StylesBuilder.Headerstyle);
-            worksheet.AddCellWithStyle(1, 10, "Водитель", StylesBuilder.Headerstyle);
-            worksheet.AddCellWithStyle(1, 11, "Адрес", StylesBuilder.Headerstyle);
+            worksheet.AddCellWithStyle(1, 6, "Водитель", StylesBuilder.Headerstyle);
+            worksheet.AddCellWithStyle(1, 5, "Адрес", StylesBuilder.Headerstyle);
 
             var row = 2;
             foreach (var item in items) {
@@ -48,13 +48,13 @@ namespace WebUI.Infrastructure
                 worksheet.AddCell(row, 3, item.Good);
                 worksheet.AddCell(row, 4, item.Kol);
 
-                worksheet.AddCell(row, 5, item.Price);
-                worksheet.AddCell(row, 6, item.Sm);
+                //worksheet.AddCell(row, 5, item.Price);
+                //worksheet.AddCell(row, 6, item.Sm);
                 worksheet.AddCell(row, 7, item.Amodel);
                 worksheet.AddCell(row, 8, item.Ab);
                 worksheet.AddCell(row, 9, item.Gn);
-                worksheet.AddCell(row, 10, item.Driv);
-                worksheet.AddCell(row, 11, item.Adres);
+                worksheet.AddCell(row, 5, item.Driv);
+                worksheet.AddCell(row, 6, item.Adres);
                 row++;
             }
 

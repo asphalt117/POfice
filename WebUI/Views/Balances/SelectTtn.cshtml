@@ -41,8 +41,8 @@
                 lsHeaders.Add("Продукция");
                 lsHeaders.Add("Адрес");
                 lsHeaders.Add("Кол-во");
-                lsHeaders.Add("Цена");
-                lsHeaders.Add("Сумма");
+                //lsHeaders.Add("Цена");
+                //lsHeaders.Add("Сумма");
                 lsHeaders.Add("Автомобиль");
                 lsHeaders.Add("Автобаза");
                 lsHeaders.Add("Гос. №");
@@ -59,8 +59,8 @@
                     <td>@Html.DisplayFor(modelItem => item.Good)</td>
                     <td>@Html.DisplayFor(modelItem => item.Adres)</td>
                     <td>@Html.TextBoxFor(modelItem => item.Kol, new { @class = "kol", @readonly = "", @id = "" })</td>
-                    <td>@Html.DisplayFor(modelItem => item.Price)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Sm)</td>
+                    @*<td>@Html.DisplayFor(modelItem => item.Price)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Sm)</td>*@
                     <td>@Html.DisplayFor(modelItem => item.Amodel)</td>
                     <td>@Html.DisplayFor(modelItem => item.Ab)</td>
                     <td>@Html.DisplayFor(modelItem => item.Gn)</td>
